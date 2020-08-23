@@ -58,7 +58,6 @@ export default class MoveCreate extends React.Component {
   }
 
   onInputChange = (event) => {
-    console.log('theEvent', event.target.name);
     this.setState({ [event.target.name]: event.target.value });
   };
 

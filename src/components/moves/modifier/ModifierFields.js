@@ -17,13 +17,34 @@ export default class ModifierFields extends React.Component {
     this.toggleCreateMode();
   }
 
+  onDelete = (index) => {
+    let modifiers = [...this.props.modifiers]; 
+    if (index !== -1) {
+      modifiers.splice(index, 1);
+      this.props.onModifiersChange(modifiers)
+    }
+  }
+
   render() {
     return (
       <div>
         <p>Modifiers</p>
 
         <div className="eight wide field">
-          {this.props.modifiers.map( (mod, i) => { return <Modifier key={i} mod={mod}/>})}
+          {this.props.modifiers.map(
+            (mod, i) => { 
+              return (
+                <div key={i}>
+                <Modifier 
+                  mod={mod}
+                  index={i}
+                  onDelete={this.onDelete}
+                />
+                </div>
+              )
+            }
+          )
+          }
         </div>
 
         {!this.state.createMode && <button onClick={this.toggleCreateMode}></button>}
