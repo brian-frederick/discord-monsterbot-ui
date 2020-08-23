@@ -4,7 +4,7 @@ import Modifier from './Modifier';
 
 export default class ModifierFields extends React.Component {
   state = {
-    createMode: false
+    createMode: true
   };
 
   toggleCreateMode = () => {
@@ -27,7 +27,7 @@ export default class ModifierFields extends React.Component {
 
   renderModifiers = () => {
     return (
-      <div className="eight wide field">
+      <div className="ui segments">
         {this.props.modifiers.map((mod, i) => { 
             return (
               <div key={i}>
@@ -41,17 +41,21 @@ export default class ModifierFields extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>
+      <div className="ui segments">
+        
+        <div className="ui segment">
           Modifiers 
-          {!this.state.createMode && <i className="plus square icon" onClick={this.toggleCreateMode}></i>}
-        </div>
-
-        {this.renderModifiers()}
-
-        {this.state.createMode && 
-          <CreateModifier onCreate={this.onCreate} />
-        }
+          {!this.state.createMode &&
+            <i className="plus icon" onClick={this.toggleCreateMode}></i>
+          }
+            { this.props.modifiers.length > 0 && this.renderModifiers()}
+            {this.state.createMode && 
+              <div className="ui raised segments">
+                <CreateModifier onCreate={this.onCreate} />
+              </div>
+            }
+        
+          </div>
 
       </div>
     );  

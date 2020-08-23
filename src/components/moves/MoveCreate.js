@@ -16,7 +16,7 @@ export default class MoveCreate extends React.Component {
     fairOutcome: '',
     successOutcome: '',
     advancedOutcome: '',
-    moveToModify: ''
+    moveToModify: { label: 'Kick Some Ass', value: 'ksa' }
   }
 
   onFormSubmit = async event => {
@@ -76,7 +76,8 @@ export default class MoveCreate extends React.Component {
   render() {
     return (
       <div>
-        <h1>Create a move</h1>
+        <h1 className="ui header center aligned">Create A Move</h1>
+        
         <form className="ui form" onSubmit={this.onFormSubmit}>
 
           <SimpleFields
@@ -91,7 +92,9 @@ export default class MoveCreate extends React.Component {
 
           {this.renderTypeFields()}
           
-          <button className="ui button" type="submit">Submit</button>
+          <div className="field">
+            <button className="ui button submit" type="submit">Submit</button>
+          </div>
         </form>
       </div>
     );

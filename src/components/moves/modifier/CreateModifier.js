@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Dropdown from '../../Dropdown';
+import '../../../styles/Segment.css';
 
 const CreateModifier = ({onCreate}) => {
   const [type, setType] = useState({label: 'property', value: 'property'});
@@ -8,8 +9,8 @@ const CreateModifier = ({onCreate}) => {
   const [property, setProperty] = useState({ label: 'cool', value: 'cool'});
 
   const typeOptions = [
-    {label: 'property', value: 'property'},
-    {label: 'extra', value: 'extra'},
+    {label: 'By Hunter Property', value: 'property'},
+    {label: 'Additional Values', value: 'extra'},
   ];
 
   const plusOptions = [
@@ -18,14 +19,14 @@ const CreateModifier = ({onCreate}) => {
   ];
 
   const propertyOptions = [
-    { label: 'cool', value: 'cool'},
-    { label: 'charm', value: 'charm' },
-    { label: 'sharp', value: 'sharp' },
-    { label: 'tough', value: 'tough' },
-    { label: 'weird', value: 'weird' },
-    { label: 'harm', value: 'harm' },
-    { label: 'experience', value: 'experience' },
-    { label: 'luck', value: 'luck' },
+    { label: 'Cool', value: 'cool'},
+    { label: 'Charm', value: 'charm' },
+    { label: 'Sharp', value: 'sharp' },
+    { label: 'Tough', value: 'tough' },
+    { label: 'Weird', value: 'weird' },
+    { label: 'Harm', value: 'harm' },
+    { label: 'Experience', value: 'experience' },
+    { label: 'Luck', value: 'luck' },
   ];
 
   const onClick = event => {
@@ -41,13 +42,16 @@ const CreateModifier = ({onCreate}) => {
   const renderTypeFields = (type) => {
     switch(type.value) {
       case 'property':
-        return <Dropdown
-          name='property'
-          label="property"
-          options={propertyOptions}
-          selected={property}
-          onSelectedChange={(name, option) => setProperty(option)}
-        />;
+        return (
+            <Dropdown
+              name='property'
+              label="Property"
+              options={propertyOptions}
+              selected={property}
+              onSelectedChange={(name, option) => setProperty(option)}
+            />
+        );
+        
       case 'extra':
         return (
           <div className="field">
@@ -60,33 +64,43 @@ const CreateModifier = ({onCreate}) => {
             />
           </div>
         );
+
       default:
         return null;
     }
   };
 
   return (
-    <div className="four fields">
-      <Dropdown
-        name='type'
-        label='Type'
-        options={typeOptions}
-        selected={type}
-        onSelectedChange={(name, option) => setType(option)}
-      />
+    <div className="ui raised segment">
+      <div className="inline fields">
+          <Dropdown
+            name='type'
+            label='Modifier Type'
+            options={typeOptions}
+            selected={type}
+            onSelectedChange={(name, option) => setType(option)}
+          />
 
-      <Dropdown
-        name="plus"
-        label="Add/Subtract"
-        options={plusOptions}
-        selected={plus}
-        onSelectedChange={(name, option) => setPlus(option)}
-      />
+          <Dropdown
+            name="plus"
+            label="Add/Subtract"
+            options={plusOptions}
+            selected={plus}
+            onSelectedChange={(name, option) => setPlus(option)}
+          />
 
-      {renderTypeFields(type)}
+        {renderTypeFields(type)}        
 
-      <i className="check icon" onClick={onClick}></i>
+
+      </div>
+
+
+      <div className="ui basic compact segment">
+          <i className="check icon" onClick={onClick}></i>
+      </div>
+
     </div>
+
   );
 };
 

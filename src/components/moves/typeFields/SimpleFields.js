@@ -3,9 +3,9 @@ import Dropdown from '../../Dropdown';
 
 
 const typeOptions = [
-  { label: 'simple', value: 'simple' },
-  { label: 'roll', value: 'roll' },
-  { label: 'modification', value: 'modification' }
+  { label: 'Simple', value: 'simple' },
+  { label: 'Roll Outcome Move', value: 'roll' },
+  { label: 'Basic Move Modification', value: 'modification' }
 ]
 
 const playbookOptions = [
@@ -30,12 +30,23 @@ export default class SimpleFields extends React.Component {
 
     return (
       <div>
-        <div className="five fields">
-          <div className="field">
-            <label>Key</label>
+        <div className="fields">
+          <div className="twelve wide field">
+            <label>Move Name</label>
             <input 
               type="text"
-              placeholder="Key"
+              placeholder="Move Name"
+              name="name"
+              value={this.props.name}
+              onChange={this.props.onInputChange}
+            />
+          </div>
+          
+          <div className="four wide field">
+            <label>Command Key</label>
+            <input 
+              type="text"
+              placeholder="Command Key"
               name="key"
               value={this.props.keyVal}
               onChange={this.props.onInputChange}
@@ -43,20 +54,6 @@ export default class SimpleFields extends React.Component {
           </div>
         </div>
 
-        <div className="two fields">
-          <div className="field">
-            <label>Name</label>
-            <input 
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={this.props.name}
-              onChange={this.props.onInputChange}
-            />
-          </div>
-        </div>
-
-        <div className="six fields">
           <Dropdown
             name="playbook"
             label="Playbook"
@@ -64,28 +61,24 @@ export default class SimpleFields extends React.Component {
             selected={this.props.playbook}
             onSelectedChange={this.props.onSelectChange}
           />
-        </div>
-
-        <div className="field">
-          <label>Description</label>
-          <textarea 
-            placeholder="Description"
-            name="description"
-            value={this.props.description}
-            onChange={this.props.onInputChange}
-            rows='3'
-          />
-        </div>
-
-        <div className="three fields">
+          <div className="field">
+            <label>Move Description</label>
+            <textarea 
+              placeholder="Description"
+              name="description"
+              value={this.props.description}
+              onChange={this.props.onInputChange}
+              rows='3'
+            />
+          </div>
+          
           <Dropdown
             name='type'
-            label='Type'
+            label='Move Type'
             options={typeOptions}
             selected={this.props.type}
             onSelectedChange={this.props.onSelectChange}
           />
-        </div>
       </div>
     );
   }

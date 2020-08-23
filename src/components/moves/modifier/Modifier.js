@@ -1,13 +1,16 @@
 import React from 'react';
+import '../../../styles/Segment.css';
 
 const Modifier = ({mod, onDelete, index}) => {
-  const mathSymbol = mod.plus ? '+' : '-';
+  const mathSymbol = mod.plus ? 'Plus' : 'Minus';
   const modVal = mod.type === 'property' ? mod.property : mod.value;
 
   return (
-    <div className="ui small message">
+    <div className="ui compact segment">
+      <div>
       {mathSymbol} {modVal}
-      <i onClick={() => onDelete(index)} className="close icon"></i>
+          <i className="close icon" onClick={() => onDelete(index)}></i>
+      </div>
     </div>
   );
   
