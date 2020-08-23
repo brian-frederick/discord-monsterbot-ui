@@ -25,40 +25,37 @@ export default class ModifierFields extends React.Component {
     }
   }
 
+  renderModifiers = () => {
+    return (
+      <div className="eight wide field">
+        {this.props.modifiers.map((mod, i) => { 
+            return (
+              <div key={i}>
+                <Modifier mod={mod} index={i} onDelete={this.onDelete} />
+              </div>
+            );
+        })}
+      </div>
+    );
+  }
+
   render() {
     return (
       <div>
-        <p>Modifiers</p>
-
-        <div className="eight wide field">
-          {this.props.modifiers.map(
-            (mod, i) => { 
-              return (
-                <div key={i}>
-                <Modifier 
-                  mod={mod}
-                  index={i}
-                  onDelete={this.onDelete}
-                />
-                </div>
-              )
-            }
-          )
-          }
+        <div>
+          Modifiers 
+          {!this.state.createMode && <i className="plus square icon" onClick={this.toggleCreateMode}></i>}
         </div>
 
-        {!this.state.createMode && <button onClick={this.toggleCreateMode}></button>}
-        
-          {this.state.createMode && 
-            <CreateModifier
-              onCreate={this.onCreate}
-            />
-          }
+        {this.renderModifiers()}
+
+        {this.state.createMode && 
+          <CreateModifier onCreate={this.onCreate} />
+        }
 
       </div>
     );  
   };
-
 }
 
 

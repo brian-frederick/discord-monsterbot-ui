@@ -5,8 +5,8 @@ const Modifier = ({mod, onDelete, index}) => {
   const modVal = mod.type === 'property' ? mod.property : mod.value;
 
   return (
-    <div className="ui large message">
-      <p>{mathSymbol} {modVal}</p>
+    <div className="ui small message">
+      {mathSymbol} {modVal}
       <i onClick={() => onDelete(index)} className="close icon"></i>
     </div>
   );

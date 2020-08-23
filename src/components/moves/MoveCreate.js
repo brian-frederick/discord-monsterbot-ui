@@ -1,25 +1,22 @@
 import React from 'react';
 import aws from '../../apis/aws';
-import Dropdown from '../Dropdown';
+import SimpleFields from './typeFields/SimpleFields'
 import RollForOutcomeFields from './typeFields/RollForOutcomeFields';
+import MoveModificationFields from './typeFields/MoveModificationFields';
 
-const typeOptions = [
-  { label: 'simple', value: 'simple' },
-  { label: 'roll', value: 'roll' },
-  { label: 'modification', value: 'modification' }
-]
 export default class MoveCreate extends React.Component {
   state = {
     key: '',
     type:   { label: 'simple', value: 'simple' },
     name: '',
+    playbook: { label: 'The Chosen', value: 'The Chosen' },
     description: '',
     modifiers: [],
     missOutcome: '',
     fairOutcome: '',
     successOutcome: '',
     advancedOutcome: '',
-    basicMove: ''
+    moveToModify: ''
   }
 
   onFormSubmit = async event => {
@@ -37,7 +34,7 @@ export default class MoveCreate extends React.Component {
     // });
   };
 
-  renderTypeFields = (type) => {
+  renderTypeFields = () => {
     switch (this.state.type.value) {
       case 'simple':
         return null;
@@ -51,7 +48,14 @@ export default class MoveCreate extends React.Component {
           onModifiersChange={this.onModifiersChange}
         />;
       case 'modification':
-        return <p>Modification Fields Under Construction</p>;
+        return (
+          <MoveModificationFields
+            moveToModify={this.state.moveToModify}
+            modifiers={this.state.modifiers}
+            onModifiersChange={this.onModifiersChange}
+            onSelectChange={this.onSelectChange}
+          />
+        );
       default:
         return null;
     }
@@ -62,7 +66,6 @@ export default class MoveCreate extends React.Component {
   };
 
   onSelectChange = (name, option) => {
-    console.log(option);
     this.setState({ [name]: option });
   };
 
@@ -75,51 +78,16 @@ export default class MoveCreate extends React.Component {
       <div>
         <h1>Create a move</h1>
         <form className="ui form" onSubmit={this.onFormSubmit}>
-          <div className="five fields">
-            <div className="field">
-              <label>Key</label>
-              <input 
-                type="text"
-                placeholder="Key"
-                name="key"
-                value={this.state.key}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </div>
 
-          <div className="two fields">
-            <div className="field">
-              <label>Name</label>
-              <input 
-                type="text"
-                placeholder="Name"
-                name="name"
-                value={this.state.name}
-                onChange={this.onInputChange}
-              />
-            </div>
-          </div>
-
-          <div className="field">
-            <label>Description</label>
-            <textarea 
-              placeholder="Description"
-              name="description"
-              value={this.state.description}
-              onChange={this.onInputChange}
-              rows='3'
-            />
-          </div>
-          <div className="three fields">
-            <Dropdown
-              name='type'
-              label='Type'
-              options={typeOptions}
-              selected={this.state.type}
-              onSelectedChange={this.onSelectChange}
-            />
-          </div>
+          <SimpleFields
+            keyVal={this.state.key}
+            name={this.state.name}
+            description={this.state.description}
+            type={this.state.type}
+            playbook={this.state.playbook}
+            onInputChange={this.onInputChange}
+            onSelectChange={this.onSelectChange}
+          />
 
           {this.renderTypeFields()}
           

@@ -85,7 +85,7 @@ const CreateModifier = ({onCreate}) => {
 
       {renderTypeFields(type)}
 
-      <button className="ui button" onClick={onClick}>Create</button>
+      <i className="check icon" onClick={onClick}></i>
     </div>
   );
 };
