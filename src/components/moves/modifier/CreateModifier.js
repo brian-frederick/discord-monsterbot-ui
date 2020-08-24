@@ -3,10 +3,10 @@ import Dropdown from '../../Dropdown';
 import '../../../styles/Segment.css';
 
 const CreateModifier = ({onCreate}) => {
-  const [type, setType] = useState({label: 'property', value: 'property'});
-  const [plus, setPlus] = useState({label: '+', value: true});
+  const [type, setType] = useState('property');
+  const [plus, setPlus] = useState(true);
   const [modVal, setModVal] = useState(0);
-  const [property, setProperty] = useState({ label: 'cool', value: 'cool'});
+  const [property, setProperty] = useState('cool');
 
   const typeOptions = [
     {label: 'By Hunter Property', value: 'property'},
@@ -31,16 +31,16 @@ const CreateModifier = ({onCreate}) => {
 
   const onClick = event => {
     event.preventDefault();
-    const newModifier = (type.value === 'property') 
-      ? { type: type.value, plus: plus.value, property: property.value }
-      : { type: type.value, plus: plus.value, value: modVal };
+    const newModifier = (type === 'property') 
+      ? { type, plus: plus, property }
+      : { type, plus, value: modVal };
     
     onCreate(newModifier);
   }
 
 
   const renderTypeFields = (type) => {
-    switch(type.value) {
+    switch(type) {
       case 'property':
         return (
             <Dropdown
@@ -48,7 +48,7 @@ const CreateModifier = ({onCreate}) => {
               label="Property"
               options={propertyOptions}
               selected={property}
-              onSelectedChange={(name, option) => setProperty(option)}
+              onSelectedChange={(name, optionVal) => setProperty(optionVal)}
             />
         );
         
@@ -78,7 +78,7 @@ const CreateModifier = ({onCreate}) => {
             label='Modifier Type'
             options={typeOptions}
             selected={type}
-            onSelectedChange={(name, option) => setType(option)}
+            onSelectedChange={(name, optionVal) => setType(optionVal)}
           />
 
           <Dropdown
@@ -86,11 +86,10 @@ const CreateModifier = ({onCreate}) => {
             label="Add/Subtract"
             options={plusOptions}
             selected={plus}
-            onSelectedChange={(name, option) => setPlus(option)}
+            onSelectedChange={(name, optionVal) => setPlus(optionVal)}
           />
 
-        {renderTypeFields(type)}        
-
+          {renderTypeFields(type)}        
 
       </div>
 

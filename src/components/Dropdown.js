@@ -18,7 +18,7 @@ const Dropdown = ({name, options, selected, onSelectedChange, label }) => {
   }, []);
   
   const renderedOptions = options.map((option) => {
-    if (option.value === selected.value ) {
+    if (option.value === selected ) {
       return null;
     }
 
@@ -26,21 +26,27 @@ const Dropdown = ({name, options, selected, onSelectedChange, label }) => {
       <div 
         key={option.value} 
         className="item"
-        onClick={() => onSelectedChange(name, option)}
+        onClick={() => onSelectedChange(name, option.value)}
       >
         {option.label}
       </div>
     )
-  })
+  });
+
+  const selectedOption = selectedValue => {
+    console.log('finding selected Option for', selectedValue)
+    return options.find(o => o.value === selectedValue)
+  };
+
   return (
-  <div className="field" ref={ref}>
+    <div className="field" ref={ref}>
       <label className="label">{label}</label>
       <div 
         onClick={()=>setOpen(!open)} 
         className={`ui selection dropdown ${open ? 'visible active': ''}`}
       >
         <i className="dropdown icon"></i>
-        <div className="text">{selected.label}</div>
+        <div className="text">{selectedOption(selected).label}</div>
         <div className={`menu ${open ? 'visible transition': ''}`}>
           {renderedOptions}
         </div>

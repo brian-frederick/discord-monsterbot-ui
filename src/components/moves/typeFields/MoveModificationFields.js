@@ -6,11 +6,11 @@ const basicMoves = [
   { label: 'Kick Some Ass', value: 'ksa' },
   { label: 'Act Under Pressure', value: 'aup' },
   { label: 'Help Out', value: 'ho' },
-  { label: 'Investigate A Mystery', value: 'IAM' },
-  { label: 'Manipulate Someone', value: 'MS' },
-  { label: 'Protect Someone', value: 'PS' },
-  { label: 'Read A Bad Situation', value: 'RABS' },
-  { label: 'Use Magic', value: 'UM' },
+  { label: 'Investigate A Mystery', value: 'iam' },
+  { label: 'Manipulate Someone', value: 'ms' },
+  { label: 'Protect Someone', value: 'ps' },
+  { label: 'Read A Bad Situation', value: 'rabs' },
+  { label: 'Use Magic', value: 'um' },
 ];
 
 const MoveModificationFields = ({ moveToModify, modifiers, onModifiersChange, onSelectChange }) => {

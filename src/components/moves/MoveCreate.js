@@ -7,16 +7,16 @@ import MoveModificationFields from './typeFields/MoveModificationFields';
 export default class MoveCreate extends React.Component {
   state = {
     key: '',
-    type:   { label: 'simple', value: 'simple' },
+    type:   'simple',
     name: '',
-    playbook: { label: 'The Chosen', value: 'The Chosen' },
+    playbook: 'The Chosen',
     description: '',
     modifiers: [],
     missOutcome: '',
     fairOutcome: '',
     successOutcome: '',
     advancedOutcome: '',
-    moveToModify: { label: 'Kick Some Ass', value: 'ksa' }
+    moveToModify: 'ksa'
   }
 
   onFormSubmit = async event => {
@@ -27,7 +27,7 @@ export default class MoveCreate extends React.Component {
     //     move: {
     //       key: this.state.key,
     //       name: this.state.name,
-    //       type: this.state.type.value,
+    //       type: this.state.type
     //       description: this.state.description
     //     }
     //   }
@@ -35,7 +35,7 @@ export default class MoveCreate extends React.Component {
   };
 
   renderTypeFields = () => {
-    switch (this.state.type.value) {
+    switch (this.state.type) {
       case 'simple':
         return null;
       case 'roll':
