@@ -1,10 +1,11 @@
 import React from 'react';
 import Dropdown from '../../Dropdown';
+import ToolTip from '../common/Tooltip';
 
 
 const typeOptions = [
   { label: 'Simple', value: 'simple' },
-  { label: 'Roll Outcome Move', value: 'roll' },
+  { label: 'Roll Outcome', value: 'roll' },
   { label: 'Basic Move Modification', value: 'modification' }
 ]
 
@@ -43,7 +44,10 @@ export default class SimpleFields extends React.Component {
           </div>
           
           <div className="four wide field">
-            <label>Command Key</label>
+            <label>
+              Command Key
+              <ToolTip content="2-5 letter abbreviation to call this move in Monsterbot." />
+            </label>
             <input 
               type="text"
               placeholder="Command Key"
