@@ -1,6 +1,6 @@
 import React from 'react';
-import Dropdown from '../../Dropdown';
-import ToolTip from '../common/Tooltip';
+import Dropdown from '../../common/Dropdown';
+import ToolTip from '../../common/Tooltip';
 
 
 const typeOptions = [

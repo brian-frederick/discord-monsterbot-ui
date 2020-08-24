@@ -1,5 +1,5 @@
 import React from 'react';
-import Dropdown from '../../Dropdown';
+import Dropdown from '../../common/Dropdown';
 import ModifierFields from '../modifier/ModifierFields';
 
 const basicMoves = [

@@ -8,7 +8,7 @@ const ToolTip = ({ content }) => {
       data-inverted=""
       data-position="top right"
     >
-      <i class="question circle icon"></i>
+      <i className="question circle icon"></i>
     </span>
   );
 };

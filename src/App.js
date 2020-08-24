@@ -2,10 +2,10 @@ import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from './components/Header';
 import Landing from './components/Landing';
-import MoveCreate from './components/moves/MoveCreate';
-import MoveEdit from './components/moves/MoveEdit';
-import MoveDelete from './components/moves/MoveDelete';
-import MovesShow from './components/moves/MovesShow';
+import MoveCreate from './components/moves/pages/MoveCreate';
+import MoveEdit from './components/moves/pages/MoveEdit';
+import MoveDelete from './components/moves/pages/MoveDelete';
+import MovesShow from './components/moves/pages/MovesShow';
 import './styles/Segment.css';
 
 function App() {

@@ -1,38 +1,33 @@
 import React from 'react';
 import aws from '../../apis/aws';
-import SimpleFields from './typeFields/SimpleFields'
-import RollForOutcomeFields from './typeFields/RollForOutcomeFields';
-import MoveModificationFields from './typeFields/MoveModificationFields';
+import SimpleFields from '../moves/typeFields/SimpleFields';
+import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
+import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
 
-export default class MoveCreate extends React.Component {
-  state = {
-    key: '',
-    type:   'simple',
-    name: '',
-    playbook: 'The Chosen',
-    description: '',
-    modifiers: [],
-    missOutcome: '',
-    fairOutcome: '',
-    successOutcome: '',
-    advancedOutcome: '',
-    moveToModify: 'ksa'
+export default class MoveForm extends React.Component {
+
+  
+  constructor(props) {
+    super(props);
+
+    // we do a one time copy of the initial state of parent's move.
+    // this allows us to reuse the same form for edit and create.
+    this.state = {
+      // handle errors and validation
+      key: props.move.key,
+      type: props.move.type,
+      name: props.move.name,
+      playbook: props.move.playbook,
+      description: props.move.description,
+      modifiers: props.move.modifiers,
+      missOutcome: props.move.missOutcome,
+      fairOutcome: props.move.fairOutcome,
+      successOutcome: props.move.successOutcome,
+      advancedOutcome: props.move.advancedOutcome,
+      moveToModify: props.move.moveToModify
+      
+    };
   }
-
-  onFormSubmit = async event => {
-    event.preventDefault();
-    console.log('submitting', this.state);
-    // const response = await aws.post('/moves', {
-    //   params: {
-    //     move: {
-    //       key: this.state.key,
-    //       name: this.state.name,
-    //       type: this.state.type
-    //       description: this.state.description
-    //     }
-    //   }
-    // });
-  };
 
   renderTypeFields = () => {
     switch (this.state.type) {
@@ -73,12 +68,18 @@ export default class MoveCreate extends React.Component {
     this.setState({ 'modifiers': modifiers })
   };
 
+  onSubmit = (event) => {
+    event.preventDefault();
+
+    this.props.onFormSubmit(this.state);
+  }
+
   render() {
     return (
       <div>
         <h1 className="ui header center aligned">Create A Move</h1>
         
-        <form className="ui form" onSubmit={this.onFormSubmit}>
+        <form className="ui form" onSubmit={this.onSubmit}>
 
           <SimpleFields
             keyVal={this.state.key}
@@ -98,6 +99,6 @@ export default class MoveCreate extends React.Component {
         </form>
       </div>
     );
-  };
+  }
 
-};
+}

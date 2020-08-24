@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Dropdown from '../../Dropdown';
+import Dropdown from '../../common/Dropdown';
 import '../../../styles/Segment.css';
 
 const CreateModifier = ({onCreate}) => {
