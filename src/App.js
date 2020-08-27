@@ -5,7 +5,7 @@ import Landing from './components/Landing';
 import MoveCreate from './components/moves/pages/MoveCreate';
 import MoveEdit from './components/moves/pages/MoveEdit';
 import MoveDelete from './components/moves/pages/MoveDelete';
-import MovesShow from './components/moves/pages/MovesShow';
+import MoveList from './components/moves/pages/MoveList';
 import './styles/Segment.css';
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
         <Route path="/moves/new" exact component={MoveCreate} />
         <Route path="/moves/edit" exact component={MoveEdit} />
         <Route path="/moves/delete" exact component={MoveDelete} />
-        <Route path="/moves/show" exact component={MovesShow} />
+        <Route path="/moves/show" exact component={MoveList} />
       </div>
     </BrowserRouter>
   </div>

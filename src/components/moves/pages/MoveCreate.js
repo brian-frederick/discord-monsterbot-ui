@@ -21,7 +21,7 @@ export default class MoveCreate extends React.Component {
 
   onFormSubmit = formVals => {
     console.log('submitting', formVals);
-    // const response = await aws.post('/moves', {
+    // const response = await streams.post('/moves', {
     //   params: {
     //     move: {
     //       key: this.state.key,
