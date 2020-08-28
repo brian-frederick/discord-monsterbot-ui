@@ -1,5 +1,11 @@
 
-i {
+/* container */
+.main {
+  margin-top: 4em;
+}
+
+/* CreateMove */
+.right {
   float: right;
 }
 
@@ -7,10 +13,15 @@ i {
   margin-top: 1em !important;
 }
 
-.main {
-  margin-top: 4em;
+/* ListMoves */
+.admin-options {
+  text-align: right !important;
 }
 
-.float-right {
-  float: right;
+.admin-option {
+  color: rgba(0,0,0,.87);
+  margin-left: 25px;
+  text-decoration: none;
 }
+
+

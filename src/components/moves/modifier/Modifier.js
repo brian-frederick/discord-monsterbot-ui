@@ -9,7 +9,7 @@ const Modifier = ({mod, onDelete, index}) => {
     <div className="ui compact segment">
       <div>
       {mathSymbol} {modVal}
-          <i className="close icon" onClick={() => onDelete(index)}></i>
+          <i className="close icon right" onClick={() => onDelete(index)}></i>
       </div>
     </div>
   );

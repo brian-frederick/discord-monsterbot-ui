@@ -46,7 +46,7 @@ export default class ModifierFields extends React.Component {
         <div className="ui segment">
           Modifiers 
           {!this.state.createMode &&
-            <i className="plus icon" onClick={this.toggleCreateMode}></i>
+            <i className="plus icon right" onClick={this.toggleCreateMode}></i>
           }
             { this.props.modifiers.length > 0 && this.renderModifiers()}
             {this.state.createMode && 

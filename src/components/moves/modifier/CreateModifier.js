@@ -95,7 +95,7 @@ const CreateModifier = ({onCreate}) => {
 
 
       <div className="ui basic compact segment">
-          <i className="check icon" onClick={onClick}></i>
+          <i className="check icon right" onClick={onClick}></i>
       </div>
 
     </div>
