@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import MoveForm from '../MoveForm';
+import { createMove } from '../../../actions';
 
-export default class MoveCreate extends React.Component {
+class MoveCreate extends React.Component {
   state = {
     move: {
       key: '',
@@ -21,16 +23,7 @@ export default class MoveCreate extends React.Component {
 
   onFormSubmit = formVals => {
     console.log('submitting', formVals);
-    // const response = await streams.post('/moves', {
-    //   params: {
-    //     move: {
-    //       key: this.state.key,
-    //       name: this.state.name,
-    //       type: this.state.type
-    //       description: this.state.description
-    //     }
-    //   }
-    // });
+    this.props.createMove(formVals);
   };
 
   render() {
@@ -44,3 +37,5 @@ export default class MoveCreate extends React.Component {
   };
 
 };
+
+export default connect(null, { createMove })(MoveCreate);

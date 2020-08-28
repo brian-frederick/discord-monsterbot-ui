@@ -31,7 +31,7 @@ export default class ModifierFields extends React.Component {
         {this.props.modifiers.map((mod, i) => { 
             return (
               <div key={i}>
-                <Modifier mod={mod} index={i} onDelete={this.onDelete} />
+                <Modifier mod={mod} index={i} editable="true" onDelete={this.onDelete} />
               </div>
             );
         })}
