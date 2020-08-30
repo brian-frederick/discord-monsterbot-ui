@@ -1,3 +1,6 @@
+export const OPEN_MODAL = "OPEN_MODAL";
+export const CLOSE_MODAL = "CLOSE_MODAL";
+
 export const CREATE_MOVE = "CREATE_MOVE";
 export const EDIT_MOVE = "EDIT_MOVE";
 export const FETCH_MOVES = "FETCH_MOVES";

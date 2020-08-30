@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from './components/Header';
+import Header from './components/common/Header';
+import Modal from './components/common/Modal';
 import Landing from './components/Landing';
 import MoveCreate from './components/moves/pages/MoveCreate';
 import MoveEdit from './components/moves/pages/MoveEdit';
@@ -14,6 +15,7 @@ function App() {
     <div>
       <Header />
     <BrowserRouter>
+      <Modal />
       <div className="ui main text container">
         <Route path="/" exact component={Landing} />
         <Route path="/moves/new" exact component={MoveCreate} />

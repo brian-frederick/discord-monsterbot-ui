@@ -16,7 +16,7 @@ class MoveList extends React.Component {
           <td>{move.key}</td>
           <td >{move.name}</td>
           <td className="admin-options">
-            <MoveAdminOptions moveKey={move.key} />
+            <MoveAdminOptions moveKey={move.key} moveName={move.name} />
           </td>
         </tr>
       );

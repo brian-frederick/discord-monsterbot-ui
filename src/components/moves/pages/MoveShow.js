@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchMove } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
+import Loading from '../../common/Loading';
 
 const movesMap = {
   ksa: 'Kick Some Ass',
@@ -17,16 +18,12 @@ const movesMap = {
 
 class MoveShow extends React.Component {
 
-
-
   componentDidMount() {
     this.props.fetchMove(this.props.match.params.key);
   }
   
   renderMoveModification() {
     const { moveToModify } = this.props.move;
-    console.log(moveToModify);
-    console.log(movesMap[moveToModify])
 
     return (
       <div className="ui segment">
@@ -86,7 +83,7 @@ class MoveShow extends React.Component {
             <h3>
               {move.name} ({move.key})
               <div className="right">
-                <MoveAdminOptions  moveKey={move.key} /> 
+                <MoveAdminOptions  moveKey={move.key} moveName={move.name}/> 
               </div>
             </h3>
             <div className="ui segments">
@@ -109,14 +106,7 @@ class MoveShow extends React.Component {
 
   render() {
     if (!this.props.move) {
-      return (
-        <div className="ui container">
-          <div className="ui dimmer active">
-            <div className="ui large text loader">beep boop raaar</div>
-          </div>
-          <p></p>
-        </div>
-      );
+      return <Loading />
     }
     else {
      return this.renderMove();

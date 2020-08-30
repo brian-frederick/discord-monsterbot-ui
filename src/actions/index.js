@@ -1,11 +1,22 @@
 import moves from '../apis/moves';
 import {
+  OPEN_MODAL,
+  CLOSE_MODAL,
   CREATE_MOVE,
   EDIT_MOVE,
   FETCH_MOVE,
   FETCH_MOVES,
   DELETE_MOVE
 } from '../actions/types';
+
+export const openModal = modal => dispatch => {
+  modal.isActive = true;
+  dispatch({ type: OPEN_MODAL, payload: modal });
+}
+
+export const closeModal = () => dispatch => {
+  dispatch({ type: CLOSE_MODAL, payload: { isActive: false } });
+}
 
 export const createMove = move => async dispatch => {
   const response = await moves.post('', { params: { move: move } });

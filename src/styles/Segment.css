@@ -1,4 +1,9 @@
 
+/* Modal */
+#modal-container {
+  display: flex !important;
+}
+
 /* container */
 .main {
   margin-top: 4em;
