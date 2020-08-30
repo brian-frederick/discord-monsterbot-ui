@@ -25,10 +25,22 @@ const playbookOptions = [
   { label: 'Other', value: 'Other'},
 ];
 
+const typeExample = (key, name) => {
+  return (
+    <span>
+      See<span> </span>
+      <a href={'/moves/show/' + key} target="_blank">{name} <i class="external alternate icon"></i></a>
+      for an example.
+    </span>
+  );
+}
+
 export default class SimpleFields extends React.Component {
+  state = {
+    isTypeInfoOpen: true
+  };
 
   render() {
-
     return (
       <div>
         <div className="fields">
@@ -75,6 +87,21 @@ export default class SimpleFields extends React.Component {
               rows='3'
             />
           </div>
+
+          { this.state.isTypeInfoOpen &&
+            <div className="ui info message">
+              <i onClick={() => this.setState({ isTypeInfoOpen: false })} className="close icon"></i>
+              <div className="header">
+                Move types determine what info Monsterbot needs about your move.
+              </div>
+              <ul className="list">
+                <li>Simple moves just require the info above. {typeExample('ps', 'Preternatural Speed')}</li>
+                <li>Roll Outcome moves allow you to determine what happens based on a hunter's role. {typeExample('oo', 'Often Overlooked')}</li>
+                <li>Basic Move Modification allows you to change the modifiers (like +1 tough) on one of the existing basic moves. {typeExample('ss', 'Shapeshifter')}</li>
+              </ul>
+            </div>
+          }
+
           
           <Dropdown
             name='type'
