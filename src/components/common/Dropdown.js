@@ -34,7 +34,6 @@ const Dropdown = ({name, options, selected, onSelectedChange, label }) => {
   });
 
   const selectedOption = selectedValue => {
-    console.log('finding selected Option for', selectedValue)
     return options.find(o => o.value === selectedValue)
   };
 

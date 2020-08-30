@@ -32,7 +32,7 @@ class MoveCreate extends React.Component {
 
   render() {
     if (this.state.loading) {
-       return  <Loading />
+       return  <Loading />;
     } else {
       return (
         <div>

@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <div className="ui fixed inverted menu">
       <div className="ui container">
-        <div className="header item">Monsterbot</div>
+        <a className="header item" href="/">Monsterbot</a>
         <a className="item right floated" href="/moves/list">moves</a>
       </div>
     </div>

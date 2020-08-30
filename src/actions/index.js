@@ -24,7 +24,7 @@ export const createMove = move => async dispatch => {
 };
 
 export const editMove = move => async dispatch => {
-  const response = await moves.put(`/${move.key}`, { move: move });
+  const response = await moves.put(`/${move.key}`, { params: { move: move } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 

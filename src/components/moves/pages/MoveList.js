@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
+import Loading from '../../common/Loading';
+import MoveAdminOptions from '../MoveAdminOptions'
 import { fetchMoves } from '../../../actions';
-import MoveAdminOptions from '../MoveAdminOptions';
 
 class MoveList extends React.Component {
   componentDidMount() {
@@ -25,18 +26,16 @@ class MoveList extends React.Component {
 
   render() {
     if (this.props.moves.length < 1) {
-      return (
-        <div className="ui container">
-          <div className="ui dimmer active">
-            <div className="ui large text loader">beep boop raaar</div>
-          </div>
-          <p></p>
-        </div>
-      );
+      return <Loading />;
     } else {
       return (
         <div>
-          <h2>Moves</h2>
+          <h3>
+            Moves
+            <a href="/moves/new">
+              <i className="plus icon right" />
+            </a>
+          </h3>
           <table className="ui very basic table">
             <tbody >
               {this.renderList()}

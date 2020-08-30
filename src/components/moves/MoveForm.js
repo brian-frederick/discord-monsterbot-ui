@@ -9,6 +9,7 @@ export default class MoveForm extends React.Component {
   constructor(props) {
     super(props);
 
+    console.log('props in form', props);
     // we do a one time copy of the initial state of parent's move.
     // this allows us to reuse the same form for edit and create.
     this.state = {
@@ -76,7 +77,7 @@ export default class MoveForm extends React.Component {
   render() {
     return (
       <div>
-        <h1 className="ui header center aligned">Create A Move</h1>
+        <h3 className="ui header center aligned">Create A Move</h3>
         
         <form className="ui form" onSubmit={this.onSubmit}>
 

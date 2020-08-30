@@ -12,7 +12,6 @@ class Modal extends React.Component {
   }
   
   render() {
-    console.log(this.props);
     if (!this.props.modal.isActive) {
       return null;
     } else {
