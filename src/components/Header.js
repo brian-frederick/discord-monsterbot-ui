@@ -5,6 +5,7 @@ const Header = () => {
     <div className="ui fixed inverted menu">
       <div className="ui container">
         <div className="header item">Monsterbot</div>
+        <a className="item right floated" href="/moves/list">moves</a>
       </div>
     </div>
   );

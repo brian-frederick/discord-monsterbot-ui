@@ -5,6 +5,7 @@ import { createMove } from '../../../actions';
 
 class MoveCreate extends React.Component {
   state = {
+    loading: false,
     move: {
       key: '',
       type: 'simple',
@@ -21,17 +22,32 @@ class MoveCreate extends React.Component {
   } 
   
 
-  onFormSubmit = formVals => {
+  onFormSubmit = async formVals => {
     console.log('submitting', formVals);
-    this.props.createMove(formVals);
+    this.setState({ loading: true });
+    await this.props.createMove(formVals);
+    console.log('submitted!');
+    this.setState({ loading: false });
+    this.props.history.push('/moves/list');
   };
 
   render() {
+    if (this.state.loading) {
+      return (
+        <div className="ui container">
+          <div className="ui dimmer active">
+            <div className="ui large text loader">beep boop raaar</div>
+          </div>
+          <p></p>
+        </div>
+      );
+    } 
     return (
       <div>
         <MoveForm 
           move={this.state.move}
-          onFormSubmit={this.onFormSubmit} />
+          onFormSubmit={this.onFormSubmit} 
+        />
       </div>
     );
   };

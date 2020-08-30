@@ -24,10 +24,10 @@ class MoveList extends React.Component {
   }
 
   render() {
-    if (!this.props.moves) {
+    if (this.props.moves.length < 1) {
       return (
         <div className="ui container">
-          <div className="ui active">
+          <div className="ui dimmer active">
             <div className="ui large text loader">beep boop raaar</div>
           </div>
           <p></p>
@@ -38,10 +38,9 @@ class MoveList extends React.Component {
         <div>
           <h2>Moves</h2>
           <table className="ui very basic table">
-          <tbody >
-            {this.renderList()}
-          </tbody>
-  
+            <tbody >
+              {this.renderList()}
+            </tbody>
           </table>
         </div>
       );
