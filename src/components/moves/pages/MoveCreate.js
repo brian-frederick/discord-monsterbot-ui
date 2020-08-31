@@ -38,7 +38,8 @@ class MoveCreate extends React.Component {
         <div>
           <MoveForm 
             move={this.state.move}
-            onFormSubmit={this.onFormSubmit} 
+            onFormSubmit={this.onFormSubmit}
+            createMode
           />
         </div>
       );

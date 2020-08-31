@@ -2,9 +2,8 @@ import React from 'react';
 import SimpleFields from '../moves/typeFields/SimpleFields';
 import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
-
+import { validate } from '../../utils/validation';
 export default class MoveForm extends React.Component {
-
   
   constructor(props) {
     super(props);
@@ -24,8 +23,8 @@ export default class MoveForm extends React.Component {
       fairOutcome: props.move.fairOutcome,
       successOutcome: props.move.successOutcome,
       advancedOutcome: props.move.advancedOutcome,
-      moveToModify: props.move.moveToModify
-      
+      moveToModify: props.move.moveToModify,
+      errors: { hasErrors: false }
     };
   }
 
@@ -70,8 +69,10 @@ export default class MoveForm extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-
-    this.props.onFormSubmit(this.state);
+    let errors = validate(this.state);
+    this.setState({ errors });
+    console.log('submitting state now', this.state);
+    //this.props.onFormSubmit(this.state);
   }
 
   render() {
@@ -79,7 +80,10 @@ export default class MoveForm extends React.Component {
       <div>
         <h3 className="ui header center aligned">Create A Move</h3>
         
-        <form className="ui form" onSubmit={this.onSubmit}>
+        <form 
+          className={ this.state.errors.hasErrors ? 'ui form error' : 'ui form'} 
+          onSubmit={this.onSubmit}
+        >
 
           <SimpleFields
             keyVal={this.state.key}
@@ -89,12 +93,14 @@ export default class MoveForm extends React.Component {
             playbook={this.state.playbook}
             onInputChange={this.onInputChange}
             onSelectChange={this.onSelectChange}
+            createMode={this.props.createMode}
+            errors={this.state.errors}
           />
 
           {this.renderTypeFields()}
           
           <div className="field">
-            <button className="ui primary button submit right floated" type="submit">Submit</button>
+            <button className="ui primary button submit right floated" type="submit" >Submit</button>
           </div>
         </form>
       </div>

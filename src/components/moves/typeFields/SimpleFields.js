@@ -1,6 +1,7 @@
 import React from 'react';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
+import FormErrorMessage from '../../common/FormErrorMessage';
 
 
 const typeOptions = [
@@ -29,7 +30,7 @@ const typeExample = (key, name) => {
   return (
     <span>
       See<span> </span>
-      <a href={'/moves/show/' + key} target="_blank">{name} <i class="external alternate icon"></i></a>
+      <a href={'/moves/show/' + key} target="_blank">{name} <i className="external alternate icon"></i></a>
       for an example.
     </span>
   );
@@ -44,7 +45,7 @@ export default class SimpleFields extends React.Component {
     return (
       <div>
         <div className="fields">
-          <div className="twelve wide field">
+          <div className={this.props.errors.name ? 'twelve wide field required error' : 'twelve wide field required'}>
             <label>Move Name</label>
             <input 
               type="text"
@@ -53,12 +54,13 @@ export default class SimpleFields extends React.Component {
               value={this.props.name}
               onChange={this.props.onInputChange}
             />
+            <FormErrorMessage message={this.props.errors.name} />
           </div>
           
-          <div className="four wide field">
+          <div className={this.props.errors.key ? "four wide field required error" : "four wide field required"} >
             <label>
               Command Key
-              <ToolTip content="2-5 letter abbreviation to call this move in Monsterbot." />
+              <ToolTip content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation." />
             </label>
             <input 
               type="text"
@@ -66,7 +68,9 @@ export default class SimpleFields extends React.Component {
               name="key"
               value={this.props.keyVal}
               onChange={this.props.onInputChange}
+              disabled={!this.props.createMode}
             />
+            <FormErrorMessage message={this.props.errors.key} />
           </div>
         </div>
 
@@ -77,7 +81,7 @@ export default class SimpleFields extends React.Component {
             selected={this.props.playbook}
             onSelectedChange={this.props.onSelectChange}
           />
-          <div className="field">
+          <div className={this.props.errors.description ? 'field required error' : 'field required'}>
             <label>Move Description</label>
             <textarea 
               placeholder="Description"
@@ -86,6 +90,7 @@ export default class SimpleFields extends React.Component {
               onChange={this.props.onInputChange}
               rows='3'
             />
+            <FormErrorMessage message={this.props.errors.description} />
           </div>
 
           { this.state.isTypeInfoOpen &&
@@ -97,12 +102,11 @@ export default class SimpleFields extends React.Component {
               <ul className="list">
                 <li>Simple moves just require the info above. {typeExample('ps', 'Preternatural Speed')}</li>
                 <li>Roll Outcome moves allow you to determine what happens based on a hunter's role. {typeExample('oo', 'Often Overlooked')}</li>
-                <li>Basic Move Modification allows you to change the modifiers (like +1 tough) on one of the existing basic moves. {typeExample('ss', 'Shapeshifter')}</li>
+                <li>Basic Move Modification allows you to replace the modifiers (like +1 tough) on one of the existing basic moves. {typeExample('ss', 'Shapeshifter')}</li>
               </ul>
             </div>
           }
 
-          
           <Dropdown
             name='type'
             label='Move Type'
