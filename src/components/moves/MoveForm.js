@@ -1,31 +1,31 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import SimpleFields from '../moves/typeFields/SimpleFields';
 import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
-import { validate } from '../../utils/validation';
-export default class MoveForm extends React.Component {
+import { validateMove, parseMove } from '../../utils/forms';
+import { fetchMoves } from '../../actions';
+
+class MoveForm extends React.Component {
   
   constructor(props) {
     super(props);
 
-    console.log('props in form', props);
-    // we do a one time copy of the initial state of parent's move.
-    // this allows us to reuse the same form for edit and create.
     this.state = {
-      // handle errors and validation
-      key: props.move.key,
-      type: props.move.type,
-      name: props.move.name,
-      playbook: props.move.playbook,
-      description: props.move.description,
-      modifiers: props.move.modifiers,
-      missOutcome: props.move.missOutcome,
-      fairOutcome: props.move.fairOutcome,
-      successOutcome: props.move.successOutcome,
-      advancedOutcome: props.move.advancedOutcome,
-      moveToModify: props.move.moveToModify,
-      errors: { hasErrors: false }
+      errors: { hasErrors: false },
+
+      // we do a one time copy of the initial state of parent's move.
+      // this allows us to reuse the same form for edit and create.
+      ...this.props.move
     };
+  }
+
+  componentDidMount() {
+    // if we're creating a move, instead of just editing,
+    // we'll need to validate that the key does not already belong to an existing move.
+    if (this.props.createMode) {
+      this.props.fetchMoves();
+    }
   }
 
   renderTypeFields = () => {
@@ -69,10 +69,17 @@ export default class MoveForm extends React.Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    let errors = validate(this.state);
+    let errors = validateMove(this.state, this.props.createMode, this.props.moves);
     this.setState({ errors });
-    console.log('submitting state now', this.state);
-    //this.props.onFormSubmit(this.state);
+    
+    if (errors.hasErrors) {
+      return;
+    }
+
+    const move = parseMove(this.state);
+
+    console.log('submitting state now', move);
+    this.props.onFormSubmit(move);
   }
 
   render() {
@@ -106,5 +113,12 @@ export default class MoveForm extends React.Component {
       </div>
     );
   }
-
 }
+
+const mapStateToProps = (state) => {
+  return {
+    moves: state.moves
+  };
+}
+
+export default connect(mapStateToProps, { fetchMoves })(MoveForm);

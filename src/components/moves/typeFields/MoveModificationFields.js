@@ -19,15 +19,13 @@ const MoveModificationFields = ({ moveToModify, modifiers, onModifiersChange, on
       <div className="ui horizontal divider">Move Modifications</div>
       <div className="ui center aligned basic segment">Select a basic move, replace the hunter properties modifier, and/or create additional modifiers </div>
 
-      <div className="six fields">
-        <Dropdown
-          name="moveToModify"
-          label="Modify This Move"
-          options={basicMoves}
-          selected={moveToModify}
-          onSelectedChange={onSelectChange}
-        />
-      </div>
+      <Dropdown
+        name="moveToModify"
+        label="Modify This Move"
+        options={basicMoves}
+        selected={moveToModify}
+        onSelectedChange={onSelectChange}
+      />
 
       <ModifierFields 
         modifiers={modifiers} 

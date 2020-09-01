@@ -19,12 +19,12 @@ export const closeModal = () => dispatch => {
 }
 
 export const createMove = move => async dispatch => {
-  const response = await moves.post('', { params: { move: move } });
+  const response = await moves.post('', { params: { move } });
   dispatch({ type: CREATE_MOVE, payload: response.data });
 };
 
 export const editMove = move => async dispatch => {
-  const response = await moves.put(`/${move.key}`, { params: { move: move } });
+  const response = await moves.put(`/${move.key}`, { params: { move } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 

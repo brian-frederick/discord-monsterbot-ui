@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../../styles/Segment.css';
 
 const Modifier = ({mod, index, editable, onDelete }) => {
   const mathSymbol = mod.plus ? 'Plus' : 'Minus';
