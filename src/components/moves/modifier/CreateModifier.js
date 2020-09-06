@@ -4,7 +4,7 @@ import Dropdown from '../../common/Dropdown';
 const CreateModifier = ({onCreate}) => {
   const [type, setType] = useState('property');
   const [plus, setPlus] = useState(true);
-  const [modVal, setModVal] = useState(0);
+  const [modVal, setModVal] = useState(1);
   const [property, setProperty] = useState('cool');
 
   const typeOptions = [
@@ -59,7 +59,7 @@ const CreateModifier = ({onCreate}) => {
               type="number"
               name="modVal"
               value={modVal}
-              onChange={e => setModVal(e.target.value)}
+              onChange={e => setModVal(parseInt(e.target.value))}
             />
           </div>
         );
