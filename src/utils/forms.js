@@ -77,7 +77,6 @@ export const formToMove = (formVals) => {
 };
 
 export const moveToForm = (move) => {
-  console.log(move);
   const formVals = {
     key: move.key,
     type: move.type,

@@ -79,7 +79,6 @@ class MoveForm extends React.Component {
 
     const move = formToMove(this.state);
 
-    console.log('submitting state now', move);
     this.props.onFormSubmit(move);
   }
 
