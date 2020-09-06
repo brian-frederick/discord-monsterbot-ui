@@ -4,7 +4,7 @@ import Modifier from './Modifier';
 
 export default class ModifierFields extends React.Component {
   state = {
-    createMode: true
+    createMode: false
   };
 
   toggleCreateMode = () => {

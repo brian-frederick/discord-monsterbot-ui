@@ -4,10 +4,10 @@ import ModifierFields from '../modifier/ModifierFields';
 
 const RollForOutcomeFields = ({
   modifiers,
-  missOutcome,
-  fairOutcome,
-  successOutcome,
-  advancedOutcome,
+  fail,
+  success,
+  high,
+  advanced,
   onChange,
   onModifiersChange
 }) => {
@@ -33,8 +33,8 @@ const RollForOutcomeFields = ({
             <textarea
               type="text"
               placeholder="Miss outcome..."
-              name="missOutcome"
-              value={missOutcome}
+              name="fail"
+              value={fail}
               onChange={onChange}
               rows="2"
             />
@@ -45,8 +45,8 @@ const RollForOutcomeFields = ({
             <textarea
               type="text"
               placeholder="7+ outcome..."
-              name="fairOutcome"
-              value={fairOutcome}
+              name="success"
+              value={success}
               onChange={onChange}
               rows="2"
             />
@@ -57,8 +57,8 @@ const RollForOutcomeFields = ({
             <textarea
               type="text"
               placeholder="10+ outcome..."
-              name="successOutcome"
-              value={successOutcome}
+              name="high"
+              value={high}
               onChange={onChange}
               rows="2"
             />
@@ -69,8 +69,8 @@ const RollForOutcomeFields = ({
             <textarea
               type="text"
               placeholder="Advanced outcome..."
-              name="advancedOutcome"
-              value={advancedOutcome}
+              name="advanced"
+              value={advanced}
               onChange={onChange}
               rows="2"
             />

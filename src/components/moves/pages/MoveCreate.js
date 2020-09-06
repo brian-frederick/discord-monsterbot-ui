@@ -14,10 +14,10 @@ class MoveCreate extends React.Component {
       playbook: 'The Chosen',
       description: '',
       modifiers: [],
-      missOutcome: '',
-      fairOutcome: '',
-      successOutcome: '',
-      advancedOutcome: '',
+      fail: '',
+      success: '',
+      high: '',
+      advanced: '',
       moveToModify: 'ksa'
     }
   }

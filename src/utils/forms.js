@@ -1,3 +1,5 @@
+import MoveCreate from "../components/moves/pages/MoveCreate";
+
 export const validateMove = (formVals, createMode, moves) => {
   let errors = {};
 
@@ -32,7 +34,7 @@ export const validateMove = (formVals, createMode, moves) => {
   return errors;
 };
 
-export const parseMove =(formVals) => {
+export const formToMove = (formVals) => {
   
   const move = {
     key: formVals.key,
@@ -47,10 +49,24 @@ export const parseMove =(formVals) => {
   }
 
   if (formVals.type === 'roll') {
-    move.missOutcome = formVals.missOutcome;
-    move.fairOutcome = formVals.fairOutcome;
-    move.successOutcome = formVals.successOutcome;
-    move.advancedOutcome = formVals.advancedOutcome;
+    move.outcome = {
+      fail: {
+        title: "On a fail...",
+        description: formVals.fail
+      },
+      success: {
+        title: "On a 7+...",
+        description: formVals.success
+      },
+      high: {
+        title: "On a 10+...",
+        description: formVals.high
+      },
+      advanced: {
+        title: 'On a 12+...',
+        description: formVals.advanced
+      }
+    };
   }
 
   if (formVals.type === 'modification') {
@@ -59,3 +75,25 @@ export const parseMove =(formVals) => {
 
   return move;
 };
+
+export const moveToForm = (move) => {
+  console.log(move);
+  const formVals = {
+    key: move.key,
+    type: move.type,
+    name: move.name,
+    playbook: move.playbook,
+    description: move.description
+  };
+
+  formVals.modifiers = move.modifiers ? move.modifiers : [];
+
+  formVals.fail = move.type === 'roll' ? move.outcome.fail.description : '';
+  formVals.success = move.type === 'roll' ? move.outcome.success.description : '';
+  formVals.high = move.type === 'roll' ? move.outcome.high.description : '';
+  formVals.advanced = move.type === 'roll' ? move.outcome.advanced.description : '';
+
+  formVals.moveToModify = move.moveToModify ? move.moveToModify : 'ksa';
+
+  return formVals;
+}

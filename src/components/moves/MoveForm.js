@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import SimpleFields from '../moves/typeFields/SimpleFields';
 import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
-import { validateMove, parseMove } from '../../utils/forms';
+import { validateMove, formToMove } from '../../utils/forms';
 import { fetchMoves } from '../../actions';
 
 class MoveForm extends React.Component {
@@ -35,9 +35,10 @@ class MoveForm extends React.Component {
       case 'roll':
         return <RollForOutcomeFields 
           modifiers={this.state.modifiers}
-          missOutcome={this.state.missOutcome}
-          fairOutcome={this.state.fairOutcome}
-          successOutcome={this.state.successOutcome}
+          fail={this.state.fail}
+          success={this.state.success}
+          high={this.state.high}
+          advanced={this.state.advanced}
           onChange={this.onInputChange}
           onModifiersChange={this.onModifiersChange}
         />;
@@ -76,7 +77,7 @@ class MoveForm extends React.Component {
       return;
     }
 
-    const move = parseMove(this.state);
+    const move = formToMove(this.state);
 
     console.log('submitting state now', move);
     this.props.onFormSubmit(move);

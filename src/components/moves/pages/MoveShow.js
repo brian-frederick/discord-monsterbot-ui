@@ -53,7 +53,7 @@ class MoveShow extends React.Component {
   }
   
   renderRollFields() {
-    const { missOutcome, fairOutcome, successOutcome, advancedOutcome } = this.props.move;
+    const { fail, success, high, advanced } = this.props.move.outcome;
 
     return (
       <div className="ui segment">
@@ -61,13 +61,13 @@ class MoveShow extends React.Component {
         <div className="ui segments">
           <div className="ui segment">
             <div className="ui sub header">On a miss...</div>
-            <p>{missOutcome}</p>
+            <p>{fail.description}</p>
             <div className="ui sub header">On a 7+...</div>
-            <p>{fairOutcome}</p>
+            <p>{success.description}</p>
             <div className="ui sub header">On a 10+...</div>
-            <p>{successOutcome}</p>
+            <p>{high.description}</p>
             <div className="ui sub header">On a 12+...</div>
-            <p>{advancedOutcome}</p>
+            <p>{advanced.description}</p>
           </div>
         </div>
         {this.renderModifiers()}

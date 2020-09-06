@@ -14,8 +14,8 @@ class MoveList extends React.Component {
     return this.props.moves.map(move => {
       return (
         <tr key={move.key}>
-          <td>{move.key}</td>
-          <td >{move.name}</td>
+          <td>{move.name} ({move.key})</td>
+          <td>{move.playbook}</td>
           <td className="admin-options">
             <MoveAdminOptions moveKey={move.key} moveName={move.name} />
           </td>
