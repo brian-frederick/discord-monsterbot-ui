@@ -10,9 +10,15 @@ export const SAVED_AUTH = {
   EXPIRATION_DATE: 'authExpirationDate'
 };
 
+export const EMAIL_CONSENT = 'emailConsent';
+
 // Just need a random string here to guard against clickjacking
 const genRandomState = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+}
+
+export const checkForEmailConsent = () => {
+  return localStorage.getItem(EMAIL_CONSENT) ? localStorage.getItem(EMAIL_CONSENT) : false;
 }
 
 export const deleteToken = () => {
@@ -60,7 +66,6 @@ export const saveToken = () => {
 
 const genExpirationDate = expiresIn => {
   var day = new Date();
-  console.log('before', day);
   day.setSeconds(day.getSeconds() + expiresIn);
 
   return day.getTime();

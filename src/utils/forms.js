@@ -1,4 +1,4 @@
-import MoveCreate from "../components/moves/pages/MoveCreate";
+import { checkForEmailConsent } from '../utils/discordLogin';
 
 export const validateMove = (formVals, createMode, moves) => {
   let errors = {};
@@ -34,14 +34,16 @@ export const validateMove = (formVals, createMode, moves) => {
   return errors;
 };
 
-export const formToMove = (formVals) => {
-  
+export const formToMove = (formVals, user) => {
+
   const move = {
     key: formVals.key,
     type: formVals.type,
     name: formVals.name,
     playbook: formVals.playbook,
-    description: formVals.description
+    description: formVals.description,
+    guildId: formVals.guildId,
+    emailConsent: checkForEmailConsent()
   }
 
   if (formVals.type !== 'simple') {
@@ -73,8 +75,28 @@ export const formToMove = (formVals) => {
     move.moveToModify = formVals.moveToModify;
   }
 
-  return move;
+  const userEnrichedMove = enrichMoveWithUserData(move, user, formVals);
+
+  return userEnrichedMove;
 };
+
+const enrichMoveWithUserData = (move, user, formVals) => {
+  const selectedGuild = user.guilds.find(g => g.id === move.guildId);
+  
+  const enriched = {
+    ...move,
+    userId: user.id,
+    userName: user.username,
+    userDiscriminator: user.discriminator,
+    guildName: selectedGuild ? selectedGuild.name : 'Public'
+  };
+
+  if (formVals.emailConsent) {
+    enriched.email = user.email;
+  }
+
+  return enriched;
+}
 
 export const moveToForm = (move) => {
   const formVals = {
@@ -82,7 +104,8 @@ export const moveToForm = (move) => {
     type: move.type,
     name: move.name,
     playbook: move.playbook,
-    description: move.description
+    description: move.description,
+    guildId: move.guildId ? move.guildId : '1',
   };
 
   formVals.modifiers = move.modifiers ? move.modifiers : [];

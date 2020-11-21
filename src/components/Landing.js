@@ -7,13 +7,13 @@ const Landing = ({history}) => {
   }
 
   return (
-    <div id="landing" className="ui vertical masthead center aligned segment">
+    <div id="top-centered-item" className="ui vertical masthead center aligned segment">
       <div className="ui container">
         <div className="ui text container">
           <h3>bleep bloop snarl blorp raaar...</h3>
           <div onClick={onClick} className="ui primary button">
             make your move
-            <i className=" right arrow icon"></i>
+            <i className="right arrow icon"></i>
           </div>
         </div>
       </div>

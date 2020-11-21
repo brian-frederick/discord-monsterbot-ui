@@ -5,6 +5,7 @@ import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
 import { validateMove, formToMove } from '../../utils/forms';
 import { fetchMoves } from '../../actions';
+import { EMAIL_CONSENT } from '../../utils/discordLogin';
 
 class MoveForm extends React.Component {
   
@@ -64,8 +65,19 @@ class MoveForm extends React.Component {
     this.setState({ [name]: option });
   };
 
+  onCheckboxChange = (event) => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
   onModifiersChange = (modifiers) => {
     this.setState({ 'modifiers': modifiers })
+  };
+
+  // Email consent should only be given once.
+  saveEmailPrivacyPreference = () => {
+    if (this.state.emailConsent) {
+      localStorage.setItem(EMAIL_CONSENT, true);
+    }
   };
 
   onSubmit = (event) => {
@@ -77,7 +89,9 @@ class MoveForm extends React.Component {
       return;
     }
 
-    const move = formToMove(this.state);
+    this.saveEmailPrivacyPreference();
+
+    const move = formToMove(this.state, this.props.user);
 
     this.props.onFormSubmit(move);
   }
@@ -98,8 +112,12 @@ class MoveForm extends React.Component {
             description={this.state.description}
             type={this.state.type}
             playbook={this.state.playbook}
+            guildId={this.state.guildId}
+            guilds={this.props.user.guilds}
+            emailConsent={this.state.emailConsent}
             onInputChange={this.onInputChange}
             onSelectChange={this.onSelectChange}
+            onCheckboxChange={this.onCheckboxChange}
             createMode={this.props.createMode}
             errors={this.state.errors}
           />
@@ -117,7 +135,8 @@ class MoveForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    moves: state.moves
+    moves: state.moves,
+    user: state.user
   };
 }
 

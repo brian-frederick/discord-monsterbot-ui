@@ -2,14 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { openModal, deleteMove } from '../../actions';
 
-
-
-
 class MoveAdminOptions extends React.Component {
 
   cancelModal = {
     header: `Delete ${this.props.moveName}`,
-    content: `Do you actually want to delete ${this.props.moveName}? It\'ll be gone... forever....`,
+    content: `Do you actually want to delete ${this.props.moveName}? It'll be gone... forever....`,
     submitAction: () => this.props.deleteMove(this.props.moveKey)
   }
 

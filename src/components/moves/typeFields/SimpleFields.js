@@ -2,7 +2,7 @@ import React from 'react';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
 import FormErrorMessage from '../../common/FormErrorMessage';
-
+import { EMAIL_CONSENT } from '../../../utils/discordLogin';
 
 const typeOptions = [
   { label: 'Simple', value: 'simple' },
@@ -41,6 +41,14 @@ export default class SimpleFields extends React.Component {
     isTypeInfoOpen: true
   };
 
+  userGuildOptions = () => {
+    let guildOptions = [{ label: 'Public', value: '1' }];
+    this.props.guilds.forEach(g => guildOptions.push({ label: g.name, value: g.id}));
+    return guildOptions;
+  }
+
+  emailConsentGiven = localStorage.getItem(EMAIL_CONSENT);
+
   render() {
     return (
       <div>
@@ -60,7 +68,10 @@ export default class SimpleFields extends React.Component {
           <div className={this.props.errors.key ? "four wide field required error" : "four wide field required"} >
             <label>
               Command Key
-              <ToolTip content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation." />
+              <ToolTip 
+                content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation."
+                style="ui right"
+              />
             </label>
             <input 
               type="text"
@@ -81,6 +92,7 @@ export default class SimpleFields extends React.Component {
             selected={this.props.playbook}
             onSelectedChange={this.props.onSelectChange}
           />
+
           <div className={this.props.errors.description ? 'field required error' : 'field required'}>
             <label>Move Description</label>
             <textarea 
@@ -114,6 +126,33 @@ export default class SimpleFields extends React.Component {
             selected={this.props.type}
             onSelectedChange={this.props.onSelectChange}
           />
+
+          <Dropdown
+            name="guildId"
+            label='Server Access'
+            options={this.userGuildOptions()}
+            selected={this.props.guildId}
+            onSelectedChange={this.props.onSelectChange}
+          />
+          
+          { !this.emailConsentGiven &&
+            <div>
+              <input
+                id="email-checkbox"
+                name="emailConsent"
+                type="checkbox"
+                checked={this.props.emailConsent}
+                onChange={this.props.onCheckboxChange}
+              />
+              <label>
+                Sure, store my Discord account email with my moves. 
+                <ToolTip 
+                  content="We're still improving and might want to reach out if we need to make changes to your move." 
+                  style="ui left" 
+                />
+              </label>
+            </div>
+          }
       </div>
     );
   }
