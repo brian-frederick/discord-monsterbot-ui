@@ -1,4 +1,5 @@
 import moves from '../apis/moves';
+import users from '../apis/users';
 import {
   OPEN_MODAL,
   CLOSE_MODAL,
@@ -6,8 +7,11 @@ import {
   EDIT_MOVE,
   FETCH_MOVE,
   FETCH_MOVES,
-  DELETE_MOVE
+  DELETE_MOVE,
+  FETCH_USER,
+  LOGOUT_USER
 } from '../actions/types';
+import { SAVED_AUTH } from '../utils/discordLogin';
 
 export const openModal = modal => dispatch => {
   modal.isActive = true;
@@ -41,4 +45,15 @@ export const fetchMoves = () => async dispatch => {
 export const deleteMove = key => async dispatch => {
   const response = await moves.delete(`/${key}`);
   dispatch({ type: DELETE_MOVE, payload: key });
+}
+
+export const fetchUser = () => async dispatch => {
+  const token = localStorage.getItem(SAVED_AUTH.TOKEN);
+  users.defaults.headers.common['authorization'] = `Bearer ${token}`
+  const response = await users.get();
+  dispatch({ type: FETCH_USER, payload: response.data })
+}
+
+export const logoutUser = () => async dispatch => {
+  dispatch({ type: LOGOUT_USER, payload: {} })
 }

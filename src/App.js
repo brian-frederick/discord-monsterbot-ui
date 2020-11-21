@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
-import Header from './components/common/Header';
+import Header from './components/common/header/Header';
 import Modal from './components/common/Modal';
 import Landing from './components/Landing';
 import MoveCreate from './components/moves/pages/MoveCreate';
