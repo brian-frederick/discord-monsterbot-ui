@@ -9,7 +9,7 @@ const Modifier = ({mod, index, editable, onDelete }) => {
       <div>
       {mathSymbol} {modVal}
         { editable &&
-          <i className="close icon right" onClick={() => onDelete(index)}></i>
+          <i className="trash icon right" onClick={() => onDelete(index)}></i>
         }
       </div>
     </div>
