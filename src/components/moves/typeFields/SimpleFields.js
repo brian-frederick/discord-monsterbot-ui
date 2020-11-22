@@ -49,8 +49,10 @@ export default class SimpleFields extends React.Component {
             <label>Move Name</label>
             <input 
               type="text"
+              autoFocus
               placeholder="Move Name"
               name="name"
+              tabIndex="1"
               value={this.props.name}
               onChange={this.props.onInputChange}
             />
@@ -66,6 +68,7 @@ export default class SimpleFields extends React.Component {
               type="text"
               placeholder="Command Key"
               name="key"
+              tabIndex="2"
               value={this.props.keyVal}
               onChange={this.props.onInputChange}
               disabled={!this.props.createMode}
@@ -86,6 +89,7 @@ export default class SimpleFields extends React.Component {
             <textarea 
               placeholder="Description"
               name="description"
+              tabIndex="4"
               value={this.props.description}
               onChange={this.props.onInputChange}
               rows='3'
