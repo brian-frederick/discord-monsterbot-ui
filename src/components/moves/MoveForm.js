@@ -107,7 +107,7 @@ class MoveForm extends React.Component {
           {this.renderTypeFields()}
           
           <div className="field">
-            <button className="ui primary button submit right floated" type="submit" >Submit</button>
+            <button className="ui primary button submit right floated" type="submit" tabIndex="6">Submit</button>
           </div>
         </form>
       </div>
