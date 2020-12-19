@@ -99,7 +99,7 @@ class MoveForm extends React.Component {
   render() {
     return (
       <div>
-        <h3 className="ui header center aligned">Create A Move</h3>
+        <h3 className="ui header center aligned">{ this.props.createMode ? 'Create' : 'Edit'} A Move</h3>
         
         <form 
           className={ this.state.errors.hasErrors ? 'ui form error' : 'ui form'} 

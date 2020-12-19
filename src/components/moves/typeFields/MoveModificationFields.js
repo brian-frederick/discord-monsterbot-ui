@@ -34,6 +34,9 @@ const MoveModificationFields = ({ moveToModify, modifiers, onModifiersChange, on
       { isInfoOpen &&
         <div className="ui info message">
           <i onClick={() => setIsInfoOpen(false)} className="close icon"></i>
+          <div className="header">
+            Modify an already existing Basic Move.
+          </div>
           <p>
             You are modifying {selectedMove.label} which is normally rolled plus {selectedMove.modifier}.
             However, the modifiers you select will REPLACE the standard modifiers. So if you'd like to add a modifier, instead of replacing it, also include the existing plus {selectedMove.modifier} in your list of modifiers.

@@ -24,7 +24,7 @@ class MoveAdminOptions extends React.Component {
       <div>
         <a className="admin-option" href={'/moves/show/' + this.props.moveKey}><i className="eye icon"></i></a>
         <a className="admin-option" href={'/moves/edit/' + this.props.moveKey}><i className="edit outline icon"></i></a>
-        <a className="admin-option" onClick={this.onClick} ><i className="close icon"></i></a>
+        <a className="admin-option" onClick={this.onClick} ><i className="trash icon"></i></a>
       </div>
     );
   }
