@@ -91,7 +91,7 @@ class MoveForm extends React.Component {
 
     this.saveEmailPrivacyPreference();
 
-    const move = formToMove(this.state, this.props.user);
+    const move = formToMove(this.state);
 
     this.props.onFormSubmit(move);
   }

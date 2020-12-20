@@ -75,28 +75,11 @@ export const formToMove = (formVals, user) => {
     move.moveToModify = formVals.moveToModify;
   }
 
-  const userEnrichedMove = enrichMoveWithUserData(move, user, formVals);
-
-  return userEnrichedMove;
-};
-
-const enrichMoveWithUserData = (move, user, formVals) => {
   const selectedGuild = user.guilds.find(g => g.id === move.guildId);
-  
-  const enriched = {
-    ...move,
-    userId: user.id,
-    userName: user.username,
-    userDiscriminator: user.discriminator,
-    guildName: selectedGuild ? selectedGuild.name : 'Public'
-  };
+  move.guildName = selectedGuild ? selectedGuild.name : 'Public';
 
-  if (formVals.emailConsent) {
-    enriched.email = user.email;
-  }
-
-  return enriched;
-}
+  return move;
+};
 
 export const moveToForm = (move) => {
   const formVals = {

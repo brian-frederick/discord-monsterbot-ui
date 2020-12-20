@@ -1,33 +1,41 @@
 import React from 'react';
+import { useHistory } from 'react-router'
 import { connect } from 'react-redux';
 import { openModal, deleteMove } from '../../actions';
 
-class MoveAdminOptions extends React.Component {
+const MoveAdminOptions = ({moveName, moveKey, guildId, deleteMove, openModal}) => {
 
-  cancelModal = {
-    header: `Delete ${this.props.moveName}`,
-    content: `Do you actually want to delete ${this.props.moveName}? It'll be gone... forever....`,
-    submitAction: () => this.props.deleteMove(this.props.moveKey)
+  const history = useHistory();
+
+  const cancelModal = {
+    header: `Delete ${moveName}`,
+    content: `Do you actually want to delete ${moveName}? It'll be gone... forever....`,
+    submitAction: () => deleteMove(moveKey, guildId)
   }
 
-  onClick = event => {
+  const onDelete = event => {
     event.preventDefault();
-    this.props.openModal(this.cancelModal);
+    openModal(cancelModal);
   }
 
-  deleteMove = () => {
-    this.props.deleteMove(this.props.moveKey);
+  const onEdit = event => {
+    event.preventDefault();
+    history.push(`/moves/edit/${moveKey}/guild/${guildId}`);
+  }
+
+  const onShow = event => {
+    event.preventDefault();
+    history.push(`/moves/show/${moveKey}/guild/${guildId}`);
   }
   
-  render () {
+
     return (
       <div>
-        <a className="admin-option" href={'/moves/show/' + this.props.moveKey}><i className="eye icon"></i></a>
-        <a className="admin-option" href={'/moves/edit/' + this.props.moveKey}><i className="edit outline icon"></i></a>
-        <a className="admin-option" onClick={this.onClick} ><i className="trash icon"></i></a>
+        <a className="admin-option" onClick={onShow}><i className="eye icon"></i></a>
+        <a className="admin-option" onClick={onEdit}><i className="edit outline icon"></i></a>
+        <a className="admin-option" onClick={onDelete} ><i className="trash icon"></i></a>
       </div>
     );
-  }
 };
 
 export default connect(null, { openModal, deleteMove })(MoveAdminOptions);

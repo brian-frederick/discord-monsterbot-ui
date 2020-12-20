@@ -18,8 +18,8 @@ function App() {
       <div className="ui main text container">
         <Route path="/" exact component={Landing} />
         <Route path="/moves/new" exact component={MoveCreate} />
-        <Route path="/moves/edit/:key" exact component={MoveEdit} />
-        <Route path="/moves/show/:key" exact component={MoveShow} />
+        <Route path="/moves/edit/:key/guild/:guildId" exact component={MoveEdit} />
+        <Route path="/moves/show/:key/guild/:guildId" exact component={MoveShow} />
         <Route path="/moves/list/" exact component={MoveList} />
       </div>
     </BrowserRouter>

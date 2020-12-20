@@ -19,7 +19,7 @@ const movesMap = {
 class MoveShow extends React.Component {
 
   componentDidMount() {
-    this.props.fetchMove(this.props.match.params.key);
+    this.props.fetchMove(this.props.match.params.key, this.props.match.params.guildId);
   }
   
   renderMoveModification() {
@@ -83,7 +83,7 @@ class MoveShow extends React.Component {
             <h3>
               {move.name} ({move.key})
               <div className="right">
-                <MoveAdminOptions  moveKey={move.key} moveName={move.name}/> 
+                <MoveAdminOptions  moveKey={move.key} guildId={move.guildId} moveName={move.name}/> 
               </div>
             </h3>
             <div className="ui segments">

@@ -12,8 +12,8 @@ class MoveEdit extends React.Component {
     loading: false,
   };
 
-  componentDidMount() {
-    this.props.fetchMove(this.props.match.params.key);
+  componentWillMount() {
+    this.props.fetchMove(this.props.match.params.key, this.props.match.params.guildId);
   }
   
 
@@ -24,7 +24,7 @@ class MoveEdit extends React.Component {
   };
 
   render() {
-    if (this.state.loading || !this.props.move) {
+    if (this.state.loading || !this.props.move || !this.props.move.type) {
        return  <Loading />;
     } else if (_.isEmpty(this.props.user)) {
       return <LoginPrompt />;

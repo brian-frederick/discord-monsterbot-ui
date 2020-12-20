@@ -11,7 +11,11 @@ import {
   FETCH_USER,
   LOGOUT_USER
 } from '../actions/types';
-import { SAVED_AUTH } from '../utils/discordLogin';
+import { 
+  SAVED_AUTH,
+  TOKEN_HEADER,
+  retrieveToken
+} from '../utils/discordLogin';
 
 export const openModal = modal => dispatch => {
   modal.isActive = true;
@@ -23,33 +27,43 @@ export const closeModal = () => dispatch => {
 }
 
 export const createMove = move => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.post('', { params: { move } });
   dispatch({ type: CREATE_MOVE, payload: response.data });
 };
 
 export const editMove = move => async dispatch => {
-  const response = await moves.put(`/${move.key}`, { params: { move } });
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
+  const response = await moves.put(`/${move.key}/guild/${move.guildId}`, { params: { move } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 
-export const fetchMove = key => async dispatch => {
-  const response = await moves.get(`/${key}`);
+export const fetchMove = (key, guildId) => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
+  const response = await moves.get(`/${key}/guild/${guildId}`);
   dispatch({ type: FETCH_MOVE, payload: response.data });
 };
 
 export const fetchMoves = () => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.get();
   dispatch({ type: FETCH_MOVES, payload: response.data });
 };
 
-export const deleteMove = key => async dispatch => {
-  const response = await moves.delete(`/${key}`);
+export const deleteMove = (key, guildId) => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
+  const response = await moves.delete(`/${key}/guild/${guildId}`);
   dispatch({ type: DELETE_MOVE, payload: key });
 }
 
 export const fetchUser = () => async dispatch => {
-  const token = localStorage.getItem(SAVED_AUTH.TOKEN);
-  users.defaults.headers.common['authorization'] = `Bearer ${token}`
+  const token = retrieveToken();
+  users.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await users.get();
   dispatch({ type: FETCH_USER, payload: response.data })
 }

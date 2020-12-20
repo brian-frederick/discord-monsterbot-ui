@@ -11,6 +11,7 @@ export const SAVED_AUTH = {
 };
 
 export const EMAIL_CONSENT = 'emailConsent';
+export const TOKEN_HEADER = 'authorizationtoken'
 
 // Just need a random string here to guard against clickjacking
 const genRandomState = () => {
@@ -47,9 +48,10 @@ export const isTokenInUrl = () => {
 }
 
 export const login = () => {
+  const baseUrl = window.origin;
   const discordState = genRandomState();
   localStorage.setItem(SAVED_AUTH.STATE, discordState);
-  const login = `https://discord.com/api/oauth2/authorize?client_id=741093280963362828&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fmoves%2Flist&response_type=token&scope=identify%20email%20guilds&state=${discordState}`;
+  const login = `https://discord.com/api/oauth2/authorize?client_id=741093280963362828&redirect_uri=${baseUrl}&response_type=token&scope=identify%20email%20guilds&state=${discordState}`;
   window.location.href = login;
 }
 
@@ -62,6 +64,10 @@ export const saveToken = () => {
   
   localStorage.setItem(SAVED_AUTH.TOKEN, token);
   localStorage.setItem(SAVED_AUTH.EXPIRATION_DATE, tokenExpirationDate);
+}
+
+export const retrieveToken = () => {
+  return localStorage.getItem(SAVED_AUTH.TOKEN)
 }
 
 const genExpirationDate = expiresIn => {
