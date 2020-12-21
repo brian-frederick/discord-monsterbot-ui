@@ -1,5 +1,6 @@
 {
   "MONSTERBOT_API_ID": "ptl9ebu0y3",
   "MONSTERBOT_API_AWS_URL_FRAGMENT": "execute-api.us-east-1.amazonaws.com",
-  "MONSTERBOT_API_STAGE": "v0"
+  "MONSTERBOT_API_STAGE": "v0",
+  "DISCORD_CLIENT_ID": "741093280963362828"
 }

@@ -12,8 +12,8 @@ import './styles/styles.css';
 function App() {
   return (
     <div>
-      <Header />
     <BrowserRouter>
+      <Header />
       <Modal />
       <div className="ui main text container">
         <Route path="/" exact component={Landing} />

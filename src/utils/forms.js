@@ -34,7 +34,7 @@ export const validateMove = (formVals, createMode, moves) => {
   return errors;
 };
 
-export const formToMove = (formVals, user) => {
+export const formToMove = (formVals, guilds) => {
 
   const move = {
     key: formVals.key,
@@ -75,7 +75,7 @@ export const formToMove = (formVals, user) => {
     move.moveToModify = formVals.moveToModify;
   }
 
-  const selectedGuild = user.guilds.find(g => g.id === move.guildId);
+  const selectedGuild = guilds.find(g => g.id === move.guildId);
   move.guildName = selectedGuild ? selectedGuild.name : 'Public';
 
   return move;

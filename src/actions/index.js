@@ -12,7 +12,6 @@ import {
   LOGOUT_USER
 } from '../actions/types';
 import { 
-  SAVED_AUTH,
   TOKEN_HEADER,
   retrieveToken
 } from '../utils/discordLogin';
@@ -57,7 +56,7 @@ export const fetchMoves = () => async dispatch => {
 export const deleteMove = (key, guildId) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
-  const response = await moves.delete(`/${key}/guild/${guildId}`);
+  await moves.delete(`/${key}/guild/${guildId}`);
   dispatch({ type: DELETE_MOVE, payload: key });
 }
 

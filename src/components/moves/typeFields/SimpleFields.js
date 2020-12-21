@@ -70,7 +70,7 @@ export default class SimpleFields extends React.Component {
               Command Key
               <ToolTip 
                 content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation."
-                style="ui right"
+                classes="ui right"
               />
             </label>
             <input 
@@ -148,7 +148,7 @@ export default class SimpleFields extends React.Component {
                 Sure, store my Discord account email with my moves. 
                 <ToolTip 
                   content="We're still improving and might want to reach out if we need to make changes to your move." 
-                  style="ui left" 
+                  classes="ui left" 
                 />
               </label>
             </div>

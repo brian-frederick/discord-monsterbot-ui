@@ -1,3 +1,5 @@
+import { DISCORD_CLIENT_ID } from '../config.json';
+
 const URL_PARAMS = {
   STATE: 'state',
   TOKEN: 'access_token',
@@ -51,7 +53,7 @@ export const login = () => {
   const baseUrl = window.origin;
   const discordState = genRandomState();
   localStorage.setItem(SAVED_AUTH.STATE, discordState);
-  const login = `https://discord.com/api/oauth2/authorize?client_id=741093280963362828&redirect_uri=${baseUrl}&response_type=token&scope=identify%20email%20guilds&state=${discordState}`;
+  const login = `https://discord.com/api/oauth2/authorize?client_id=${DISCORD_CLIENT_ID}&redirect_uri=${baseUrl}&response_type=token&scope=identify%20email%20guilds&state=${discordState}`;
   window.location.href = login;
 }
 

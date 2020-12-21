@@ -1,9 +1,9 @@
 import React from 'react';
 
-const ToolTip = ({ content, style }) => {
+const ToolTip = ({ content, classes }) => {
   return (
     <span
-      className={style}
+      className={classes}
       data-tooltip={content}
       data-inverted=""
       data-position="top center"
