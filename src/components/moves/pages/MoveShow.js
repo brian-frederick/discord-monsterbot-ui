@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 import { fetchMove } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
@@ -75,6 +76,10 @@ class MoveShow extends React.Component {
     )
   }
 
+  onBack = () => {
+    this.props.history.goBack();
+  }
+
   renderMove() {
     const { move } = this.props;
     return (
@@ -82,8 +87,23 @@ class MoveShow extends React.Component {
         <div>
             <h3>
               {move.name} ({move.key})
-              <div className="right">
-                <MoveAdminOptions  moveKey={move.key} guildId={move.guildId} moveName={move.name}/> 
+              <div id="move-show-options" className="right">
+                <button
+                  className="admin-option"
+                  data-tooltip="back"
+                  data-position="bottom center"
+                  data-inverted  
+                ><i onClick={() => this.onBack()} className="arrow left icon"></i></button>
+                
+                {
+                  !_.isEmpty(this.props.user) &&
+                    <MoveAdminOptions 
+                      moveKey={move.key}
+                      guildId={move.guildId}
+                      moveName={move.name}
+                    />
+                }
+                
               </div>
             </h3>
             <div className="ui segments">
@@ -116,7 +136,10 @@ class MoveShow extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { move: state.moves[ownProps.match.params.key]};
+  return { 
+    move: state.moves[ownProps.match.params.key],
+    user: state.user
+  };
 };
 
 export default connect(mapStateToProps, { fetchMove })(MoveShow);

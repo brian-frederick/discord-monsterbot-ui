@@ -1,8 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import Loading from '../../common/Loading';
-import MoveAdminOptions from '../MoveAdminOptions'
 import { fetchMoves } from '../../../actions';
 
 class MoveList extends React.Component {
@@ -14,11 +14,16 @@ class MoveList extends React.Component {
     return this.props.moves.map(move => {
       return (
         <tr key={move.key}>
-          <td>{move.name} ({move.key})</td>
-          <td>{move.playbook}</td>
-          <td className="admin-options">
-            <MoveAdminOptions moveKey={move.key} guildId={move.guildId} moveName={move.name} />
+          <td>
+            <Link 
+              className="move-list-link" 
+              to={`/moves/show/${move.key}/guild/${move.guildId}`}>
+              {move.name} ({move.key})
+            </Link>
           </td>
+          <td>{move.playbook}</td>
+          <td>{move.guildName}</td>
+          <td>{move.userName}</td>
         </tr>
       );
     });

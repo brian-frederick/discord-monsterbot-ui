@@ -23,19 +23,38 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, deleteMove, openModal}) =
     history.push(`/moves/edit/${moveKey}/guild/${guildId}`);
   }
 
-  const onShow = event => {
+  const onChangeGuild = event => {
     event.preventDefault();
-    history.push(`/moves/show/${moveKey}/guild/${guildId}`);
+    history.push(`/moves/changeGuild/${moveKey}/guild/${guildId}`);
   }
-  
 
-    return (
-      <div>
-        <a className="admin-option" onClick={onShow}><i className="eye icon"></i></a>
-        <a className="admin-option" onClick={onEdit}><i className="edit outline icon"></i></a>
-        <a className="admin-option" onClick={onDelete} ><i className="trash icon"></i></a>
-      </div>
-    );
+  const adminOptions = [
+    {iconName:'edit outline', data:'edit', click: onEdit },
+    {iconName:'users', data:'change server', click: onChangeGuild },
+    {iconName:'trash', data:'delete', click: onDelete },
+    {iconName: 'user circle outline', data:'change creator', click: onDelete}
+  ]
+
+  const mapAdminOptions = () => {
+    return adminOptions.map(option => {
+      return (
+        <button
+          className="admin-option"
+          data-tooltip={option.data}
+          data-position="bottom center"
+          data-inverted
+          onClick={option.click}
+        >
+          <i className={`${option.iconName} icon`}></i>
+        </button>
+      )
+    });
+  }
+  return (
+    <div>
+      {mapAdminOptions()}
+    </div>
+  );
 };
 
 export default connect(null, { openModal, deleteMove })(MoveAdminOptions);

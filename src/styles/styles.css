@@ -47,16 +47,36 @@
 }
 
 /* ListMoves */
-.admin-options {
-  text-align: right !important;
+.move-list-link {
+  text-decoration: underline;
 }
 
+.move-list-link:hover {
+  text-decoration: underline;
+}
+
+/* ShowMoves */
+#move-show-options {
+  display: flex;
+}         
+
+
+/* Admin Options */
 .admin-option {
   margin-left: 25px;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  cursor: pointer;
+}
+
+.admin-option:hover {
+  color: #4183c4
 }
 
 a {
   text-decoration: none;
   color: rgba(0,0,0,.87);
 }
-
