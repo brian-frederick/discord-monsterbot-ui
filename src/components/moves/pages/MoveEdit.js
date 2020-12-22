@@ -6,6 +6,7 @@ import Loading from '../../common/Loading';
 import LoginPrompt from '../../common/LoginPrompt';
 import { editMove, fetchMove } from '../../../actions';
 import { moveToForm } from '../../../utils/forms';
+import { compoundKey } from '../../../utils/moves';
 
 class MoveEdit extends React.Component {
   state = {
@@ -46,7 +47,7 @@ class MoveEdit extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return { 
-    move: state.moves[ownProps.match.params.key],
+    move: state.moves[compoundKey(ownProps.match.params)],
     user: state.user
   };
 };

@@ -5,6 +5,7 @@ import { fetchMove } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
 import Loading from '../../common/Loading';
+import { compoundKey } from '../../../utils/moves';
 
 const movesMap = {
   ksa: 'Kick Some Ass',
@@ -18,6 +19,9 @@ const movesMap = {
 };
 
 class MoveShow extends React.Component {
+  state = {
+    loading: false
+  };
 
   componentDidMount() {
     this.props.fetchMove(this.props.match.params.key, this.props.match.params.guildId);
@@ -137,7 +141,7 @@ class MoveShow extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return { 
-    move: state.moves[ownProps.match.params.key],
+    move: state.moves[compoundKey(ownProps.match.params)],
     user: state.user
   };
 };

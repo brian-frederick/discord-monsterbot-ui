@@ -39,6 +39,14 @@ export const editMove = move => async dispatch => {
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 
+export const editMoveUser = (key, guildId, emailConsent) => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
+  const url = `/${key}/guild/${guildId}/user`;
+  const response = await moves.patch(url, { params: { emailConsent } });
+  dispatch({ type: EDIT_MOVE, payload: response.data });
+}
+
 export const fetchMove = (key, guildId) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
