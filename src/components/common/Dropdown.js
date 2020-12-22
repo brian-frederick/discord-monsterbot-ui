@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Dropdown = ({name, options, selected, onSelectedChange, label }) => {
+const Dropdown = ({name, options, selected, onSelectedChange, label, disabled }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -38,7 +38,7 @@ const Dropdown = ({name, options, selected, onSelectedChange, label }) => {
   };
 
   return (
-    <div className="field" ref={ref}>
+    <div className={disabled ? 'field disabled' : 'field'} ref={ref}>
       <label className="label">{label}</label>
       <div 
         onClick={()=>setOpen(!open)} 

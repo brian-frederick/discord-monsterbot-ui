@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
 import FormErrorMessage from '../../common/FormErrorMessage';
 import { EMAIL_CONSENT } from '../../../utils/discordLogin';
+import { userGuildOptions } from '../../../utils/guilds';
 
 const typeOptions = [
   { label: 'Simple', value: 'simple' },
@@ -40,12 +42,6 @@ export default class SimpleFields extends React.Component {
   state = {
     isTypeInfoOpen: true
   };
-
-  userGuildOptions = () => {
-    let guildOptions = [{ label: 'Public', value: '1' }];
-    this.props.guilds.forEach(g => guildOptions.push({ label: g.name, value: g.id}));
-    return guildOptions;
-  }
 
   emailConsentGiven = localStorage.getItem(EMAIL_CONSENT);
 
@@ -129,11 +125,15 @@ export default class SimpleFields extends React.Component {
 
           <Dropdown
             name="guildId"
-            label='Server Access'
-            options={this.userGuildOptions()}
+            label='Guild Access'
+            options={userGuildOptions(this.props.guilds)}
             selected={this.props.guildId}
             onSelectedChange={this.props.onSelectChange}
+            disabled={!this.props.createMode}
           />
+          { !this.props.createMode && 
+            <span className="ui info message">A move's guild must be changed separately <Link to={`/moves/edit-guild/${this.props.keyVal}/guild/${this.props.guildId}`} >here</Link>.</span>
+          }
           
           { !this.emailConsentGiven &&
             <div>

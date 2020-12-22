@@ -9,7 +9,8 @@ import {
   FETCH_MOVES,
   DELETE_MOVE,
   FETCH_USER,
-  LOGOUT_USER
+  LOGOUT_USER,
+  EDIT_MOVE_GUILD
 } from '../actions/types';
 import { 
   TOKEN_HEADER,
@@ -35,9 +36,19 @@ export const createMove = move => async dispatch => {
 export const editMove = move => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
-  const response = await moves.put(`/${move.key}/guild/${move.guildId}`, { params: { move } });
+  const response = await moves.patch(`/${move.key}/guild/${move.guildId}`, { params: { move } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
+
+export const editMoveGuild = (move, guild) => async dispatch => {
+  const token = retrieveToken();
+  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
+  const response = await moves.put(
+    `/${move.key}/guild/${move.guildId}`,
+    { params: { guildName: guild.name, guildId: guild.id } }
+  );
+  dispatch({ type: EDIT_MOVE_GUILD, payload: response.data });
+}
 
 export const editMoveUser = (key, guildId, emailConsent) => async dispatch => {
   const token = retrieveToken();

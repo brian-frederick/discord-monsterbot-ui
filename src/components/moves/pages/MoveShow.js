@@ -115,6 +115,8 @@ class MoveShow extends React.Component {
                 <div>Type: {move.type}</div>
                 <div>Playbook: {move.playbook}</div>
                 <div>Description: {move.description}</div>
+                <div>Guild: {move.guildName}</div>
+                <div>Owner: {move.userName}</div>
               </div>
               {move.type === 'roll' && 
                 this.renderRollFields()

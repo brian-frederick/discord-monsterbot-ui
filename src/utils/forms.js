@@ -1,4 +1,5 @@
 import { checkForEmailConsent } from '../utils/discordLogin';
+import { compoundKey } from '../utils/moves';
 
 export const validateMove = (formVals, createMode, moves) => {
   let errors = {};
@@ -25,13 +26,21 @@ export const validateMove = (formVals, createMode, moves) => {
       errors.key = 'A key must contain only letters.'
     }
 
-    if (moves[formVals.key]) {
+    if (moveAlreadyExists(formVals, moves)) {
       errors.hasErrors = true;
       errors.key = 'This key is already being used by another move.'
     }
   }
 
   return errors;
+};
+
+export const moveAlreadyExists = (formVals, moves) => {
+  if (moves[compoundKey(formVals)]) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
 export const formToMove = (formVals, guilds) => {

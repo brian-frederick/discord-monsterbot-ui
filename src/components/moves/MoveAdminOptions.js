@@ -36,14 +36,14 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove,
     history.push(`/moves/edit/${moveKey}/guild/${guildId}`);
   }
 
-  const onChangeGuild = event => {
+  const onEditGuild = event => {
     event.preventDefault();
-    history.push(`/moves/changeGuild/${moveKey}/guild/${guildId}`);
+    history.push(`/moves/edit-guild/${moveKey}/guild/${guildId}`);
   }
 
   const adminOptions = [
     {iconName:'edit outline', data:'edit', click: onEdit },
-    {iconName:'users', data:'change server', click: onChangeGuild },
+    {iconName:'users', data:'change guild', click: onEditGuild },
     {iconName:'trash', data:'delete', click: onDelete },
     {iconName: 'user circle outline', data:'change owner', click: onChangeOwner}
   ]

@@ -11,7 +11,6 @@ class MoveList extends React.Component {
   }
 
   renderList() {
-    console.log('moves', this.props.moves);
     return this.props.moves.map(move => {
       return (
         <tr key={`${move.key}-${move.guildId}`}>
