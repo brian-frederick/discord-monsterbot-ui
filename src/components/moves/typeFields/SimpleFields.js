@@ -2,8 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
+import EmailConsentCheckbox from '../../common/EmailConsentCheckbox';
 import FormErrorMessage from '../../common/FormErrorMessage';
-import { EMAIL_CONSENT } from '../../../utils/discordLogin';
+import { checkForEmailConsent } from '../../../utils/discordLogin';
 import { userGuildOptions } from '../../../utils/guilds';
 
 const typeOptions = [
@@ -36,14 +37,16 @@ const typeExample = (key, name) => {
       for an example.
     </span>
   );
-}
+};
+
+const guildAccessTooltipContent = createMode => createMode ?
+'Public moves are accessible to everyone and should only be used for the 12 basic playbooks.' :
+'Guilds must be changed separately and can be accessed from the basic move menu.'
 
 export default class SimpleFields extends React.Component {
   state = {
     isTypeInfoOpen: true
   };
-
-  emailConsentGiven = localStorage.getItem(EMAIL_CONSENT);
 
   render() {
     return (
@@ -67,6 +70,7 @@ export default class SimpleFields extends React.Component {
               <ToolTip 
                 content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation."
                 classes="ui right"
+                position="top right"
               />
             </label>
             <input 
@@ -130,28 +134,19 @@ export default class SimpleFields extends React.Component {
             selected={this.props.guildId}
             onSelectedChange={this.props.onSelectChange}
             disabled={!this.props.createMode}
-          />
-          { !this.props.createMode && 
-            <span className="ui info message">A move's guild must be changed separately <Link to={`/moves/edit-guild/${this.props.keyVal}/guild/${this.props.guildId}`} >here</Link>.</span>
-          }
+          >
+            <ToolTip 
+              content={guildAccessTooltipContent(this.props.createMode)}
+              classes="top left"
+              position="top left"
+            />
+          </Dropdown>
           
-          { !this.emailConsentGiven &&
-            <div>
-              <input
-                id="email-checkbox"
-                name="emailConsent"
-                type="checkbox"
-                checked={this.props.emailConsent}
-                onChange={this.props.onCheckboxChange}
-              />
-              <label>
-                Sure, store my Discord account email with my moves. 
-                <ToolTip 
-                  content="We're still improving and might want to reach out if we need to make changes to your move." 
-                  classes="ui left" 
-                />
-              </label>
-            </div>
+          {!checkForEmailConsent() && 
+            <EmailConsentCheckbox
+              emailConsent={this.props.emailConsent}
+              onCheckboxChange={this.props.onCheckboxChange}
+            />
           }
       </div>
     );

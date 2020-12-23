@@ -1,4 +1,3 @@
-import { checkForEmailConsent } from '../utils/discordLogin';
 import { compoundKey } from '../utils/moves';
 
 export const validateMove = (formVals, createMode, moves) => {
@@ -52,7 +51,6 @@ export const formToMove = (formVals, guilds) => {
     playbook: formVals.playbook,
     description: formVals.description,
     guildId: formVals.guildId,
-    emailConsent: checkForEmailConsent()
   }
 
   if (formVals.type !== 'simple') {

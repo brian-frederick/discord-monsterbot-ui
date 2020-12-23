@@ -5,7 +5,7 @@ import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
 import { validateMove, formToMove } from '../../utils/forms';
 import { fetchMoves } from '../../actions';
-import { EMAIL_CONSENT } from '../../utils/discordLogin';
+import { EMAIL_CONSENT, checkForEmailConsent, saveEmailConsent } from '../../utils/discordLogin';
 
 class MoveForm extends React.Component {
   
@@ -14,7 +14,7 @@ class MoveForm extends React.Component {
 
     this.state = {
       errors: { hasErrors: false },
-
+      emailConsent: checkForEmailConsent(),
       // we do a one time copy of the initial state of parent's move.
       // this allows us to reuse the same form for edit and create.
       ...this.props.move
@@ -73,13 +73,6 @@ class MoveForm extends React.Component {
     this.setState({ 'modifiers': modifiers })
   };
 
-  // Email consent should only be given once.
-  saveEmailPrivacyPreference = () => {
-    if (this.state.emailConsent) {
-      localStorage.setItem(EMAIL_CONSENT, true);
-    }
-  };
-
   onSubmit = (event) => {
     event.preventDefault();
     let errors = validateMove(this.state, this.props.createMode, this.props.moves);
@@ -89,7 +82,7 @@ class MoveForm extends React.Component {
       return;
     }
 
-    this.saveEmailPrivacyPreference();
+    saveEmailConsent(this.state.emailConsent);
 
     const move = formToMove(this.state, this.props.user.guilds);
 

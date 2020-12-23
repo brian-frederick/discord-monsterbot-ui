@@ -16,9 +16,9 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove,
   }
 
   const changeOwnerModalContent = {
-    header: `Make yourself the owner of ${moveName}.`,
+    header: `Make yourself the owner of ${moveName}?`,
     content: `Did you create this move? Make yourself the owner. This is a temporary option to help us figure out who created which move. Going forward, only owners will be able to edit or delete their moves.`,
-    submitAction: () => editMoveUser(moveKey, guildId, checkForEmailConsent())
+    submitAction: () => editMoveUser(moveKey, guildId, checkForEmailConsent()),
   };
 
   const onDelete = event => {

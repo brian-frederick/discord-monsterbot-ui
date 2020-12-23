@@ -4,11 +4,13 @@ import _ from 'lodash';
 import Loading from '../../common/Loading';
 import LoginPrompt from '../../common/LoginPrompt';
 import Dropdown from '../../common/Dropdown';
+import EmailConsentCheckbox from '../../common/EmailConsentCheckbox';
 import FormErrorMessage from '../../common/FormErrorMessage';
 import { compoundKey } from '../../../utils/moves';
 import { PUBLIC_GUILD_ID, parseGuildName, userGuildOptions } from '../../../utils/guilds';
 import { moveAlreadyExists } from '../../../utils/forms';
 import { fetchMoves, editMoveGuild } from '../../../actions';
+import { checkForEmailConsent, saveEmailConsent } from '../../../utils/discordLogin';
 
 class MoveEditGuild extends React.Component {
   state = {
@@ -16,6 +18,7 @@ class MoveEditGuild extends React.Component {
     errorMsg: '',
     loading: false,
     guildId: PUBLIC_GUILD_ID,
+    emailConsent: checkForEmailConsent()
   };
 
   componentDidMount() {
@@ -38,7 +41,8 @@ class MoveEditGuild extends React.Component {
       name: parseGuildName(this.props.user.guilds, this.state.guildId)
     };
     this.setState({loading: true});
-    await this.props.editMoveGuild(this.props.move, guild);
+    await this.props.editMoveGuild(this.props.move, guild, this.state.emailConsent);
+    saveEmailConsent(this.state.emailConsent);
     this.props.history.push('/moves/list');
   };
 
@@ -47,7 +51,11 @@ class MoveEditGuild extends React.Component {
       [name]: option,
       errorMsg: ''
     });
-  }
+  };
+
+  onCheckboxChange = (event) => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
 
   render() {
     if (this.state.loading || !this.props.move) {
@@ -79,6 +87,12 @@ class MoveEditGuild extends React.Component {
               selected={this.state.guildId}
               onSelectedChange={this.onSelectChange}
             />
+            {!checkForEmailConsent() && 
+              <EmailConsentCheckbox
+                emailConsent={this.state.emailConsent}
+                onCheckboxChange={this.onCheckboxChange}
+              />
+            }
             <FormErrorMessage message={this.state.errorMsg} />
             <div className="field">
                 <button className="ui primary button submit right floated" type="submit" >Submit</button>

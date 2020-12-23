@@ -9,7 +9,8 @@ const LoginPrompt = () => {
           Oops. You have to be logged in for this.
           <ToolTip 
             content="We're working on making moves only editable by their creators and giving you the ability to make them exclusively for your guild." 
-            classes="ui left" 
+            classes="ui left"
+            position="top center"
           />
         </h4>
         <LoginButton />

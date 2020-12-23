@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
+import ToolTip from '../common/Tooltip';
 
-const Dropdown = ({name, options, selected, onSelectedChange, label, disabled }) => {
+const Dropdown = ({name, options, selected, onSelectedChange, label, disabled, children }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
 
@@ -38,11 +39,14 @@ const Dropdown = ({name, options, selected, onSelectedChange, label, disabled })
   };
 
   return (
-    <div className={disabled ? 'field disabled' : 'field'} ref={ref}>
-      <label className="label">{label}</label>
+    <div className='field' ref={ref}>
+      <label className="label">
+        {label}
+        {children}
+      </label>
       <div 
         onClick={()=>setOpen(!open)} 
-        className={`ui selection dropdown ${open ? 'visible active': ''}`}
+        className={`ui selection dropdown ${open ? 'visible active': ''} ${disabled ? 'disabled' : ''}`}
       >
         <i className="dropdown icon"></i>
         <div className="text">{selectedOption(selected).label}</div>

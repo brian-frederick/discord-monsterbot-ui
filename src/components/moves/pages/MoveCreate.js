@@ -6,8 +6,6 @@ import Loading from '../../common/Loading';
 import { createMove } from '../../../actions';
 import LoginPrompt from '../../common/LoginPrompt';
 import { checkForEmailConsent } from '../../../utils/discordLogin';
-
-
 class MoveCreate extends React.Component {
 
   state = {
@@ -25,13 +23,13 @@ class MoveCreate extends React.Component {
       advanced: '',
       moveToModify: 'ksa',
       guildId: '1',
-      emailConsent: checkForEmailConsent()
-    }
+      emailConsent: checkForEmailConsent(),
+    },
   };
 
   onFormSubmit = async formVals => {
     this.setState({ loading: true });
-    await this.props.createMove(formVals);
+    await this.props.createMove(formVals, checkForEmailConsent());
     this.setState({ loading: false });
     this.props.history.push('/moves/list');
   };

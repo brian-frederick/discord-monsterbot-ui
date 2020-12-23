@@ -26,26 +26,26 @@ export const closeModal = () => dispatch => {
   dispatch({ type: CLOSE_MODAL, payload: { isActive: false } });
 }
 
-export const createMove = move => async dispatch => {
+export const createMove = (move, emailConsent) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
-  const response = await moves.post('', { params: { move } });
+  const response = await moves.post('', { params: { move, emailConsent } });
   dispatch({ type: CREATE_MOVE, payload: response.data });
 };
 
-export const editMove = move => async dispatch => {
+export const editMove = (move, emailConsent) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
-  const response = await moves.patch(`/${move.key}/guild/${move.guildId}`, { params: { move } });
+  const response = await moves.patch(`/${move.key}/guild/${move.guildId}`, { params: { move, emailConsent } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 
-export const editMoveGuild = (move, guild) => async dispatch => {
+export const editMoveGuild = (move, guild, emailConsent) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.put(
     `/${move.key}/guild/${move.guildId}`,
-    { params: { guildName: guild.name, guildId: guild.id } }
+    { params: { guildName: guild.name, guildId: guild.id, emailConsent } }
   );
   dispatch({ type: EDIT_MOVE_GUILD, payload: response.data });
 }

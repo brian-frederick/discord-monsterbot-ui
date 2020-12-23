@@ -7,7 +7,7 @@ import LoginPrompt from '../../common/LoginPrompt';
 import { editMove, fetchMove } from '../../../actions';
 import { moveToForm } from '../../../utils/forms';
 import { compoundKey } from '../../../utils/moves';
-
+import { checkForEmailConsent } from '../../../utils/discordLogin';
 class MoveEdit extends React.Component {
   state = {
     loading: false,
@@ -20,7 +20,7 @@ class MoveEdit extends React.Component {
 
   onFormSubmit = async formVals => {
     this.setState({ loading: true });
-    await this.props.editMove(formVals);
+    await this.props.editMove(formVals, checkForEmailConsent());
     this.props.history.push('/moves/list');
   };
 

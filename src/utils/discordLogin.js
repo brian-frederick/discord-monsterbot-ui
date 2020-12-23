@@ -24,6 +24,10 @@ export const checkForEmailConsent = () => {
   return localStorage.getItem(EMAIL_CONSENT) ? localStorage.getItem(EMAIL_CONSENT) : false;
 }
 
+export const saveEmailConsent = (consent) => {
+    localStorage.setItem(EMAIL_CONSENT, consent);
+};
+
 export const deleteToken = () => {
   localStorage.removeItem(SAVED_AUTH.TOKEN);
   localStorage.removeItem(SAVED_AUTH.EXPIRATION_DATE);
