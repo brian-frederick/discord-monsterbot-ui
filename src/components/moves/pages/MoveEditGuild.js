@@ -87,7 +87,7 @@ class MoveEditGuild extends React.Component {
               selected={this.state.guildId}
               onSelectedChange={this.onSelectChange}
             />
-            {!checkForEmailConsent() && 
+            {(checkForEmailConsent() !== true) && 
               <EmailConsentCheckbox
                 emailConsent={this.state.emailConsent}
                 onCheckboxChange={this.onCheckboxChange}

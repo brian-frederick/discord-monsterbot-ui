@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
 import EmailConsentCheckbox from '../../common/EmailConsentCheckbox';
@@ -142,7 +141,7 @@ export default class SimpleFields extends React.Component {
             />
           </Dropdown>
           
-          {!checkForEmailConsent() && 
+          {(checkForEmailConsent() !== true) && 
             <EmailConsentCheckbox
               emailConsent={this.props.emailConsent}
               onCheckboxChange={this.props.onCheckboxChange}

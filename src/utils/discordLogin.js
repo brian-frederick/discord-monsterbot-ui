@@ -21,7 +21,9 @@ const genRandomState = () => {
 }
 
 export const checkForEmailConsent = () => {
-  return localStorage.getItem(EMAIL_CONSENT) ? localStorage.getItem(EMAIL_CONSENT) : false;
+  const emailConsent = localStorage.getItem(EMAIL_CONSENT) == 'true' ? true : false;
+  console.log('emailConsent', emailConsent);
+  return emailConsent;
 }
 
 export const saveEmailConsent = (consent) => {

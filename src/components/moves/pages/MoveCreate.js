@@ -23,7 +23,6 @@ class MoveCreate extends React.Component {
       advanced: '',
       moveToModify: 'ksa',
       guildId: '1',
-      emailConsent: checkForEmailConsent(),
     },
   };
 
