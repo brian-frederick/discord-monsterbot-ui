@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { DISCORD_CLIENT_ID } from '../config.json';
 
 const URL_PARAMS = {
@@ -21,7 +22,7 @@ const genRandomState = () => {
 }
 
 export const checkForEmailConsent = () => {
-  const emailConsent = localStorage.getItem(EMAIL_CONSENT) == 'true' ? true : false;
+  const emailConsent = localStorage.getItem(EMAIL_CONSENT) === 'true' ? true : false;
   console.log('emailConsent', emailConsent);
   return emailConsent;
 }
@@ -95,6 +96,11 @@ export const isValidTokenInStorage = () => {
   const expirationDate = new Date(parseInt(expirationStamp));
   const today = new Date();
   return today < expirationDate;
+}
+
+export const isMoveOwner = (move, user) => {
+  if (_.isEmpty(user)) return false;
+  return user.id === move.userId;
 }
 
 

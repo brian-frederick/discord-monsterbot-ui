@@ -76,7 +76,7 @@ export const deleteMove = (key, guildId) => async dispatch => {
   const token = retrieveToken();
   moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   await moves.delete(`/${key}/guild/${guildId}`);
-  dispatch({ type: DELETE_MOVE, payload: key });
+  dispatch({ type: DELETE_MOVE, payload: { key, guildId } });
 }
 
 export const fetchUser = () => async dispatch => {

@@ -27,7 +27,7 @@ export default (state={}, action) => {
         return compoundKey(value)
       })};
     case DELETE_MOVE:
-      return _.omit(state, action.payload);
+      return _.omit(state, compoundKey(action.payload));
     default: return state;
   }
 };

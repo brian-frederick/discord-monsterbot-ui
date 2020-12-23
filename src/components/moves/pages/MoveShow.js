@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
-import { fetchMove } from '../../../actions';
+import { fetchMove, openModal, editMoveUser } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
+import { isMoveOwner, checkForEmailConsent } from '../../../utils/discordLogin';
 import Loading from '../../common/Loading';
 import { compoundKey } from '../../../utils/moves';
 
@@ -17,7 +17,6 @@ const movesMap = {
   rabs: 'Read A Bad Situation',
   um: 'Use Magic',
 };
-
 class MoveShow extends React.Component {
   state = {
     loading: false
@@ -84,6 +83,19 @@ class MoveShow extends React.Component {
     this.props.history.goBack();
   }
 
+  onChangeOwner = () => {
+    this.props.openModal(this.changeOwnerModalContent(this.props.move));
+  };
+
+  changeOwnerModalContent = () => {
+    return {
+      header: `Make yourself the owner of ${this.props.name}?`,
+      content: `Did you create this move? Make yourself the owner. This is a temporary option to help us figure out who created which move. Going forward, only owners will be able to edit or delete their moves.`,
+      submitAction: () => this.props.editMoveUser(this.props.move.key, this.props.move.guildId, checkForEmailConsent())
+    };
+  };
+  
+
   renderMove() {
     const { move } = this.props;
     return (
@@ -96,17 +108,29 @@ class MoveShow extends React.Component {
                   className="admin-option"
                   data-tooltip="back"
                   data-position="bottom center"
-                  data-inverted  
-                ><i onClick={() => this.onBack()} className="arrow left icon"></i></button>
+                  data-inverted
+                  onClick={() => this.onBack()}
+                >
+                  <i  className="arrow left icon"></i>
+                </button>
                 
                 {
-                  !_.isEmpty(this.props.user) &&
+                  isMoveOwner(move, this.props.user) &&
                     <MoveAdminOptions 
                       moveKey={move.key}
                       guildId={move.guildId}
                       moveName={move.name}
                     />
                 }
+                <button
+                  className="admin-option"
+                  data-tooltip="Make yourself the owner of this move."
+                  data-position="bottom center"
+                  data-inverted
+                  onClick={() => this.onChangeOwner()}
+                >
+                  <i className="icon user circle outline"></i>
+                </button>
                 
               </div>
             </h3>
@@ -148,4 +172,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMove })(MoveShow);
+export default connect(mapStateToProps, { fetchMove, openModal, editMoveUser })(MoveShow);

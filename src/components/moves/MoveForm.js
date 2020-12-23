@@ -5,7 +5,7 @@ import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
 import { validateMove, formToMove } from '../../utils/forms';
 import { fetchMoves } from '../../actions';
-import { EMAIL_CONSENT, checkForEmailConsent, saveEmailConsent } from '../../utils/discordLogin';
+import { checkForEmailConsent, saveEmailConsent } from '../../utils/discordLogin';
 
 class MoveForm extends React.Component {
   

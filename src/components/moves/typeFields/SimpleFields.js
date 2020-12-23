@@ -32,7 +32,7 @@ const typeExample = (key, name) => {
   return (
     <span>
       See<span> </span>
-      <a href={'/moves/show/' + key} target="_blank">{name} <i className="external alternate icon"></i></a>
+      <a href={'/moves/show/' + key} rel="noopener noreferrer" target="_blank">{name} <i className="external alternate icon"></i></a>
       for an example.
     </span>
   );
