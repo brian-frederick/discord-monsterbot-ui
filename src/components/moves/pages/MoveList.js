@@ -37,9 +37,9 @@ class MoveList extends React.Component {
         <div>
           <h3>
             Moves
-            <a href="/moves/new">
+            <Link to="/moves/new">
               <i className="plus icon right" />
-            </a>
+            </Link>
           </h3>
           <table className="ui very basic table">
             <tbody >
