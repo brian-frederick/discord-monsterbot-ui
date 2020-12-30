@@ -23,9 +23,9 @@ export default (state={}, action) => {
     case FETCH_MOVE:
       return { ...state, [compoundKey(action.payload)]: action.payload };
     case FETCH_MOVES:
-      return {...state, ..._.mapKeys(action.payload, (value, key) => {
+      return _.mapKeys(action.payload, (value, key) => {
         return compoundKey(value)
-      })};
+      });
     case DELETE_MOVE:
       return _.omit(state, compoundKey(action.payload));
     default: return state;

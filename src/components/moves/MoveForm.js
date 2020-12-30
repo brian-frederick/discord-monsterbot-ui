@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Loading from '../common/Loading';
 import SimpleFields from '../moves/typeFields/SimpleFields';
 import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
@@ -15,18 +16,11 @@ class MoveForm extends React.Component {
     this.state = {
       errors: { hasErrors: false },
       emailConsent: checkForEmailConsent(),
+      loading: false,
       // we do a one time copy of the initial state of parent's move.
       // this allows us to reuse the same form for edit and create.
       ...this.props.move
     };
-  }
-
-  componentDidMount() {
-    // if we're creating a move, instead of just editing,
-    // we'll need to validate that the key does not already belong to an existing move.
-    if (this.props.createMode) {
-      this.props.fetchMoves();
-    }
   }
 
   renderTypeFields = () => {
@@ -73,8 +67,15 @@ class MoveForm extends React.Component {
     this.setState({ 'modifiers': modifiers })
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
+
+    // if we're creating a move, instead of just editing,
+    // we'll need to validate that the key does not already belong to an existing move.
+    if (this.props.createMode) {
+      await this.props.fetchMoves(this.state.guildId);
+    }
+
     let errors = validateMove(this.state, this.props.createMode, this.props.moves);
     this.setState({ errors });
     
@@ -90,6 +91,8 @@ class MoveForm extends React.Component {
   }
 
   render() {
+    if (this.state.loading) return <Loading />;
+    
     return (
       <div>
         <h3 className="ui header center aligned">{ this.props.createMode ? 'Create' : 'Edit'} A Move</h3>

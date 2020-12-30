@@ -7,41 +7,49 @@ import Dropdown from '../../common/Dropdown';
 import EmailConsentCheckbox from '../../common/EmailConsentCheckbox';
 import FormErrorMessage from '../../common/FormErrorMessage';
 import { compoundKey } from '../../../utils/moves';
-import { PUBLIC_GUILD_ID, parseGuildName, userGuildOptions } from '../../../utils/guilds';
+import { parseGuildName, userGuildOptions } from '../../../utils/guilds';
 import { moveAlreadyExists } from '../../../utils/forms';
-import { fetchMoves, editMoveGuild } from '../../../actions';
+import { fetchMove, fetchMoves, editMoveGuild } from '../../../actions';
 import { checkForEmailConsent, saveEmailConsent } from '../../../utils/discordLogin';
 
 class MoveEditGuild extends React.Component {
   state = {
+    emailConsent: checkForEmailConsent(),
     error: false,
     errorMsg: '',
+    guildId: this.props.match.params.guildId,
+    key: this.props.match.params.key,
     loading: false,
-    guildId: PUBLIC_GUILD_ID,
-    emailConsent: checkForEmailConsent()
   };
 
   componentDidMount() {
+    console.log('this.props', this.props);
     if (this.props.move) {
       this.setState({guildId: this.props.move.guildId});
     } else {
-      this.props.fetchMoves();
+      this.props.fetchMove(this.state.key, this.state.guildId);
     }
   }
 
   onSubmit = async event => {
     event.preventDefault();
-    const invalid = moveAlreadyExists({key: this.props.move.key, guildId: this.state.guildId}, this.props.moves);
+    this.setState({loading: true});
+
+    await this.props.fetchMoves(this.state.guildId);
+    
+    const invalid = moveAlreadyExists({key: this.state.key, guildId: this.state.guildId}, this.props.moves);
     if (invalid) {
-      this.setState({errorMsg: 'A move with this key already exists for this guild.'})
+      this.setState({errorMsg: 'A move with this key already exists for this guild.'});
+      this.setState({loading: false});
       return;
     }
+    
     const guild = {
       id: this.state.guildId,
       name: parseGuildName(this.props.user.guilds, this.state.guildId)
     };
-    this.setState({loading: true});
-    await this.props.editMoveGuild(this.props.move, guild, this.state.emailConsent);
+    
+    await this.props.editMoveGuild(this.state.key, this.props.match.params.guildId, guild, this.state.emailConsent);
     saveEmailConsent(this.state.emailConsent);
     this.props.history.push('/moves/list');
   };
@@ -66,7 +74,7 @@ class MoveEditGuild extends React.Component {
       return (
         <div>
           <h3 className="ui header center aligned">
-            Edit guild for {this.props.move.name} ({this.props.move.key})
+            Edit guild for {this.props.move.name} ({this.state.key})
             <div id="move-show-options" className="right">
               <button
                 className="admin-option"
@@ -112,4 +120,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, {fetchMoves, editMoveGuild })(MoveEditGuild);
+export default connect(mapStateToProps, {fetchMove, fetchMoves, editMoveGuild })(MoveEditGuild);
