@@ -9,6 +9,7 @@ import {
   FETCH_MOVES,
   DELETE_MOVE,
   FETCH_USER,
+  LOGIN_USER,
   LOGOUT_USER,
   EDIT_MOVE_GUILD
 } from '../actions/types';
@@ -84,6 +85,12 @@ export const fetchUser = () => async dispatch => {
   users.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await users.get();
   dispatch({ type: FETCH_USER, payload: response.data })
+}
+
+export const login = (code) => async dispatch => {
+  users.defaults.headers.common['code'] = code;
+  await users.post('login');
+  dispatch({ type: LOGIN_USER, payload: {} })
 }
 
 export const logoutUser = () => async dispatch => {

@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import Header from './components/common/header/Header';
 import Modal from './components/common/Modal';
 import Landing from './components/Landing';
+import Login from './components/Login';
 import MoveCreate from './components/moves/pages/MoveCreate';
 import MoveEdit from './components/moves/pages/MoveEdit';
 import MoveList from './components/moves/pages/MoveList';
@@ -18,6 +19,7 @@ function App() {
       <Modal />
       <div className="ui main text container">
         <Route path="/" exact component={Landing} />
+        <Route path="/login" exact component={Login} />
         <Route path="/moves/new" exact component={MoveCreate} />
         <Route path="/moves/edit/:key/guild/:guildId" exact component={MoveEdit} />
         <Route path="/moves/edit-guild/:key/guild/:guildId" exact component={MoveEditGuild} />
