@@ -12,10 +12,6 @@ import {
   LOGOUT_USER,
   EDIT_MOVE_GUILD
 } from '../actions/types';
-import { 
-  TOKEN_HEADER,
-  retrieveToken
-} from '../utils/discordLogin';
 
 export const openModal = modal => dispatch => {
   modal.isActive = true;
@@ -27,22 +23,16 @@ export const closeModal = () => dispatch => {
 }
 
 export const createMove = (move, emailConsent) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.post(`guilds/${move.guildId}/moves`, { params: { move, emailConsent } });
   dispatch({ type: CREATE_MOVE, payload: response.data });
 };
 
 export const editMove = (move, emailConsent) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.patch(`guilds/${move.guildId}/moves/${move.key}`, { params: { move, emailConsent } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 };
 
 export const editMoveGuild = (key, currentGuildId, selectedGuild, emailConsent) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.put(
     `guilds/${currentGuildId}/moves/${key}`,
     { params: { guildName: selectedGuild.name, guildId: selectedGuild.id, emailConsent } }
@@ -51,41 +41,43 @@ export const editMoveGuild = (key, currentGuildId, selectedGuild, emailConsent) 
 }
 
 export const editMoveUser = (key, guildId, emailConsent) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const url = `guilds/${guildId}/moves/${key}/user`;
   const response = await moves.patch(url, { params: { emailConsent } });
   dispatch({ type: EDIT_MOVE, payload: response.data });
 }
 
 export const fetchMove = (key, guildId) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.get(`guilds/${guildId}/moves/${key}`);
   dispatch({ type: FETCH_MOVE, payload: response.data });
 };
 
 export const fetchMoves = (guildId) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await moves.get(`guilds/${guildId}/moves/`);
   dispatch({ type: FETCH_MOVES, payload: response.data });
 };
 
 export const deleteMove = (key, guildId) => async dispatch => {
-  const token = retrieveToken();
-  moves.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   await moves.delete(`guilds/${guildId}/moves/${key}`);
   dispatch({ type: DELETE_MOVE, payload: { key, guildId } });
 }
 
 export const fetchUser = () => async dispatch => {
-  const token = retrieveToken();
-  users.defaults.headers.common[TOKEN_HEADER] = token ? token : undefined;
   const response = await users.get();
   dispatch({ type: FETCH_USER, payload: response.data })
 }
 
-export const logoutUser = () => async dispatch => {
+export const login = (code) => async dispatch => {
+  console.log('attempting to log in with...', code);
+  users.defaults.headers.common['code'] = code;
+  const response = await users.post('login');
+  console.log('login response', response);
+  // successful login, we'll just set user as empty.
+  // The user data will be gotten in a subsequent call.
+  dispatch({ type: FETCH_USER, payload: {}});
+}
+
+export const logout = () => async dispatch => {
+  const response = await users.post('logout');
+  console.log('logout response', response);
   dispatch({ type: LOGOUT_USER, payload: {} })
 }
