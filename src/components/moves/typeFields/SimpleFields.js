@@ -1,8 +1,10 @@
 import React from 'react';
 import Dropdown from '../../common/Dropdown';
 import ToolTip from '../../common/Tooltip';
+import EmailConsentCheckbox from '../../common/EmailConsentCheckbox';
 import FormErrorMessage from '../../common/FormErrorMessage';
-
+import { checkForEmailConsent } from '../../../utils/discordLogin';
+import { userGuildOptions } from '../../../utils/guilds';
 
 const typeOptions = [
   { label: 'Simple', value: 'simple' },
@@ -30,11 +32,15 @@ const typeExample = (key, name) => {
   return (
     <span>
       See<span> </span>
-      <a href={'/moves/show/' + key} target="_blank">{name} <i className="external alternate icon"></i></a>
+      <a href={'/moves/show/' + key} rel="noopener noreferrer" target="_blank">{name} <i className="external alternate icon"></i></a>
       for an example.
     </span>
   );
-}
+};
+
+const guildAccessTooltipContent = createMode => createMode ?
+'Public moves are accessible to everyone and should only be used for the 12 basic playbooks.' :
+'Guilds must be changed separately and can be accessed from the basic move menu.'
 
 export default class SimpleFields extends React.Component {
   state = {
@@ -60,7 +66,11 @@ export default class SimpleFields extends React.Component {
           <div className={this.props.errors.key ? "four wide field required error" : "four wide field required"} >
             <label>
               Command Key
-              <ToolTip content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation." />
+              <ToolTip 
+                content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation."
+                classes="ui right"
+                position="top right"
+              />
             </label>
             <input 
               type="text"
@@ -81,6 +91,7 @@ export default class SimpleFields extends React.Component {
             selected={this.props.playbook}
             onSelectedChange={this.props.onSelectChange}
           />
+
           <div className={this.props.errors.description ? 'field required error' : 'field required'}>
             <label>Move Description</label>
             <textarea 
@@ -114,6 +125,28 @@ export default class SimpleFields extends React.Component {
             selected={this.props.type}
             onSelectedChange={this.props.onSelectChange}
           />
+
+          <Dropdown
+            name="guildId"
+            label='Guild Access'
+            options={userGuildOptions(this.props.guilds)}
+            selected={this.props.guildId}
+            onSelectedChange={this.props.onSelectChange}
+            disabled={!this.props.createMode}
+          >
+            <ToolTip 
+              content={guildAccessTooltipContent(this.props.createMode)}
+              classes="top left"
+              position="top left"
+            />
+          </Dropdown>
+          
+          {(checkForEmailConsent() !== true) && 
+            <EmailConsentCheckbox
+              emailConsent={this.props.emailConsent}
+              onCheckboxChange={this.props.onCheckboxChange}
+            />
+          }
       </div>
     );
   }

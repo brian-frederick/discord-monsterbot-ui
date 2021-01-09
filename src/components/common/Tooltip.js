@@ -1,12 +1,12 @@
 import React from 'react';
 
-const ToolTip = ({ content }) => {
+const ToolTip = ({ content, classes, position }) => {
   return (
     <span
-      className="ui right"
+      className={classes}
       data-tooltip={content}
       data-inverted=""
-      data-position="top right"
+      data-position={position}
     >
       <i className="question circle icon"></i>
     </span>

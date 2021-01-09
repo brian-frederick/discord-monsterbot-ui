@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchMove } from '../../../actions';
+import { fetchMove, openModal, editMoveUser } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
+import { isMoveOwner, checkForEmailConsent } from '../../../utils/discordLogin';
 import Loading from '../../common/Loading';
+import { compoundKey } from '../../../utils/moves';
 
 const movesMap = {
   ksa: 'Kick Some Ass',
@@ -15,11 +17,13 @@ const movesMap = {
   rabs: 'Read A Bad Situation',
   um: 'Use Magic',
 };
-
 class MoveShow extends React.Component {
+  state = {
+    loading: false
+  };
 
   componentDidMount() {
-    this.props.fetchMove(this.props.match.params.key);
+    this.props.fetchMove(this.props.match.params.key, this.props.match.params.guildId);
   }
   
   renderMoveModification() {
@@ -75,6 +79,23 @@ class MoveShow extends React.Component {
     )
   }
 
+  onBack = () => {
+    this.props.history.goBack();
+  }
+
+  onChangeOwner = () => {
+    this.props.openModal(this.changeOwnerModalContent(this.props.move));
+  };
+
+  changeOwnerModalContent = () => {
+    return {
+      header: `Make yourself the owner of ${this.props.move.name}?`,
+      content: `Did you create this move? Make yourself the owner. This is a temporary option to help us figure out who created which move. Going forward, only owners will be able to edit or delete their moves.`,
+      submitAction: () => this.props.editMoveUser(this.props.move.key, this.props.move.guildId, checkForEmailConsent())
+    };
+  };
+  
+
   renderMove() {
     const { move } = this.props;
     return (
@@ -82,8 +103,35 @@ class MoveShow extends React.Component {
         <div>
             <h3>
               {move.name} ({move.key})
-              <div className="right">
-                <MoveAdminOptions  moveKey={move.key} moveName={move.name}/> 
+              <div id="move-show-options" className="right">
+                <button
+                  className="admin-option"
+                  data-tooltip="back"
+                  data-position="bottom center"
+                  data-inverted
+                  onClick={() => this.onBack()}
+                >
+                  <i  className="arrow left icon"></i>
+                </button>
+                
+                {
+                  isMoveOwner(move, this.props.user) &&
+                    <MoveAdminOptions 
+                      moveKey={move.key}
+                      guildId={move.guildId}
+                      moveName={move.name}
+                    />
+                }
+                <button
+                  className="admin-option"
+                  data-tooltip="Make yourself the owner of this move."
+                  data-position="bottom center"
+                  data-inverted
+                  onClick={() => this.onChangeOwner()}
+                >
+                  <i className="icon user circle outline"></i>
+                </button>
+                
               </div>
             </h3>
             <div className="ui segments">
@@ -91,6 +139,8 @@ class MoveShow extends React.Component {
                 <div>Type: {move.type}</div>
                 <div>Playbook: {move.playbook}</div>
                 <div>Description: {move.description}</div>
+                <div>Guild: {move.guildName}</div>
+                <div>Owner: {move.userName}</div>
               </div>
               {move.type === 'roll' && 
                 this.renderRollFields()
@@ -116,7 +166,10 @@ class MoveShow extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { move: state.moves[ownProps.match.params.key]};
+  return { 
+    move: state.moves[compoundKey(ownProps.match.params)],
+    user: state.user
+  };
 };
 
-export default connect(mapStateToProps, { fetchMove })(MoveShow);
+export default connect(mapStateToProps, { fetchMove, openModal, editMoveUser })(MoveShow);

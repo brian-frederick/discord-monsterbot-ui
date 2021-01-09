@@ -2,11 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { closeModal } from '../../actions';
+import Loading from '../common/Loading';
 
 class Modal extends React.Component {
+  state = {
+    loading:false
+  };
 
-  onClickSubmit =() => {
-    this.props.modal.submitAction();
+  onClickSubmit = async () => {
+    this.setState({ loading: true });
+    await this.props.modal.submitAction();
+    this.setState({ loading: false });
     this.props.history.push('/moves/list');
     this.props.closeModal();
   }
@@ -14,11 +20,13 @@ class Modal extends React.Component {
   render() {
     if (!this.props.modal.isActive) {
       return null;
+    } else if (this.state.loading) {
+      return <Loading />;
     } else {
       return (
         <div id="modal-container" className="ui page modals dimmer transition visible active">
           <div className="ui small basic modal transition visible active">
-      <div className="header">{this.props.modal.header}</div>
+          <div className="header">{this.props.modal.header}</div>
             <div className="content">
               <p>{this.props.modal.content}</p>
             </div>

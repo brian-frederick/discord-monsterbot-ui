@@ -20,11 +20,16 @@
 }
 
 /* landing page */
-#landing {
+#top-centered-item {
   left: 0;
   position: absolute;
   right: 0;
   top: 40%;
+}
+
+/* Login Prompt */
+.discord-theme {
+  background-color: #7289DA !important;
 }
 
 /* CreateMove */
@@ -36,17 +41,42 @@
   margin-top: 1em !important;
 }
 
-/* ListMoves */
-.admin-options {
-  text-align: right !important;
+.ui.form input[type=checkbox] {
+  margin-right: 5px;
+  vertical-align: middle !important;
 }
 
+/* ListMoves */
+.move-list-link {
+  text-decoration: underline;
+}
+
+.move-list-link:hover {
+  text-decoration: underline;
+}
+
+/* ShowMoves */
+#move-show-options {
+  display: flex;
+}         
+
+
+/* Admin Options */
 .admin-option {
   margin-left: 25px;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  cursor: pointer;
+}
+
+.admin-option:hover {
+  color: #4183c4
 }
 
 a {
   text-decoration: none;
   color: rgba(0,0,0,.87);
 }
-

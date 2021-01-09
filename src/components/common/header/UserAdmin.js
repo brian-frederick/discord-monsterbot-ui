@@ -1,40 +1,39 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchUser, logoutUser } from '../../../actions';
+import { fetchUser, login, logout } from '../../../actions';
 import {
-  deleteToken,
-  isTokenInUrl,
+  clearUrlParams,
   isAuthStateValid,
-  isValidTokenInStorage,
-  login,
-  saveToken,
-  clearUrlParams
+  loginWithDiscord,
+  parseFromUrl,
+  URL_PARAMS
 } from '../../../utils/discordLogin';
 
 class UserAdmin extends React.Component {
 
-  componentDidMount() {
+  async componentDidMount() {
+    console.log('props in userAdmin', this.props);
+    const code = parseFromUrl(URL_PARAMS.CODE);
+    console.log('userAdmin component did mount');
     if (!_.isEmpty(this.props.user)) {
       return;
-    } else if (isTokenInUrl() && isAuthStateValid()) {
-      saveToken();
+    } else if (code && isAuthStateValid()) {
       clearUrlParams();
-      this.props.fetchUser()
-    } else if (isValidTokenInStorage()) {
-      this.props.fetchUser();
+      await this.props.login(code);
     }
+      this.props.fetchUser();
   }
 
+  component
+
   onLogout = () => {
-    deleteToken();
-    this.props.logoutUser();
-    window.location.href = "/";
+    this.props.logout();
   }
 
   loginPrompt() {
     return (    
-      <div id="login-prompt" className="header item right floated" onClick={login} >
+      <div id="login-prompt" className="header item right floated" onClick={loginWithDiscord} >
         Login With Discord
       </div>
     );
@@ -70,4 +69,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { fetchUser, logoutUser })(UserAdmin);
+export default connect(mapStateToProps, { login, fetchUser, logout })(UserAdmin);

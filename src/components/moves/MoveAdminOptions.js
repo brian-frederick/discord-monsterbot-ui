@@ -1,36 +1,60 @@
 import React from 'react';
+import { useHistory } from 'react-router'
 import { connect } from 'react-redux';
-import { openModal, deleteMove } from '../../actions';
+import { openModal, deleteMove, editMoveUser } from '../../actions';
 
+const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove, openModal}) => {
 
+  const history = useHistory();
 
-
-class MoveAdminOptions extends React.Component {
-
-  cancelModal = {
-    header: `Delete ${this.props.moveName}`,
-    content: `Do you actually want to delete ${this.props.moveName}? It\'ll be gone... forever....`,
-    submitAction: () => this.props.deleteMove(this.props.moveKey)
+  const deleteModalContent = {
+    header: `Delete ${moveName}.`,
+    content: `Do you actually want to delete ${moveName}? It'll be gone... forever....`,
+    submitAction: () => deleteMove(moveKey, guildId)
   }
 
-  onClick = event => {
+  const onDelete = event => {
     event.preventDefault();
-    this.props.openModal(this.cancelModal);
+    openModal(deleteModalContent);
+  };
+
+  const onEdit = event => {
+    event.preventDefault();
+    history.push(`/moves/edit/${moveKey}/guild/${guildId}`);
   }
 
-  deleteMove = () => {
-    this.props.deleteMove(this.props.moveKey);
+  const onEditGuild = event => {
+    event.preventDefault();
+    history.push(`/moves/edit-guild/${moveKey}/guild/${guildId}`);
   }
-  
-  render () {
-    return (
-      <div>
-        <a className="admin-option" href={'/moves/show/' + this.props.moveKey}><i className="eye icon"></i></a>
-        <a className="admin-option" href={'/moves/edit/' + this.props.moveKey}><i className="edit outline icon"></i></a>
-        <a className="admin-option" onClick={this.onClick} ><i className="close icon"></i></a>
-      </div>
-    );
+
+  const adminOptions = [
+    {iconName:'edit outline', data:'edit', click: onEdit },
+    {iconName:'users', data:'change guild', click: onEditGuild },
+    {iconName:'trash', data:'delete', click: onDelete },
+  ];
+
+  const mapAdminOptions = () => {
+    return adminOptions.map(option => {
+      return (
+        <button
+          key={option.data}
+          className="admin-option"
+          data-tooltip={option.data}
+          data-position="bottom center"
+          data-inverted
+          onClick={option.click}
+        >
+          <i className={`${option.iconName} icon`}></i>
+        </button>
+      )
+    });
   }
+  return (
+    <div>
+      {mapAdminOptions()}
+    </div>
+  );
 };
 
-export default connect(null, { openModal, deleteMove })(MoveAdminOptions);
+export default connect(null, { openModal, deleteMove, editMoveUser })(MoveAdminOptions);
