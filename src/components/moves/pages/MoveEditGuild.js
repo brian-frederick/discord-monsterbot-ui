@@ -90,7 +90,7 @@ class MoveEditGuild extends React.Component {
           <form className={this.state.errorMsg.length > 0 ? 'ui form error' : 'ui form'} onSubmit={this.onSubmit}>
             <Dropdown
               name="guildId"
-              label='Guild Access'
+              label='Server Access'
               options={userGuildOptions(this.props.user.guilds)}
               selected={this.state.guildId}
               onSelectedChange={this.onSelectChange}

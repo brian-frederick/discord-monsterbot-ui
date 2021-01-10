@@ -31,14 +31,14 @@ class MoveList extends React.Component {
 
   renderGuildSelector() {
     if (!this.props.user || !this.props.user.guilds) {
-      return <p>Login to see moves for your guilds.</p>;
+      return <p>Login to see moves for your servers.</p>;
     } else {
       return (
         <div>
           <form className="ui form">
             <Dropdown
               name="guildId"
-              label='Guild'
+              label='Server'
               options={userGuildOptions(this.props.user.guilds)}
               selected={this.state.guildId}
               onSelectedChange={this.onSelectChange}
@@ -51,7 +51,7 @@ class MoveList extends React.Component {
 
   renderMoves() {
     if (!this.props.moves || this.props.moves.length < 1) {
-      return <p>No moves found for this guild.</p>;
+      return <p>No moves found for this server.</p>;
     } else {
       return (
         <table className="ui very basic table">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from './components/common/header/Header';
+import Footer from './components/common/Footer';
 import Modal from './components/common/Modal';
 import Landing from './components/Landing';
 import MoveCreate from './components/moves/pages/MoveCreate';
@@ -16,7 +17,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Modal />
-      <div className="ui main text container">
+      <div className="ui main container">
         <Route path="/" exact component={Landing} />
         <Route path="/moves/new" exact component={MoveCreate} />
         <Route path="/moves/edit/:key/guild/:guildId" exact component={MoveEdit} />
@@ -25,6 +26,8 @@ function App() {
         <Route path="/moves/list/" exact component={MoveList} />
       </div>
     </BrowserRouter>
+    <Footer />
+
   </div>
   );
 }
