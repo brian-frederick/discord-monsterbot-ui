@@ -128,7 +128,7 @@ export default class SimpleFields extends React.Component {
 
           <Dropdown
             name="guildId"
-            label='Guild Access'
+            label='Server Access'
             options={userGuildOptions(this.props.guilds)}
             selected={this.props.guildId}
             onSelectedChange={this.props.onSelectChange}
