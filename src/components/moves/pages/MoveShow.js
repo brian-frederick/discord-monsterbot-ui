@@ -91,7 +91,8 @@ class MoveShow extends React.Component {
     return {
       header: `Make yourself the owner of ${this.props.move.name}?`,
       content: `Did you create this move? Make yourself the owner. This is a temporary option to help us figure out who created which move. Going forward, only owners will be able to edit or delete their moves.`,
-      submitAction: () => this.props.editMoveUser(this.props.move.key, this.props.move.guildId, checkForEmailConsent())
+      submitAction: () => this.props.editMoveUser(this.props.move.key, this.props.move.guildId, checkForEmailConsent()),
+      destination: `/moves/list`
     };
   };
   

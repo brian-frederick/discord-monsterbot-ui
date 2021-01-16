@@ -13,7 +13,9 @@ class Modal extends React.Component {
     this.setState({ loading: true });
     await this.props.modal.submitAction();
     this.setState({ loading: false });
-    this.props.history.push('/moves/list');
+    if (this.props.modal.destination) {
+      this.props.history.push(this.props.modal.destination);
+    }
     this.props.closeModal();
   }
   

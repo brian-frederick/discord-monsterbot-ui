@@ -1,13 +1,22 @@
 import React from 'react';
-import { loginWithDiscord } from '../../utils/discordLogin';
+import { loginModalContent } from '../../utils/discordLogin';
+import { connect } from 'react-redux';
+import { openModal } from '../../actions';
 
-const LoginButton = () => {
+
+
+const RawLoginButton = ({ openModal }) => {
+
+  const onLogin = () => {
+    openModal(loginModalContent);
+  };
+
   return (
-    <div onClick={loginWithDiscord} className="ui primary button discord-theme">
+    <div onClick={onLogin} className="ui primary button discord-theme">
       Login with Discord
     </div>
   );
 
 };
 
-export default LoginButton;
+export default connect(null, { openModal })(RawLoginButton);

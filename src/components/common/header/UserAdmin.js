@@ -1,31 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import { fetchUser, login, logout } from '../../../actions';
+import { fetchUser, login, logout, openModal } from '../../../actions';
 import {
   clearUrlParams,
   isAuthStateValid,
-  loginWithDiscord,
   parseFromUrl,
-  URL_PARAMS
+  URL_PARAMS,
+  loginModalContent,
 } from '../../../utils/discordLogin';
 
 class UserAdmin extends React.Component {
 
   async componentDidMount() {
-    console.log('props in userAdmin', this.props);
     const code = parseFromUrl(URL_PARAMS.CODE);
-    console.log('userAdmin component did mount');
     if (!_.isEmpty(this.props.user)) {
       return;
     } else if (code && isAuthStateValid()) {
       clearUrlParams();
       await this.props.login(code);
     }
-      this.props.fetchUser();
+      await this.props.fetchUser();
   }
-
-  component
+  
+  onLogin = () => {
+    this.props.openModal(loginModalContent);
+  }
 
   onLogout = () => {
     this.props.logout();
@@ -33,7 +33,7 @@ class UserAdmin extends React.Component {
 
   loginPrompt() {
     return (    
-      <div id="login-prompt" className="header item right floated" onClick={loginWithDiscord} >
+      <div id="login-prompt" className="header item right floated" onClick={this.onLogin} >
         Login With Discord
       </div>
     );
@@ -69,4 +69,4 @@ const mapStateToProps = (state) => {
   };
 }
 
-export default connect(mapStateToProps, { login, fetchUser, logout })(UserAdmin);
+export default connect(mapStateToProps, { login, fetchUser, logout, openModal })(UserAdmin);

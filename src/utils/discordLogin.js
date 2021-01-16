@@ -12,6 +12,12 @@ export const SAVED_AUTH = {
 
 export const EMAIL_CONSENT = 'emailConsent';
 
+export const loginModalContent = {
+  header: 'monsterbot needs cookies.',
+  content: 'Just a heads up that this site will use cookies to get your discord info. If you have trouble logging in, check for any third-party cookie blockers.',
+  submitAction: () => loginWithDiscord(),
+};
+
 // Just need a random string here to guard against clickjacking
 const genRandomState = () => {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
