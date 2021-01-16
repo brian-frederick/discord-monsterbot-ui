@@ -11,7 +11,7 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove,
     header: `Delete ${moveName}.`,
     content: `Do you actually want to delete ${moveName}? It'll be gone... forever....`,
     submitAction: () => deleteMove(moveKey, guildId),
-    destination: 'moves/list',
+    destination: '/moves/list',
   }
 
   const onDelete = event => {

@@ -13,7 +13,7 @@ import './styles/styles.css';
 
 function App() {
   return (
-    <div>
+    <div id="app-container">
     <BrowserRouter>
       <Header />
       <Modal />

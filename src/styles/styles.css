@@ -1,3 +1,7 @@
+#app-container {
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+}
 
 /* Modal */
 #modal-container {
@@ -33,6 +37,10 @@
 }
 
 /* CreateMove */
+#move-form {
+  margin-bottom: 60px;
+}
+
 .right {
   float: right;
 }

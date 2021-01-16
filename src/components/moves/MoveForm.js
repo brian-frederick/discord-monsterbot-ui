@@ -94,7 +94,7 @@ class MoveForm extends React.Component {
     if (this.state.loading) return <Loading />;
     
     return (
-      <div>
+      <div id="move-form">
         <h3 className="ui header center aligned">{ this.props.createMode ? 'Create' : 'Edit'} A Move</h3>
         
         <form 
@@ -120,9 +120,7 @@ class MoveForm extends React.Component {
 
           {this.renderTypeFields()}
           
-          <div className="field">
-            <button className="ui primary button submit right floated" type="submit" >Submit</button>
-          </div>
+          <button className="ui primary button submit right floated" type="submit" >Submit</button>
         </form>
       </div>
     );
