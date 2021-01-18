@@ -31,7 +31,7 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove,
 
   const adminOptions = [
     {iconName:'edit outline', data:'edit', click: onEdit },
-    {iconName:'users', data:'change guild', click: onEditGuild },
+    {iconName:'users', data:'change server', click: onEditGuild },
     {iconName:'trash', data:'delete', click: onDelete },
   ];
 
