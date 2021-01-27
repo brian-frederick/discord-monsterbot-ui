@@ -6,7 +6,10 @@ const Header = () => {
   return (
     <div className="ui fixed inverted menu">
       <div className="ui container">
-        <Link className="header item" to="/">Monsterbot</Link>
+        <Link className="header item" to="/">
+          <img id="header-logo" className="logo" src="monsterbot_logo_black.png" />
+          <p>monsterbot</p>
+        </Link>
         <Link className="item" to="/moves/list">moves</Link>
         <UserAdmin />
       </div>
