@@ -1,3 +1,7 @@
+#app-container {
+  margin-bottom: 50px;
+  padding-bottom: 50px;
+}
 
 /* Modal */
 #modal-container {
@@ -9,14 +13,42 @@
   margin-top: 4em;
 }
 
-#landing {
+/* header */
+
+#login-prompt:hover {
+  cursor: pointer;
+}
+
+#header-logo {
+  margin-right: 5px;
+}
+
+#user-info {
+  background-color: rgba(0,0,0,.87);
+}
+
+/* landing page */
+#top-centered-item {
   left: 0;
   position: absolute;
   right: 0;
   top: 40%;
 }
 
+#landing-greeting {
+  margin-top: 10px;
+}
+
+/* Login Prompt */
+.discord-theme {
+  background-color: #7289DA !important;
+}
+
 /* CreateMove */
+#move-form {
+  margin-bottom: 60px;
+}
+
 .right {
   float: right;
 }
@@ -25,13 +57,39 @@
   margin-top: 1em !important;
 }
 
-/* ListMoves */
-.admin-options {
-  text-align: right !important;
+.ui.form input[type=checkbox] {
+  margin-right: 5px;
+  vertical-align: middle !important;
 }
 
+/* ListMoves */
+.move-list-link {
+  text-decoration: underline;
+}
+
+.move-list-link:hover {
+  text-decoration: underline;
+}
+
+/* ShowMoves */
+#move-show-options {
+  display: flex;
+}         
+
+
+/* Admin Options */
 .admin-option {
   margin-left: 25px;
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  cursor: pointer;
+}
+
+.admin-option:hover {
+  color: #4183c4
 }
 
 a {
@@ -39,3 +97,10 @@ a {
   color: rgba(0,0,0,.87);
 }
 
+/* Footer */
+.footer {
+  bottom: 0;
+  position: fixed !important;
+  margin-top: -50px !important;
+  width: 100%;
+}

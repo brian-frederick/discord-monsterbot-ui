@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import Loading from '../common/Loading';
 import SimpleFields from '../moves/typeFields/SimpleFields';
 import RollForOutcomeFields from '../moves/typeFields/RollForOutcomeFields';
 import MoveModificationFields from '../moves/typeFields/MoveModificationFields';
 import { validateMove, formToMove } from '../../utils/forms';
 import { fetchMoves } from '../../actions';
+import { checkForEmailConsent, saveEmailConsent } from '../../utils/discordLogin';
 
 class MoveForm extends React.Component {
   
@@ -13,19 +15,12 @@ class MoveForm extends React.Component {
 
     this.state = {
       errors: { hasErrors: false },
-
+      emailConsent: checkForEmailConsent(),
+      loading: false,
       // we do a one time copy of the initial state of parent's move.
       // this allows us to reuse the same form for edit and create.
       ...this.props.move
     };
-  }
-
-  componentDidMount() {
-    // if we're creating a move, instead of just editing,
-    // we'll need to validate that the key does not already belong to an existing move.
-    if (this.props.createMode) {
-      this.props.fetchMoves();
-    }
   }
 
   renderTypeFields = () => {
@@ -64,12 +59,23 @@ class MoveForm extends React.Component {
     this.setState({ [name]: option });
   };
 
+  onCheckboxChange = (event) => {
+    this.setState({ [event.target.name]: event.target.checked });
+  };
+
   onModifiersChange = (modifiers) => {
     this.setState({ 'modifiers': modifiers })
   };
 
-  onSubmit = (event) => {
+  onSubmit = async (event) => {
     event.preventDefault();
+
+    // if we're creating a move, instead of just editing,
+    // we'll need to validate that the key does not already belong to an existing move.
+    if (this.props.createMode) {
+      await this.props.fetchMoves(this.state.guildId);
+    }
+
     let errors = validateMove(this.state, this.props.createMode, this.props.moves);
     this.setState({ errors });
     
@@ -77,14 +83,18 @@ class MoveForm extends React.Component {
       return;
     }
 
-    const move = formToMove(this.state);
+    saveEmailConsent(this.state.emailConsent);
+
+    const move = formToMove(this.state, this.props.user.guilds);
 
     this.props.onFormSubmit(move);
   }
 
   render() {
+    if (this.state.loading) return <Loading />;
+    
     return (
-      <div>
+      <div id="move-form">
         <h3 className="ui header center aligned">{ this.props.createMode ? 'Create' : 'Edit'} A Move</h3>
         
         <form 
@@ -98,17 +108,19 @@ class MoveForm extends React.Component {
             description={this.state.description}
             type={this.state.type}
             playbook={this.state.playbook}
+            guildId={this.state.guildId}
+            guilds={this.props.user.guilds}
+            emailConsent={this.state.emailConsent}
             onInputChange={this.onInputChange}
             onSelectChange={this.onSelectChange}
+            onCheckboxChange={this.onCheckboxChange}
             createMode={this.props.createMode}
             errors={this.state.errors}
           />
 
           {this.renderTypeFields()}
           
-          <div className="field">
-            <button className="ui primary button submit right floated" type="submit" >Submit</button>
-          </div>
+          <button className="ui primary button submit right floated" type="submit" >Submit</button>
         </form>
       </div>
     );
@@ -117,7 +129,8 @@ class MoveForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    moves: state.moves
+    moves: state.moves,
+    user: state.user
   };
 }
 

@@ -1,4 +1,4 @@
-import MoveCreate from "../components/moves/pages/MoveCreate";
+import { compoundKey } from '../utils/moves';
 
 export const validateMove = (formVals, createMode, moves) => {
   let errors = {};
@@ -25,7 +25,7 @@ export const validateMove = (formVals, createMode, moves) => {
       errors.key = 'A key must contain only letters.'
     }
 
-    if (moves[formVals.key]) {
+    if (moveAlreadyExists(formVals, moves)) {
       errors.hasErrors = true;
       errors.key = 'This key is already being used by another move.'
     }
@@ -34,14 +34,23 @@ export const validateMove = (formVals, createMode, moves) => {
   return errors;
 };
 
-export const formToMove = (formVals) => {
-  
+export const moveAlreadyExists = (formVals, moves) => {
+  if (moves[compoundKey(formVals)]) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const formToMove = (formVals, guilds) => {
+
   const move = {
     key: formVals.key,
     type: formVals.type,
     name: formVals.name,
     playbook: formVals.playbook,
-    description: formVals.description
+    description: formVals.description,
+    guildId: formVals.guildId,
   }
 
   if (formVals.type !== 'simple') {
@@ -73,6 +82,9 @@ export const formToMove = (formVals) => {
     move.moveToModify = formVals.moveToModify;
   }
 
+  const selectedGuild = guilds.find(g => g.id === move.guildId);
+  move.guildName = selectedGuild ? selectedGuild.name : 'Public';
+
   return move;
 };
 
@@ -82,7 +94,8 @@ export const moveToForm = (move) => {
     type: move.type,
     name: move.name,
     playbook: move.playbook,
-    description: move.description
+    description: move.description,
+    guildId: move.guildId ? move.guildId : '1',
   };
 
   formVals.modifiers = move.modifiers ? move.modifiers : [];
