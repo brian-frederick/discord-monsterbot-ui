@@ -67,7 +67,6 @@ export const fetchUser = () => async dispatch => {
 }
 
 export const login = (code) => async dispatch => {
-  console.log('attempting to log in with...', code);
   users.defaults.headers.common['code'] = code;
   const response = await users.post('login');
   console.log('login response', response);
