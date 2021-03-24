@@ -1,20 +1,19 @@
 import React from 'react';
-import CreateModifier from './CreateModifier';
-import Modifier from './Modifier';
+import EditableModifier from './EditableModifier';
 
 export default class ModifierFields extends React.Component {
-  state = {
-    createMode: false
-  };
 
-  toggleCreateMode = () => {
-    this.setState({ createMode: !this.state.createMode });
+  createNewMod = () => {
+    const newDefaultModifier = { type: 'property', plus: true, property: 'cool' };
+    const newModifiers = [...this.props.modifiers, newDefaultModifier];
+    this.props.onModifiersChange(newModifiers);
   }
 
-  onCreate = (modifier) => {
-    const newModifiers = [...this.props.modifiers, modifier];
-    this.props.onModifiersChange(newModifiers);
-    this.toggleCreateMode();
+  onChange = (index, modifier) => {
+    console.log(`modifier number ${index} changed to `, modifier);
+    let updatedModifiers = [...this.props.modifiers];
+    updatedModifiers[index] = modifier;
+    this.props.onModifiersChange(updatedModifiers);
   }
 
   onDelete = (index) => {
@@ -25,41 +24,30 @@ export default class ModifierFields extends React.Component {
     }
   }
 
-  renderModifiers = () => {
-    return (
-      <div className="ui segments">
-        {this.props.modifiers.map((mod, i) => { 
-            return (
-              <div key={i}>
-                <Modifier mod={mod} index={i} editable="true" onDelete={this.onDelete} />
-              </div>
-            );
-        })}
-      </div>
-    );
-  }
-
   render() {
     return (
       <div className="ui segments">
-        
         <div className="ui segment">
-          Modifiers 
-          {!this.state.createMode &&
-            <i className="plus icon right" onClick={this.toggleCreateMode}></i>
-          }
-            { this.props.modifiers.length > 0 && this.renderModifiers()}
-            {this.state.createMode && 
-              <div className="ui raised segments">
-                <CreateModifier onCreate={this.onCreate} />
-              </div>
-            }
-        
+          Modifiers
+          <i className="plus icon right" onClick={this.createNewMod}></i>
+        </div>
+          
+          {
+            this.props.modifiers.length > 0 &&
+            <div className="ui segments">
+              {this.props.modifiers.map((mod, i) => {
+                return (
+                  <div key={i}>
+                    <EditableModifier index={i} mod={mod} onDelete={this.onDelete} onChange={this.onChange} />
+                  </div>
+                ); 
+              })}
           </div>
-
+          }
       </div>
     );  
   };
+
 }
 
 
