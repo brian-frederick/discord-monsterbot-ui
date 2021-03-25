@@ -40,12 +40,6 @@ export const editMoveGuild = (key, currentGuildId, selectedGuild, emailConsent) 
   dispatch({ type: EDIT_MOVE_GUILD, payload: response.data });
 }
 
-export const editMoveUser = (key, guildId, emailConsent) => async dispatch => {
-  const url = `guilds/${guildId}/moves/${key}/user`;
-  const response = await moves.patch(url, { params: { emailConsent } });
-  dispatch({ type: EDIT_MOVE, payload: response.data });
-}
-
 export const fetchMove = (key, guildId) => async dispatch => {
   const response = await moves.get(`guilds/${guildId}/moves/${key}`);
   dispatch({ type: FETCH_MOVE, payload: response.data });

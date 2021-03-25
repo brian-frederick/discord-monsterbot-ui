@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router'
 import { connect } from 'react-redux';
-import { openModal, deleteMove, editMoveUser } from '../../actions';
+import { openModal, deleteMove } from '../../actions';
 
-const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove, openModal}) => {
+const MoveAdminOptions = ({moveName, moveKey, guildId, deleteMove, openModal}) => {
 
   const history = useHistory();
 
@@ -58,4 +58,4 @@ const MoveAdminOptions = ({moveName, moveKey, guildId, editMoveUser, deleteMove,
   );
 };
 
-export default connect(null, { openModal, deleteMove, editMoveUser })(MoveAdminOptions);
+export default connect(null, { openModal, deleteMove })(MoveAdminOptions);

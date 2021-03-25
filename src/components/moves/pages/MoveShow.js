@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchMove, openModal, editMoveUser } from '../../../actions';
+import { fetchMove, openModal } from '../../../actions';
 import Modifier from '../modifier/Modifier';
 import MoveAdminOptions from '../MoveAdminOptions';
-import { isMoveOwner, checkForEmailConsent } from '../../../utils/discordLogin';
+import { isMoveOwner } from '../../../utils/discordLogin';
 import Loading from '../../common/Loading';
 import { compoundKey } from '../../../utils/moves';
 
@@ -87,16 +87,6 @@ class MoveShow extends React.Component {
     this.props.openModal(this.changeOwnerModalContent(this.props.move));
   };
 
-  changeOwnerModalContent = () => {
-    return {
-      header: `Make yourself the owner of ${this.props.move.name}?`,
-      content: `Did you create this move? Make yourself the owner. This is a temporary option to help us figure out who created which move. Going forward, only owners will be able to edit or delete their moves.`,
-      submitAction: () => this.props.editMoveUser(this.props.move.key, this.props.move.guildId, checkForEmailConsent()),
-      destination: `/moves/list`
-    };
-  };
-  
-
   renderMove() {
     const { move } = this.props;
     return (
@@ -123,15 +113,15 @@ class MoveShow extends React.Component {
                       moveName={move.name}
                     />
                 }
-                <button
+                {/* <button
                   className="admin-option"
-                  data-tooltip="Make yourself the owner of this move."
+                  data-tooltip="copy"
                   data-position="bottom center"
                   data-inverted
-                  onClick={() => this.onChangeOwner()}
+                  onClick={() => console.log('This does nothing for now.')}
                 >
-                  <i className="icon user circle outline"></i>
-                </button>
+                  <i className="icon copy outline"></i>
+                </button> */}
                 
               </div>
             </h3>
@@ -173,4 +163,4 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, { fetchMove, openModal, editMoveUser })(MoveShow);
+export default connect(mapStateToProps, { fetchMove, openModal })(MoveShow);
