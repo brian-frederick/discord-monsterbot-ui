@@ -113,15 +113,15 @@ class MoveShow extends React.Component {
                       moveName={move.name}
                     />
                 }
-                {/* <button
+                <button
                   className="admin-option"
                   data-tooltip="copy"
                   data-position="bottom center"
                   data-inverted
-                  onClick={() => console.log('This does nothing for now.')}
+                  onClick={() => this.props.history.push(`/moves/copy/${move.key}/guild/${move.guildId}`)}
                 >
                   <i className="icon copy outline"></i>
-                </button> */}
+                </button>
                 
               </div>
             </h3>

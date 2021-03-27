@@ -42,7 +42,9 @@ export const editMoveGuild = (key, currentGuildId, selectedGuild, emailConsent) 
 
 export const fetchMove = (key, guildId) => async dispatch => {
   const response = await moves.get(`guilds/${guildId}/moves/${key}`);
-  dispatch({ type: FETCH_MOVE, payload: response.data });
+  if (response.data?.key) {
+    dispatch({ type: FETCH_MOVE, payload: response.data });
+  }
 };
 
 export const fetchMoves = (guildId) => async dispatch => {

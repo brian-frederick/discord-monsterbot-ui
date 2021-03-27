@@ -34,7 +34,8 @@ const Dropdown = ({name, options, selected, onSelectedChange, label, disabled, c
   });
 
   const selectedOption = selectedValue => {
-    return options.find(o => o.value === selectedValue)
+    const selected = options.find(o => o.value === selectedValue);
+    return selected ? selected : { value: '', label: 'make a selection'};
   };
 
   return (
