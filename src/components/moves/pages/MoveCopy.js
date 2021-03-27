@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { useHistory } from 'react-router'
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loading from '../../common/Loading';
 import UserGate from '../../common/UserGate';
 import Dropdown from '../../common/Dropdown';
@@ -9,21 +9,24 @@ import { fetchMove, createMove } from '../../../actions';
 import { compoundKey } from '../../../utils/moves';
 import { parseGuildName, userGuildOptions } from '../../../utils/guilds';
 
-const RawMoveCopy = ({moveKey, guildId, move, moves, user, createMove, fetchMove}) => {
+const MoveCopy = ({moveKey, guildId, user}) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(undefined);
   const [destinationGuild, setDestinationGuild] = useState(undefined);
+  
+  const move = useSelector(state => state.moves[compoundKey({guildId: guildId, key: moveKey })]);
+  const moves = useSelector(state => state.moves);
+  const DUP_MSG = useMemo(() => `A move with the key: ${moveKey} already exists in the server you selected.`, [moveKey]);
+  
+  const availableGuilds = [...userGuildOptions(user.guilds.filter(g => g.id !== guildId))];
 
   const history = useHistory();
-  
-  const DUP_MSG = useMemo(() => `A move with the key: ${moveKey} already exists in the server you selected.`);
-  const fetchMoveCallback = useCallback(guildId => fetchMove(moveKey, guildId), [moveKey]);
-  const availableGuilds = [...userGuildOptions(user.guilds.filter(g => g.id !== guildId))];
+  const dispatch = useDispatch();
 
   const moveAlreadyExists = useCallback(destinationId => {
     const dupMove = moves[compoundKey({guildId: destinationId, key: moveKey })];
     return !!dupMove;
-  });
+  }, [moveKey, moves]);
 
   const onSubmit = async event => {
     event.preventDefault();
@@ -42,9 +45,9 @@ const RawMoveCopy = ({moveKey, guildId, move, moves, user, createMove, fetchMove
 
     setLoading(true);
 
-    await createMove(copiedMove, false);
+    await dispatch(createMove(copiedMove, false));
     
-    history.push('/moves/list');
+    history.push(`/moves/show/${moveKey}/guild/${destinationGuild}`);
   };
 
   const onSelectChange = (name, option) => {
@@ -53,20 +56,19 @@ const RawMoveCopy = ({moveKey, guildId, move, moves, user, createMove, fetchMove
 
   useEffect(() => {
     if (!move) {
-      fetchMoveCallback(guildId);
+      dispatch(fetchMove(moveKey, guildId));
     }
-  }, [move, guildId, fetchMoveCallback]);
+  }, [move, moveKey, guildId, dispatch]);
 
   useEffect(() => {
     if (destinationGuild && moveAlreadyExists(destinationGuild)) {
       setErrorMsg(DUP_MSG);
     } else if (destinationGuild) {
-      fetchMoveCallback(destinationGuild);
+      dispatch(fetchMove(moveKey, destinationGuild));
       setErrorMsg(undefined);
     } 
 
-    // check for potential dupes of copy once we try to fetch it
-  }, [moves, DUP_MSG, destinationGuild, fetchMoveCallback, moveAlreadyExists]);
+  }, [moves, moveKey, DUP_MSG, destinationGuild, moveAlreadyExists, dispatch]);
 
   if (loading || !move) {
     return <Loading />;
@@ -110,19 +112,10 @@ const RawMoveCopy = ({moveKey, guildId, move, moves, user, createMove, fetchMove
   
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    move: state.moves[compoundKey({guildId: ownProps.guildId, key: ownProps.moveKey })],
-    moves: state.moves
-  }
-};
-
-const ConnectedMoveCopy = connect(mapStateToProps, { fetchMove, createMove })(RawMoveCopy);
-
 const UserGatedMoveCopy = props => {
   return (
     <UserGate >
-      <ConnectedMoveCopy
+      <MoveCopy
         guildId={props.match.params.guildId}
         moveKey={props.match.params.key}
       />
