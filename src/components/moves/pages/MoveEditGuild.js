@@ -74,7 +74,7 @@ class MoveEditGuild extends React.Component {
       return (
         <div>
           <h3 className="ui header center aligned">
-            Edit guild for {this.props.move.name} ({this.state.key})
+            Edit server for {this.props.move.name} ({this.state.key})
             <div id="move-show-options" className="right">
               <button
                 className="admin-option"
@@ -82,15 +82,15 @@ class MoveEditGuild extends React.Component {
                 data-position="bottom center"
                 data-inverted  
               >
-                <i onClick={() => this.props.history.goBack()} className="arrow left icon"></i>
-              </button>  
+                <i onClick={this.props.history.goBack} className="arrow left icon"></i>
+              </button>
             </div>
           </h3>
-          <p>Move is currently for guild: {this.props.move.guildName}</p>
+          <p>Move is currently for server: {this.props.move.guildName}</p>
           <form className={this.state.errorMsg.length > 0 ? 'ui form error' : 'ui form'} onSubmit={this.onSubmit}>
             <Dropdown
               name="guildId"
-              label='Server Access'
+              label='Server'
               options={userGuildOptions(this.props.user.guilds)}
               selected={this.state.guildId}
               onSelectedChange={this.onSelectChange}

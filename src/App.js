@@ -9,6 +9,7 @@ import MoveEdit from './components/moves/pages/MoveEdit';
 import MoveList from './components/moves/pages/MoveList';
 import MoveShow from './components/moves/pages/MoveShow';
 import MoveEditGuild from './components/moves/pages/MoveEditGuild';
+import MoveCopy from './components/moves/pages/MoveCopy';
 import './styles/styles.css';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/moves/new" exact component={MoveCreate} />
         <Route path="/moves/edit/:key/guild/:guildId" exact component={MoveEdit} />
         <Route path="/moves/edit-guild/:key/guild/:guildId" exact component={MoveEditGuild} />
+        <Route path="/moves/copy/:key/guild/:guildId" exact component={MoveCopy} />
         <Route path="/moves/show/:key/guild/:guildId" exact component={MoveShow} />
         <Route path="/moves/list/" exact component={MoveList} />
       </div>
