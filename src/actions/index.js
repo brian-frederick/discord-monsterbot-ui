@@ -65,7 +65,6 @@ export const fetchUser = () => async dispatch => {
 export const login = (code) => async dispatch => {
   users.defaults.headers.common['code'] = code;
   const response = await users.post('login');
-  console.log('login response', response);
   // successful login, we'll just set user as empty.
   // The user data will be gotten in a subsequent call.
   dispatch({ type: FETCH_USER, payload: {}});
@@ -73,6 +72,5 @@ export const login = (code) => async dispatch => {
 
 export const logout = () => async dispatch => {
   const response = await users.post('logout');
-  console.log('logout response', response);
   dispatch({ type: LOGOUT_USER, payload: {} })
 }

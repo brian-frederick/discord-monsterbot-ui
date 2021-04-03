@@ -10,7 +10,6 @@ export default class ModifierFields extends React.Component {
   }
 
   onChange = (index, modifier) => {
-    console.log(`modifier number ${index} changed to `, modifier);
     let updatedModifiers = [...this.props.modifiers];
     updatedModifiers[index] = modifier;
     this.props.onModifiersChange(updatedModifiers);
