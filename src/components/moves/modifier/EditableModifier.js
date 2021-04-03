@@ -2,7 +2,6 @@ import React from 'react';
 import Dropdown from '../../common/Dropdown';
 
 const EditableModifier = ({ index, mod, onDelete, onChange }) => {
-  console.log('mod index: ', index);
 
   const typeOptions = [
     {label: 'By Hunter Property', value: 'property'},
@@ -27,7 +26,6 @@ const EditableModifier = ({ index, mod, onDelete, onChange }) => {
 
   const onChangeHunterProperty = (changedOptionVal) => {
     const updatedModifier = {...mod, property: changedOptionVal};
-    console.log('updatedModifier:', updatedModifier);
     onChange(index, updatedModifier);
   };
 

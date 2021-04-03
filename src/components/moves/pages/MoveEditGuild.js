@@ -23,7 +23,6 @@ class MoveEditGuild extends React.Component {
   };
 
   componentDidMount() {
-    console.log('this.props', this.props);
     if (this.props.move) {
       this.setState({guildId: this.props.move.guildId});
     } else {

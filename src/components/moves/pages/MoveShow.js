@@ -106,7 +106,7 @@ class MoveShow extends React.Component {
                 </button>
                 
                 {
-                  isMoveOwner(move, this.props.user) &&
+                  (this.props.user.isSuper || isMoveOwner(move, this.props.user)) &&
                     <MoveAdminOptions 
                       moveKey={move.key}
                       guildId={move.guildId}
