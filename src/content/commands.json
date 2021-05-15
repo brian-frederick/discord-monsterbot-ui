@@ -99,6 +99,184 @@
           "outcome": "rolls 2d6 + Billy's sharp."
         }
       ]
+    },
+    {
+      "blurb": "Rolls Kick Some Ass.",
+      "code": "kicksomeass",
+      "description": "Rolls 2d6 + tough and provides the corresponding outcome for Kick Some Ass. Fighting something that is fighting back.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/kicksomeass",
+          "outcome": "rolls 2d6 + your tough and provides the outcome."
+        },
+        {
+          "code": "/kicksomeass forward:2",
+          "outcome": "rolls 2d6 + your tough + 2."
+        },
+        {
+          "code": "/kicksomeass hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's tough."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Manipulate Someone.",
+      "code": "manipulatesomeone",
+      "description": "Rolls 2d6 + charm and provides the corresponding outcome for Manipulate Someone. When you want someone to do something for you and they don't want to do it.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/manipulatesomeone",
+          "outcome": "rolls 2d6 + your charm and provides the outcome."
+        },
+        {
+          "code": "/manipulatesomeone forward:2",
+          "outcome": "rolls 2d6 + your charm + 2."
+        },
+        {
+          "code": "/manipulatesomeone hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's charm."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Protect Someone.",
+      "code": "protectesomeone",
+      "description": "Rolls 2d6 + tough and provides the corresponding outcome for Protect Someone. If someone is about to suffer harm and you can somehow prevent it.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/protectsomeone",
+          "outcome": "rolls 2d6 + your tough and provides the outcome."
+        },
+        {
+          "code": "/protectsomeone forward:2",
+          "outcome": "rolls 2d6 + your tough + 2."
+        },
+        {
+          "code": "/protectsomeone hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's tough."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Read A Bad Situation.",
+      "code": "readabadsituation",
+      "description": "Rolls 2d6 + sharp and provides the corresponding outcome for Read A Bad Situation. When you look around and read a bad situation.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/readabadsituation",
+          "outcome": "rolls 2d6 + your sharp and provides the outcome."
+        },
+        {
+          "code": "/readabadsituation forward:2",
+          "outcome": "rolls 2d6 + your sharp + 2."
+        },
+        {
+          "code": "/readabadsituation hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's sharp."
+        }
+      ]
+    },
+    {
+      "blurb": "Executes a special move.",
+      "code": "specialmove",
+      "description": "Executes a special move created on monsterbot.io and assigned to your server.",
+      "params": [
+        {
+          "name": "key",
+          "description": "The key of the special move (as built on monsterbot.io). Usually 2-4 letters."
+        },
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/specialmove key:prem",
+          "outcome": "rolls the special move 'premonition' and provides the outcome."
+        },
+        {
+          "code": "/specialmove key:prem forward:2",
+          "outcome": "rolls the special move 'premonition' + 2."
+        },
+        {
+          "code": "/specialmove key:prem hunter:@billy",
+          "outcome": "rolls the special move 'premonition' using Billy's modifier's."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Use Magic.",
+      "code": "usemagic",
+      "description": "Rolls 2d6 + weird and provides the corresponding outcome for Use Magic. Say what you're trying to achieve and how you do the spell.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/usemagic",
+          "outcome": "rolls 2d6 + your weird and provides the outcome."
+        },
+        {
+          "code": "/usemagic forward:2",
+          "outcome": "rolls 2d6 + your weird + 2."
+        },
+        {
+          "code": "/usemagic hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's weird."
+        }
+      ]
     }
   ], 
   "hunterAdmin": [
@@ -208,7 +386,7 @@
     {
       "blurb": "Creates a new hunter.",
       "code": "hunters activate",
-      "description": "Takes you the hunter creation wizard where you'll add name, type, and stats for your new hunter. You'll need to have already decided on those things before you begin.",
+      "description": "Takes you through the hunter creation wizard where you'll add name, type, and stats for your new hunter. You'll need to have already decided on those things before you begin.",
       "params": [
       ],
       "examples": [
@@ -252,7 +430,7 @@
     {
       "blurb": "Provides info about or updates inventory.",
       "code": "inventory",
-      "description": "Provides info about or updates inventory. To view inventory, don't include item or transaction.",
+      "description": "Provides info about or updates inventory. To view inventory, don't include item or transaction. This command supports partial search for removing items!",
       "params": [
         {
           "name": "transaction",
@@ -281,8 +459,102 @@
           "outcome": "removes a banana to the active user's inventory."
         },
         {
+          "code": "/inventory transaction:remove item:ban",
+          "outcome": "will confirm that you meant 'banana' with partial search and then remove it from inventory."
+        },
+        {
           "code": "/inventory hunter:@billy",
           "outcome": "displays Billy's inventory."
+        }
+      ]
+    },
+    {
+      "blurb": "Adds to a hunters vital stat.",
+      "code": "mark",
+      "description": "Adds or removes value to a hunter's vital stat. Used for stuff like 'Mark 1 harm'. ",
+      "params": [
+        {
+          "name": "vital",
+          "required": true,
+          "description": "The hunter's vital stat such as experience, luck, or harm."
+        },
+        {
+          "name": "value",
+          "description": "The numerical value to add to the existing vital stat."
+        },
+        {
+          "name": "hunter",
+          "description": "Adds to a different hunter's vital stat."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/mark vital:luck",
+          "outcome": "adds 1 to your active hunter's current luck."
+        },
+        {
+          "code": "/mark vital:harm value: 3",
+          "outcome": "adds 3 to your active hunter's current harm."
+        },
+        {
+          "code": "/mark vital:harm value: -3",
+          "outcome": "adds -3 to your active hunter's current harm."
+        },
+        {
+          "code": "/mark vital:luck hunter:@billy",
+          "outcome": "adds 1 to Billy's active hunter's current luck."
+        }
+      ]
+    },
+    {
+      "blurb": "Displays the hunter's stats.",
+      "code": "stats",
+      "description": "Displays the user's active hunter's stats including vitals (harm, etc.), properties (tough, etc.), advanced moves, and custom properties.",
+      "params": [
+        {
+          "name": "hunter",
+          "description": "Displays the stat's for a different user's active hunter."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/stats",
+          "outcome": "displays the user's active hunter's stats."
+        },
+        {
+          "code": "/stats hunter:@billy",
+          "outcome": "displays Billy's active hunter's stats."
+        }
+      ]
+    },
+    {
+      "blurb": "Updates a hunter property.",
+      "code": "update",
+      "description": "Replaces the current value of the user's active hunter's property.",
+      "params": [
+        {
+          "name": "stat",
+          "required": true,
+          "description": "The hunter's property to update (cool, tough, charm, etc)."
+        },
+        {
+          "name": "value",
+          "required": true,
+          "description": "The numerical value to replace the existing property with."
+        },
+        {
+          "name": "hunter",
+          "description": "Updates a different user's active hunter's property."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/update stat:weird value: 3",
+          "outcome": "sets your active hunter's weird to 3."
+        },
+        {
+          "code": "/update stat:weird value: 3 hunter:@billy",
+          "outcome": "sets Billy's active hunter's weird to 3."
         }
       ]
     }
@@ -300,7 +572,27 @@
           "outcome": "begins the end session ritual."
         }
       ]
+    },
+    {
+      "blurb": "Provides a recap of the last session.",
+      "code": "recap",
+      "description": "Recaps the most recent session(s) based on comments from the /endsession command.",
+      "params": [
+        {
+          "name": "number",
+          "description": "How many previous sessions to display. The max is 5"
+        }
+      ],
+      "examples": [
+        {
+          "code": "/recap",
+          "outcome": "displays the comments and q&a from the most recent session."
+        },
+        {
+          "code": "/recap number:3",
+          "outcome": "displays the comments from the 3 most recent sessions."
+        }
+      ]
     }
-    
   ]
 }

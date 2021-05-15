@@ -27,6 +27,16 @@
 }
 
 /* documentation */
+
+.doc-section-header {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+}
+
+.doc-entry-title {
+  font-size: 1.3em !important;
+}
+
 .doc-entry-content {
   padding: 0 0 1em 2.5em !important; 
 }
