@@ -1,0 +1,306 @@
+{
+  "hunterMoves": [
+    {
+      "blurb": "Rolls Act Under Pressure",
+      "code": "actunderpressure",
+      "description": "Rolls 2d6 + cool and provides the corresponding outcome for Act Under Pressure. Trying to do something under conditions of particular stress or danger.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/actunderpressure forward:2",
+          "outcome": "rolls 2d6 + your cool + 2."
+        },
+        {
+          "code": "/actunderpressure hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's cool."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Help Out",
+      "code": "helpout",
+      "description": "Rolls 2d6 + cool and provides the corresponding outcome for Help Out. When you help another hunter with a move they are making.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/helpout forward:2",
+          "outcome": "rolls 2d6 + your cool + 2."
+        },
+        {
+          "code": "/helpout hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's cool."
+        }
+      ]
+    },
+    {
+      "blurb": "Provides info about moves.",
+      "code": "info",
+      "description": "Provides info and outcomes on basic and special moves. Must provide either a basic move or special move key.",
+      "params": [
+        {
+          "name": "basicmove",
+          "description": "The basic move you'd like info on."
+        },
+        {
+          "name": "specialmovekey",
+          "description": "The key of the special move you'd like info on."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/info basicmove:help out",
+          "outcome": "provides info, property modifiers, and potential outcomes for the help out move."
+        },
+        {
+          "code": "/info specialmovekey: prem",
+          "outcome": "provides info, property modifiers, and potential outcomes for the premonitions move."
+        }
+      ]
+    },
+    {
+      "blurb": "Rolls Investigate A Mystery.",
+      "code": "investigateamystery",
+      "description": "Rolls 2d6 + sharp and provides the corresponding outcome for Investigate A Mystery. Investigating for more information about what's going on.",
+      "params": [
+        {
+          "name": "forward",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/investigateamystery forward:2",
+          "outcome": "rolls 2d6 + your sharp + 2."
+        },
+        {
+          "code": "/investigateamystery hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's sharp."
+        }
+      ]
+    }
+  ], 
+  "hunterAdmin": [
+    {
+      "blurb": "Advances a move.",
+      "code": "advancemove",
+      "description": "Qualifies the hunter for a move's advanced outcome. Can either be a basic move or a special move. Must provide one or the other.",
+      "params": [
+        {
+          "name": "basicmove",
+          "description": "The basic move you'd like to advance."
+        },
+        {
+          "name": "specialmovekey",
+          "description": "The key (typically a 2-4 letter abbreviation) of the special move you'd like to advance."
+        },
+        {
+          "name": "remove",
+          "description": "Remove an advanced move. Defaults to false."
+        },
+        {
+          "name": "hunter",
+          "description": "Advances or removes the move for a different user different user instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/advancemove basicmove:kick some ass",
+          "outcome": "advances kick some ass for your user."
+        },
+        {
+          "code": "/advancemove specialmovekey: prem",
+          "outcome": "advances a special move with a key of 'prem' for your user."
+        },
+        {
+          "code": "/advancemove remove:True basicmove:investigate a mystery",
+          "outcome": "removes investigate a mystery from your advanced moves."
+        },
+        {
+          "code": "/advancemove basicmove:kick some ass hunter:@billy",
+          "outcome": "advances kick some ass for Billy."
+        }
+      ]
+    },
+    {
+      "blurb": "Manages custom properties for a hunter.",
+      "code": "customproperty",
+      "description": "Creates, removes, or updates a custom property to the hunter's stats. Sometimes it's useful to be able to track something outside of luck, tough, etc.",
+      "params": [
+        {
+          "name": "transaction",
+          "required": true,
+          "description": "Whether you'd like to create, remove, or update the value of a custom property."
+        },
+        {
+          "name": "name",
+          "required": true,
+          "description": "The name of the property."
+        },
+        {
+          "name": "value",
+          "description": "The numerical value to set for your custom property. Required for update."
+        },
+        {
+          "name": "hunter",
+          "description": "Creates, removes, or updates a custom property for a different hunter's stats instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/customproperty transaction:create name:corruption",
+          "outcome": "creates a custom property for that user called 'corruption'."
+        },
+        {
+          "code": "/customproperty transaction:update name:corruption value:3",
+          "outcome": "sets the user's corruption property to 3."
+        },
+        {
+          "code": "/customproperty transaction:remove name:corruption",
+          "outcome": "removes the user's properety called 'corruption' if it exists."
+        },
+        {
+          "code": "/customproperty transaction:create name:corruption hunter:@billy",
+          "outcome": "creates a custom property for Billy called 'corruption'."
+        }
+
+      ]
+    },
+    {
+      "blurb": "Activates one of your hunters.",
+      "code": "hunters activate",
+      "description": "Make one of your hunters active, using their stats, inventory, etc. Only one can be active at a time.",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "description": "Id of the hunter you'd like to activate. Id's are typically the hunter's initials and can be found by running /hunters view."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/hunters activate id:cj",
+          "outcome": "activates a hunter named Casey Jones."
+        }
+      ]
+    },
+    {
+      "blurb": "Creates a new hunter.",
+      "code": "hunters activate",
+      "description": "Takes you the hunter creation wizard where you'll add name, type, and stats for your new hunter. You'll need to have already decided on those things before you begin.",
+      "params": [
+      ],
+      "examples": [
+        {
+          "code": "/hunters create",
+          "outcome": "kicks off the hunter creation process."
+        }
+      ]
+    },
+    {
+      "blurb": "Deletes one of your hunters.",
+      "code": "hunters remove",
+      "description": "Removes one of your hunters. Not reversible!",
+      "params": [
+        {
+          "name": "id",
+          "required": true,
+          "description": "Id of the hunter you'd like to remove. Id's are typically the hunter's initials and can be found by running /hunters view."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/hunters activate id:cj",
+          "outcome": "deletes a hunter named Casey Jones if they exist."
+        }
+      ]
+    },
+    {
+      "blurb": "Shows all a user's hunters.",
+      "code": "hunters view",
+      "description": "Lists all your hunter's along with their id's. The active hunter is signified with a star.",
+      "params": [
+      ],
+      "examples": [
+        {
+          "code": "/hunters view",
+          "outcome": "shows all hunters."
+        }
+      ]
+    },
+    {
+      "blurb": "Provides info about or updates inventory.",
+      "code": "inventory",
+      "description": "Provides info about or updates inventory. To view inventory, don't include item or transaction.",
+      "params": [
+        {
+          "name": "transaction",
+          "description": "Whether you'd like the item to be added or removed."
+        },
+        {
+          "name": "item",
+          "description": "The item to add or remove."
+        },
+        {
+          "name": "hunter",
+          "description": "Provides info about or updates the inventory of a different hunter."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/inventory",
+          "outcome": "displays all of a user's inventory."
+        },
+        {
+          "code": "/inventory transaction:add item:banana",
+          "outcome": "adds a banana to the active user's inventory."
+        },
+        {
+          "code": "/inventory transaction:remove item:banana",
+          "outcome": "removes a banana to the active user's inventory."
+        },
+        {
+          "code": "/inventory hunter:@billy",
+          "outcome": "displays Billy's inventory."
+        }
+      ]
+    }
+  ],
+  "sessionAdmin": [
+    {
+      "blurb": "Ends a session and calculates experience points.",
+      "code": "endsession",
+      "description": "Asks the channel the standard Monster of the Week session ending questions and calculates the experience points each hunter should get. Also allows 1 minute for all users to write down what happened during the session. These entries can be seen again using the /recap command.",
+      "params": [
+      ],
+      "examples": [
+        {
+          "code": "/endsession",
+          "outcome": "begins the end session ritual."
+        }
+      ]
+    }
+    
+  ]
+}

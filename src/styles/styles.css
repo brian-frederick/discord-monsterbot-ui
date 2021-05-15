@@ -14,7 +14,6 @@
 }
 
 /* header */
-
 #login-prompt:hover {
   cursor: pointer;
 }
@@ -25,6 +24,24 @@
 
 #user-info {
   background-color: rgba(0,0,0,.87);
+}
+
+/* documentation */
+.doc-entry-content {
+  padding: 0 0 1em 2.5em !important; 
+}
+
+.doc-entry-description {
+  padding-bottom: .5em;
+}
+
+.doc-entry-list {
+  margin: 0;
+}
+
+code {
+  background-color: rgba(222,222,222,0.3);
+  color: #7289DA;   /* discord blurple */
 }
 
 /* landing page */

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route } from "react-router-dom";
+import Documentation from './components/Documentation';
 import Header from './components/common/header/Header';
 import Footer from './components/common/Footer';
 import Modal from './components/common/Modal';
@@ -20,6 +21,7 @@ function App() {
       <Modal />
       <div className="ui main container">
         <Route path="/" exact component={Landing} />
+        <Route path="/docs" exact component={Documentation} />
         <Route path="/moves/new" exact component={MoveCreate} />
         <Route path="/moves/edit/:key/guild/:guildId" exact component={MoveEdit} />
         <Route path="/moves/edit-guild/:key/guild/:guildId" exact component={MoveEditGuild} />
