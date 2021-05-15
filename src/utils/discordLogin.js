@@ -13,8 +13,8 @@ export const SAVED_AUTH = {
 export const EMAIL_CONSENT = 'emailConsent';
 
 export const loginModalContent = {
-  header: 'monsterbot needs cookies.',
-  content: 'Just a heads up that this site will use cookies to get your discord info. If you have trouble logging in, check for any third-party cookie blockers.',
+  header: 'Monsterbot needs cookies for your Discord Login.',
+  content: 'Just a heads up that this site will use cookies to manage your Discord info. If you have trouble logging in, check for any third-party cookie blockers.',
   submitAction: () => loginWithDiscord(),
 };
 

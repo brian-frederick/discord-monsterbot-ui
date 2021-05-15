@@ -34,7 +34,7 @@ class UserAdmin extends React.Component {
   loginPrompt() {
     return (    
       <div id="login-prompt" className="header item right floated" onClick={this.onLogin} >
-        Login With Discord
+        Discord Login
       </div>
     );
   }
