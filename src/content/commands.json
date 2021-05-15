@@ -1,7 +1,7 @@
 {
   "hunterMoves": [
     {
-      "blurb": "Rolls Act Under Pressure",
+      "blurb": "Rolls Act Under Pressure.",
       "code": "actunderpressure",
       "description": "Rolls 2d6 + cool and provides the corresponding outcome for Act Under Pressure. Trying to do something under conditions of particular stress or danger.",
       "params": [
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "blurb": "Rolls Help Out",
+      "blurb": "Rolls Help Out.",
       "code": "helpout",
       "description": "Rolls 2d6 + cool and provides the corresponding outcome for Help Out. When you help another hunter with a move they are making.",
       "params": [
