@@ -24,7 +24,7 @@ const Documentation = () => {
       <p>
         Monsterbot prefers Discord's slash commands. They're pretty intuitive. 
         Just hit forward slash and all of Monsterbot's options will be at your fingertips. 
-        You can then use autocomple, tabbing, or the mouse to quickly select options for your command as well.
+        You can then use autocomplete, tabbing, or the mouse to quickly select options for your command as well.
         Learn more from Discord&nbsp;
         <a 
           href="https://blog.discord.com/slash-commands-are-here-8db0a385d9e6"

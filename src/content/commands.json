@@ -160,7 +160,7 @@
     },
     {
       "blurb": "Rolls Protect Someone.",
-      "code": "protectesomeone",
+      "code": "protectsomeone",
       "description": "Rolls 2d6 + tough and provides the corresponding outcome for Protect Someone. If someone is about to suffer harm and you can somehow prevent it.",
       "params": [
         {
@@ -385,7 +385,7 @@
     },
     {
       "blurb": "Creates a new hunter.",
-      "code": "hunters activate",
+      "code": "hunters create",
       "description": "Takes you through the hunter creation wizard where you'll add name, type, and stats for your new hunter. You'll need to have already decided on those things before you begin.",
       "params": [
       ],
