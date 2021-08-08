@@ -217,6 +217,43 @@
       ]
     },
     {
+      "blurb": "Rolls 2 six-sided dice.",
+      "code": "roll",
+      "description": "Rolls 2d6.",
+      "params": [
+        {
+          "name": "fwd",
+          "description": "Adds a negative or positive value to the roll."
+        },
+        {
+          "name": "plus",
+          "description": "Adds the hunter's stat (charm, tough, etc) to the roll."
+        },
+        {
+          "name": "hunter",
+          "description": "Uses a different user's hunter stats for the roll instead of your own."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/roll",
+          "outcome": "rolls 2d6."
+        },
+        {
+          "code": "/roll forward:2",
+          "outcome": "rolls 2d6 + 2."
+        },
+        {
+          "code": "/roll plus: charm",
+          "outcome": "rolls 2d6 + the user's charm."
+        },
+        {
+          "code": "/roll plus: charm hunter:@billy",
+          "outcome": "rolls 2d6 + Billy's charm."
+        }
+      ]
+    },
+    {
       "blurb": "Executes a special move.",
       "code": "specialmove",
       "description": "Executes a special move created on monsterbot.io and assigned to your server.",
