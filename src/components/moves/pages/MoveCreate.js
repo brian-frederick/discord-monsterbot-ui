@@ -15,6 +15,7 @@ class MoveCreate extends React.Component {
       type: 'simple',
       name: '',
       playbook: 'The Chosen',
+      commandDescription: '',
       description: '',
       modifiers: [],
       fail: '',

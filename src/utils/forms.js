@@ -12,6 +12,11 @@ export const validateMove = (formVals, createMode, moves) => {
     errors.hasErrors = true;
     errors.description = "Description is a required field.";
   }
+
+  if (!formVals.commandDescription || formVals.commandDescription.length < 1 || formVals.commandDescription.length > 100) {
+    errors.hasErrors = true;
+    errors.commandDescription = "Command Description is a required field which must be less that 101 characters.";
+  }
   
   // we only need to validate the key if we're creating a move
   if (createMode) {
@@ -46,6 +51,7 @@ export const formToMove = (formVals, guilds) => {
     name: formVals.name,
     playbook: formVals.playbook,
     description: formVals.description,
+    commandDescription: formVals.commandDescription,
     guildId: formVals.guildId,
   }
 
@@ -91,6 +97,7 @@ export const moveToForm = (move) => {
     name: move.name,
     playbook: move.playbook,
     description: move.description,
+    commandDescription: move.commandDescription ? move.commandDescription : '',
     guildId: move.guildId ? move.guildId : '1',
   };
 

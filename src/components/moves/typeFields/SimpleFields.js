@@ -92,6 +92,18 @@ export default class SimpleFields extends React.Component {
             onSelectedChange={this.props.onSelectChange}
           />
 
+          <div className={this.props.errors.commandDescription ? 'field required error' : 'field required'}>   
+            <label>Slash Command Description</label>
+            <textarea 
+              placeholder="command description"
+              name="commandDescription"
+              value={this.props.commandDescription}
+              onChange={this.props.onInputChange}
+              rows='1'
+            />
+            <FormErrorMessage message={this.props.errors.commandDescription} />
+          </div>
+
           <div className={this.props.errors.description ? 'field required error' : 'field required'}>
             <label>Move Description</label>
             <textarea 

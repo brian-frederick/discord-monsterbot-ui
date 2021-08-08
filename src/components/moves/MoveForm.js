@@ -106,6 +106,7 @@ class MoveForm extends React.Component {
             keyVal={this.state.key}
             name={this.state.name}
             description={this.state.description}
+            commandDescription={this.state.commandDescription}
             type={this.state.type}
             playbook={this.state.playbook}
             guildId={this.state.guildId}
