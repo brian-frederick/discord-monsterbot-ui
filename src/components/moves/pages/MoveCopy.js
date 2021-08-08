@@ -29,10 +29,6 @@ const MoveCopy = ({moveKey, guildId, user}) => {
   }, []);
 
   const readyToSubmit = () => {
-    console.log('newMoveKey', !!newMoveKey);
-    console.log('destinationGuild', !!destinationGuild);
-    console.log('errorMsg', !errorMsg.hasErrors);
-
     return !!newMoveKey && !!destinationGuild && !errorMsg.hasErrors;
   };
 
