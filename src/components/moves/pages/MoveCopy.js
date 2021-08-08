@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router'
 import { useSelector, useDispatch } from 'react-redux';
 import Loading from '../../common/Loading';
@@ -26,7 +26,15 @@ const MoveCopy = ({moveKey, guildId, user}) => {
 
   useEffect(() => {
     dispatch(fetchMove(moveKey, guildId));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (moves[compoundKey({guildId: destinationGuild, key: newMoveKey})]) {
+      setErrorMsg({hasErrors: true, key: `A move with key: ${newMoveKey} already exists for this guild.`});
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [moves])
 
   const readyToSubmit = () => {
     return !!newMoveKey && !!destinationGuild && !errorMsg.hasErrors;
@@ -35,12 +43,15 @@ const MoveCopy = ({moveKey, guildId, user}) => {
   const onSelectChange = (name, option) => {
     setErrorMsg(defaultErrorState);
     setDestinationGuild(option);
+    // Try to get a move with the same key and guild for validation purposes
+    dispatch(fetchMove(newMoveKey, option));
   };
 
   const onMoveKeyChange = (event) => {
     setErrorMsg(defaultErrorState);
     const newVal = event.target.value.toLowerCase();
     setMoveKey(newVal);
+    dispatch(fetchMove(newVal, destinationGuild));
   };
 
   const onSubmit = async event => {
@@ -57,9 +68,6 @@ const MoveCopy = ({moveKey, guildId, user}) => {
     delete copiedMove.userDiscriminator;
     delete copiedMove.userId;
     delete copiedMove.userName;
-
-    // Try to get a move with the same key and guild for validation purposes
-    await dispatch(fetchMove(newMoveKey, destinationGuild));
 
     const errors = validateMove(copiedMove, true, moves);
     if (errors.hasErrors) {

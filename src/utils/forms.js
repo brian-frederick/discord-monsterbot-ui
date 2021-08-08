@@ -13,9 +13,9 @@ export const validateMove = (formVals, createMode, moves) => {
     errors.description = "Description is a required field.";
   }
 
-  if (!formVals.commandDescription || formVals.commandDescription.length < 1 || formVals.commandDescription.length > 100) {
+  if (formVals.commandDescription?.length > 100) {
     errors.hasErrors = true;
-    errors.commandDescription = "Command Description is a required field which must be less that 101 characters.";
+    errors.commandDescription = "Command Description must be under 100 characters."
   }
   
   // we only need to validate the key if we're creating a move
@@ -24,6 +24,11 @@ export const validateMove = (formVals, createMode, moves) => {
     if (!discordCommandNameValidation.test(formVals.key)) {
       errors.hasErrors = true;
       errors.key = 'A key must contain only letters, dashes, or underscores and be under 32 characters long.'
+    }
+
+    if (!formVals.commandDescription || formVals.commandDescription.length < 1) {
+      errors.hasErrors = true;
+      errors.commandDescription = "Command Description is a required field which must be less that 101 characters.";
     }
 
     if (moveAlreadyExists(formVals, moves)) {
