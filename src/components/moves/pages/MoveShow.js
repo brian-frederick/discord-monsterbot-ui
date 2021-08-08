@@ -129,6 +129,7 @@ class MoveShow extends React.Component {
               <div className="ui segment">
                 <div>Type: {move.type}</div>
                 <div>Playbook: {move.playbook}</div>
+                <div>Command Description: {move.commandDescription}</div>
                 <div>Description: {move.description}</div>
                 <div>Guild: {move.guildName}</div>
                 <div>Owner: {move.userName}</div>

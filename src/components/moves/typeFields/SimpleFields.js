@@ -93,7 +93,14 @@ export default class SimpleFields extends React.Component {
           />
 
           <div className={this.props.errors.commandDescription ? 'field required error' : 'field required'}>   
-            <label>Slash Command Description</label>
+            <label>
+              Slash Command Description
+              <ToolTip 
+              content="A short description to appear under the Discord slash command."
+              classes="top left"
+              position="top left"
+            />
+            </label>
             <textarea 
               placeholder="command description"
               name="commandDescription"
