@@ -4,71 +4,79 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loading from '../../common/Loading';
 import UserGate from '../../common/UserGate';
 import Dropdown from '../../common/Dropdown';
+import ToolTip from '../../common/Tooltip';
 import FormErrorMessage from '../../common/FormErrorMessage';
 import { fetchMove, createMove } from '../../../actions';
 import { compoundKey } from '../../../utils/moves';
 import { parseGuildName, userGuildOptions } from '../../../utils/guilds';
+import { validateMove } from '../../../utils/forms';
 
 const MoveCopy = ({moveKey, guildId, user}) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState(undefined);
+  const defaultErrorState = { hasErrors: false, key: '', guildId: ''};
+  const [errorMsg, setErrorMsg] = useState(defaultErrorState);
   const [destinationGuild, setDestinationGuild] = useState(undefined);
+  const [newMoveKey, setMoveKey] = useState(moveKey)
   
   const move = useSelector(state => state.moves[compoundKey({guildId: guildId, key: moveKey })]);
   const moves = useSelector(state => state.moves);
-  const DUP_MSG = useMemo(() => `A move with the key: ${moveKey} already exists in the server you selected.`, [moveKey]);
-  
-  const availableGuilds = [...userGuildOptions(user.guilds.filter(g => g.id !== guildId))];
+  const availableGuilds = userGuildOptions(user.guilds);
 
-  const history = useHistory();
-  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchMove(moveKey, guildId));
+  }, []);
 
-  const moveAlreadyExists = useCallback(destinationId => {
-    const dupMove = moves[compoundKey({guildId: destinationId, key: moveKey })];
-    return !!dupMove;
-  }, [moveKey, moves]);
+  const readyToSubmit = () => {
+    console.log('newMoveKey', !!newMoveKey);
+    console.log('destinationGuild', !!destinationGuild);
+    console.log('errorMsg', !errorMsg.hasErrors);
+
+    return !!newMoveKey && !!destinationGuild && !errorMsg.hasErrors;
+  };
+
+  const onSelectChange = (name, option) => {
+    setErrorMsg(defaultErrorState);
+    setDestinationGuild(option);
+  };
+
+  const onMoveKeyChange = (event) => {
+    setErrorMsg(defaultErrorState);
+    const newVal = event.target.value.toLowerCase();
+    setMoveKey(newVal);
+  };
 
   const onSubmit = async event => {
     event.preventDefault();
     
-    if (!destinationGuild) {
-      setErrorMsg('You must select a server for the copy.');
+    if (!destinationGuild || !newMoveKey) {
+      setErrorMsg('You must select a server and move key for the copy.');
       return;
     }
 
     const destinationGuildName = parseGuildName(user.guilds, destinationGuild);
 
-    const copiedMove = { ...move, guildId: destinationGuild, guildName: destinationGuildName};
+    const copiedMove = { ...move, key: newMoveKey, guildId: destinationGuild, guildName: destinationGuildName};
     delete copiedMove.userDiscriminator;
     delete copiedMove.userId;
     delete copiedMove.userName;
+
+    // Try to get a move with the same key and guild for validation purposes
+    await dispatch(fetchMove(newMoveKey, destinationGuild));
+
+    const errors = validateMove(copiedMove, true, moves);
+    if (errors.hasErrors) {
+      setErrorMsg(errors);
+      return;
+    }
 
     setLoading(true);
 
     await dispatch(createMove(copiedMove, false));
     
-    history.push(`/moves/show/${moveKey}/guild/${destinationGuild}`);
+    history.push(`/moves/show/${newMoveKey}/guild/${destinationGuild}`);
   };
-
-  const onSelectChange = (name, option) => {
-    setDestinationGuild(option);
-  };
-
-  useEffect(() => {
-    if (!move) {
-      dispatch(fetchMove(moveKey, guildId));
-    }
-  }, [move, moveKey, guildId, dispatch]);
-
-  useEffect(() => {
-    if (destinationGuild && moveAlreadyExists(destinationGuild)) {
-      setErrorMsg(DUP_MSG);
-    } else if (destinationGuild) {
-      dispatch(fetchMove(moveKey, destinationGuild));
-      setErrorMsg(undefined);
-    } 
-
-  }, [moves, moveKey, DUP_MSG, destinationGuild, moveAlreadyExists, dispatch]);
 
   if (loading || !move) {
     return <Loading />;
@@ -87,9 +95,28 @@ const MoveCopy = ({moveKey, guildId, user}) => {
           <i onClick={history.goBack} className="arrow left icon"></i>
         </button>
       </div>
-        Copy {move.name} ({move.key}) to another server
+        Copy {move.name} ({move.key})
       </h3>
-      <form className={`ui form ${errorMsg ? 'error' : ''}`} onSubmit={onSubmit}>
+      
+      <form className={`ui form ${errorMsg.hasErrors ? 'error' : ''}`} onSubmit={onSubmit}>
+        <div className="field required" >
+          <label>
+            Command Key
+            <ToolTip 
+              content="A unique slash command name with only letters, dashes, or underscores under 32 characters long. Cannot be edited after move creation."
+              classes="ui right"
+              position="top right"
+            />
+          </label>
+          <input 
+            type="text"
+            placeholder="Command Key"
+            name="key"
+            value={newMoveKey}
+            onChange={onMoveKeyChange}
+          />
+          <FormErrorMessage message={errorMsg.key} />
+        </div>
         <Dropdown
           name="guildId"
           label="Server"
@@ -97,10 +124,10 @@ const MoveCopy = ({moveKey, guildId, user}) => {
           selected={destinationGuild}
           onSelectedChange={onSelectChange}
         />
-        <FormErrorMessage message={errorMsg} />
+        <FormErrorMessage message={errorMsg.guildId} />
         <div className="field">
             <button 
-              className={`ui primary button submit right floated ${errorMsg ? 'disabled' : ''}`}
+              className={`ui primary button submit right floated ${readyToSubmit() ? '' : 'disabled'}`}
               type="submit" 
             >
               Submit

@@ -67,7 +67,7 @@ export default class SimpleFields extends React.Component {
             <label>
               Command Key
               <ToolTip 
-                content="A unique 2-5 letter abbreviation to call this move with Monsterbot. Cannot be edited after move creation."
+                content="A unique slash command name with only letters, dashes, or underscores under 32 characters long. Cannot be edited after move creation."
                 classes="ui right"
                 position="top right"
               />

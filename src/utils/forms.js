@@ -15,19 +15,15 @@ export const validateMove = (formVals, createMode, moves) => {
   
   // we only need to validate the key if we're creating a move
   if (createMode) {
-    if (formVals.key.length > 5 || formVals.key.length < 2) {
+    const discordCommandNameValidation = new RegExp(/^[\w-]{1,32}$/);
+    if (!discordCommandNameValidation.test(formVals.key)) {
       errors.hasErrors = true;
-      errors.key = 'A key must have between 2 and 5 letters.'
-    }
-
-    if (/[^a-zA-Z]/.test(formVals.key)) {
-      errors.hasErrors = true;
-      errors.key = 'A key must contain only letters.'
+      errors.key = 'A key must contain only letters, dashes, or underscores and be under 32 characters long.'
     }
 
     if (moveAlreadyExists(formVals, moves)) {
       errors.hasErrors = true;
-      errors.key = 'This key is already being used by another move.'
+      errors.key = 'This key is already being used by another move in this server.'
     }
   }
 
