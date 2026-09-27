@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import UserAdmin from './UserAdmin';
 
 const Header = () => {
   return (
@@ -10,9 +9,9 @@ const Header = () => {
           <img id="header-logo" alt="monsterbot logo" className="logo" src="/monsterbot_logo_black.png" />
           <p>monsterbot</p>
         </Link>
-        <Link className="item" to="/moves/list">moves</Link>
+        {/* <Link className="item" to="/moves/list">moves</Link> */}
         <Link className="item" to="/docs">help</Link>
-        <UserAdmin />
+        {/* <UserAdmin /> */}
       </div>
     </div>
   );

@@ -59,11 +59,29 @@ code {
   left: 0;
   position: absolute;
   right: 0;
-  top: 40%;
+  top: 25%;
 }
 
 #landing-greeting {
   margin-top: 10px;
+  margin-bottom: 0;
+}
+
+#landing-subtitle {
+  margin-top: 8px;
+}
+
+#landing-button-container {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 24px;
+  
+  @media (max-width: 600px) {
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
 }
 
 /* Login Prompt */

@@ -1,6 +1,6 @@
 import React from 'react';
 import DocumentationEntry from '../components/DocumentationEntry';
-import { hunterMoves, hunterAdmin, sessionAdmin } from '../content/commands.json';
+import { hunterMoves, hunterAdmin, sessionAdmin, customMoves } from '../content/commands.json';
 
 const Section = (params) => {
   return (
@@ -36,6 +36,7 @@ const Documentation = () => {
       <Section name="Hunter Moves" entries={hunterMoves} />
       <Section name="Hunter Admin" entries={hunterAdmin} />
       <Section name="Session Admin" entries={sessionAdmin} />
+      <Section name="Move Creation" entries={customMoves} />
     </div>
   );
 };

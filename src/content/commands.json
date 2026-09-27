@@ -631,5 +631,140 @@
         }
       ]
     }
+  ],
+  "customMoves": [
+    {
+      "blurb": "Manages custom moves for your hunter.",
+      "code": "custommoves create-roll-outcome-move",
+      "description": "Create a playbook or custom move that requires a roll.",
+      "params": [
+        {
+          "name": "name",
+          "description": "The name of the move.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "A description of this move.",
+          "required": true
+        },
+        {
+          "name": "plus",
+          "description": "The hunter property to add to the roll.",
+          "required": true,
+          "choices": [
+            { "name": "charm", "value": "charm" },
+            { "name": "cool", "value": "cool" },
+            { "name": "sharp", "value": "sharp" },
+            { "name": "tough", "value": "tough" },
+            { "name": "weird", "value": "weird" }
+          ]
+        },
+        {
+          "name": "copy-to-library",
+          "description": "Moves copied to the library are available to all servers. Mostly for official MOTW moves."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/custommoves create-roll-outcome-move name:my-move, description:my-move-description, plus:charm",
+          "outcome": "creates a move that adds the user's charm to the roll."
+        },
+        {
+          "code": "/custommoves create-roll-outcome-move copy-to-library:true, name:my-move, description:my-move-description, plus:charm",
+          "outcome": "creates a move that adds the user's charm to the roll and also copies it to the library for everyone to use."
+        }
+      ]
+    },
+    {
+      "code": "custommoves create-simple-move",
+      "blurb": "Add a playbook or custom move to your server that doesn't require a roll.",
+      "params": [
+        {
+          "name": "name",
+          "description": "The name of the move.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "A description of this move.",
+          "required": true
+        },
+        {
+          "name": "copy-to-library",
+          "description": "Moves copied to the library are available to all servers. Mostly for official MOTW moves."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/custommoves create-simple-move name:my-move, description:my-move-description, library: true",
+          "outcome": "creates a sinmple move and copies it to the library for everyone to share."
+        }
+      ]
+    },
+    {
+      "code": "custommoves create-modified-move",
+      "blurb": "Add a custom or playbook move that modifies a basic move.",
+      "params": [
+        {
+          "name": "name",
+          "description": "The name of the move.",
+          "required": true
+        },
+        {
+          "name": "description",
+          "description": "A description of this move.",
+          "required": true
+        },
+        {
+          "name": "basic-move",
+          "description": "The basic move to modify.",
+          "required": true,
+          "choices": [
+            { "name": "act under pressure", "value": "aup" },
+            { "name": "help out", "value": "ho" },
+            { "name": "investigate a mystery", "value": "iam" },
+            { "name": "kick some ass", "value": "ksa" },
+            { "name": "manipulate someone", "value": "ms" },
+            { "name": "protect someone", "value": "ps" },
+            { "name": "read a bad situation", "value": "rabs" },
+            { "name": "use magic", "value": "um" }
+          ]
+        },
+        {
+          "name": "plus",
+          "description": "The hunter modifier to use instead of the basic move.",
+          "required": true,
+          "choices": [
+            { "name": "charm", "value": "charm" },
+            { "name": "cool", "value": "cool" },
+            { "name": "sharp", "value": "sharp" },
+            { "name": "tough", "value": "tough" },
+            { "name": "weird", "value": "weird" }
+          ]
+        },
+        {
+          "name": "copy-to-library",
+          "description": "Moves copied to the library are available to all servers. Mostly for official MOTW moves."
+        }
+      ],
+      "examples": [
+        {
+          "code": "/custommoves create-modified-move name:tactical genius, plus:cool, basic-move:read a bad situation, description:When you read a bad situation, you may roll +Cool instead of +Sharp, library: true",
+          "outcome": "creates a move which uses the outcomes of Read a Bad Situation but the specified description, name, and roll modifier. The library option copies it to the library for everyone to share."
+        }
+      ]
+    },
+    {
+      "code": "custommoves library",
+      "blurb": "See and manage shared playbook moves available to all servers. This should only be used for official MOTW moves.",
+      "params": [
+        {
+          "name": "search",
+          "description": "Search for a move by name."
+        }
+      ],
+      "examples": []
+    }
   ]
 }
