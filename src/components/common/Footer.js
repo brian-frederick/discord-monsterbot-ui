@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -8,8 +7,8 @@ const Footer = () => {
         <div className="ui horizontal inverted small divided link list">
           <a className="item" href="https://www.evilhat.com/home/monster-of-the-week/">Monster of the Week</a>
           <a className="item" href="https://buymeacoffee.com/monsterbot">Buy Me a Coffee</a>
-          <Link className="item" to="/terms">Terms of Service</Link>
-          <Link className="item" to="/privacy">Privacy Policy</Link>
+          <a className="item" href="/terms.html">Terms of Service</a>
+          <a className="item" href="/privacy.html">Privacy Policy</a>
         </div>
       </div>
     </div>
