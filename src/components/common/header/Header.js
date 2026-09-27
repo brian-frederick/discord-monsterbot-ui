@@ -10,7 +10,7 @@ const Header = () => {
           <p>monsterbot</p>
         </Link>
         {/* <Link className="item" to="/moves/list">moves</Link> */}
-        <Link className="item" to="/docs">help</Link>
+        <Link className="item" to="/docs">commands</Link>
         {/* <UserAdmin /> */}
       </div>
     </div>

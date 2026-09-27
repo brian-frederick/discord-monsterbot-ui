@@ -11,6 +11,8 @@ import MoveList from './components/moves/pages/MoveList';
 import MoveShow from './components/moves/pages/MoveShow';
 import MoveEditGuild from './components/moves/pages/MoveEditGuild';
 import MoveCopy from './components/moves/pages/MoveCopy';
+import TermsOfService from './components/TermsOfService';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import './styles/styles.css';
 
 function App() {
@@ -28,9 +30,11 @@ function App() {
         <Route path="/moves/copy/:key/guild/:guildId" exact component={MoveCopy} />
         <Route path="/moves/show/:key/guild/:guildId" exact component={MoveShow} />
         <Route path="/moves/list/" exact component={MoveList} />
+        <Route path="/terms" exact component={TermsOfService} />
+        <Route path="/privacy" exact component={PrivacyPolicy} />
       </div>
+      <Footer />
     </BrowserRouter>
-    <Footer />
 
   </div>
   );
